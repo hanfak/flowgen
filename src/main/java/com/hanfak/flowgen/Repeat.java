@@ -7,8 +7,9 @@ import static java.util.stream.Collectors.joining;
 
 public class Repeat implements Action {
 
-    public static final String REPEAT_TEMPLATE = "repeat%n%s%nrepeat while (%s) is (%s)%n";
-    public static final String REPEAT_WITH_EXIT_LABEL_TEMPLATE = "repeat%n%s%nrepeat while (%s) is (%s)%n->%s%n";
+    private static final String REPEAT_TEMPLATE = "repeat%n%s%nrepeat while (%s) is (%s)%n";
+    private static final String REPEAT_WITH_LOOP_AND_EXIT_LABEL_TEMPLATE = "repeat%n%s%nrepeat while (%s) is (%s)%n->%s%n";
+    private static final String REPEAT_WITH_EXIT_LABEL_TEMPLATE = "repeat%n%s%nrepeat while (%s)%n->%s%n";
     private static final String REPEAT_WITH_EXIT_LABEL_AND_REPEAT_LABEL_TEMPLATE = "repeat%n%s%nbackward%s%nrepeat while (%s) is (%s)%n->%s%n";
     private static final String REPEAT_WITH_REPEAT_LABEL_TEMPLATE = "repeat%n%s%nbackward%s%nrepeat while (%s) is (%s)%n";
     private final Queue<Action> actions = new LinkedList<>();
@@ -44,6 +45,7 @@ public class Repeat implements Action {
         this.predicate = predicate;
         return this;
     }
+
     // TODO: naming - is? repeatAgainFor?
     public Repeat isTrueFor(String predicateTrueOutcome) {
         this.predicateTrueOutcome = predicateTrueOutcome;
@@ -63,15 +65,20 @@ public class Repeat implements Action {
 
     @Override
     public String build() {
-        String allActions= getActivitiesString(actions);
+        String allActions = getActivitiesString(actions);
         if (Objects.isNull(repeatLoopActivity)) {
             return Optional.ofNullable(predicateFalseOutcome)
-                    .map(label -> REPEAT_WITH_EXIT_LABEL_TEMPLATE.formatted(allActions, predicate, predicateTrueOutcome, label))
+                    .map(label -> REPEAT_WITH_LOOP_AND_EXIT_LABEL_TEMPLATE.formatted(allActions, predicate, predicateTrueOutcome, label))
                     .orElse(REPEAT_TEMPLATE.formatted(allActions, predicate, predicateTrueOutcome));
         }
+
+//        if (Objects.isNull(predicateTrueOutcome)) {
+//            return REPEAT_WITH_EXIT_LABEL_TEMPLATE.formatted(allActions, predicate, predicateFalseOutcome);
+//        }
+
         return Optional.ofNullable(predicateFalseOutcome)
-                .map(label -> REPEAT_WITH_EXIT_LABEL_AND_REPEAT_LABEL_TEMPLATE.formatted(allActions, repeatLoopActivity,predicate, predicateTrueOutcome, label))
-                .orElse(REPEAT_WITH_REPEAT_LABEL_TEMPLATE.formatted(allActions, repeatLoopActivity,predicate, predicateTrueOutcome));
+                .map(label -> REPEAT_WITH_EXIT_LABEL_AND_REPEAT_LABEL_TEMPLATE.formatted(allActions, repeatLoopActivity, predicate, predicateTrueOutcome, label))
+                .orElse(REPEAT_WITH_REPEAT_LABEL_TEMPLATE.formatted(allActions, repeatLoopActivity, predicate, predicateTrueOutcome));
     }
 
     private String getActivitiesString(Queue<Action> actions) {
