@@ -15,7 +15,7 @@ public class FileChecker {
         Path path = Paths.get("./test1.html");
         flowchart()
                 .withStartNode()
-                .withMultipleConditional(
+                .then(
                         multiConditional("size?")
                                 .then("yes",activity("action") )
                                 .elseIf("no", "condition 1", "yes", activity("action1"), activity("action3"))

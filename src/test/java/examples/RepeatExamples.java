@@ -20,7 +20,7 @@ public class RepeatExamples {
                         .repeatWhen("is Big?")
                         .isTrueFor("yes")
                         .exitOn("no"))
-                .thenActivity(activity("action3"))
+                .then(activity("action3"))
                 .withStopNode()
                 .createFile(Paths.get("./test1.html"));
     }
@@ -37,7 +37,7 @@ public class RepeatExamples {
                                 .exitOn("no"))
                         .repeatWhen("is Big?").isTrueFor("yes")
                         .exitOn("no"))
-                .thenActivity(activity("action3"))
+                .then(activity("action3"))
                 .withStopNode()
                 .createFile(Paths.get("./test1.html"));
     }
@@ -52,7 +52,7 @@ public class RepeatExamples {
                         .repeatWhen("is Big?").isTrueFor("yes")
                         .labelRepeat(activity("Repeat"))
                         .exitOn("no"))
-                .thenActivity(activity("action3"))
+                .then(activity("action3"))
                 .withStopNode()
                 .createFile(Paths.get("./test1.html"));
     }

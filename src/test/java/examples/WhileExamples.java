@@ -6,16 +6,16 @@ import java.nio.file.Paths;
 
 import static com.hanfak.flowgen.Activity.activity;
 import static com.hanfak.flowgen.FlowchartGenerator.flowchart;
-import static com.hanfak.flowgen.While.loop;
+import static com.hanfak.flowgen.While.loopWhen;
 
 public class WhileExamples {
     @Test
     void simpleWhileLoop() {
         flowchart()
                 .withStartNode()
-                .withWhile(loop("is Big?")
-                        .withActions(activity("action1"), activity("action2")))
-                .thenActivity(activity("action3"))
+                .then(loopWhen("is Big?")
+                        .actions(activity("action1"), activity("action2")))
+                .then(activity("action3"))
                 .withStopNode()
                 .createFile(Paths.get("./test1.html"));
     }
@@ -24,11 +24,11 @@ public class WhileExamples {
     void nestedWhileLoop() {
         flowchart()
                 .withStartNode()
-                .withWhile(loop("is Big?")
-                        .withActions(
-                                loop("is empty?")
-                                        .withActions(activity("action1"), activity("action2"))))
-                .thenActivity(activity("action3"))
+                .then(loopWhen("is Big?")
+                        .actions(
+                                loopWhen("is empty?")
+                                        .actions(activity("action1"), activity("action2"))))
+                .then(activity("action3"))
                 .withStopNode()
                 .createFile(Paths.get("./test1.html"));
     }

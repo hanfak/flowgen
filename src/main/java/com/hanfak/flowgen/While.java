@@ -24,12 +24,37 @@ public class While implements Action {
         this.predicate = predicate;
     }
 
-    public static While loop(String predicate) {
+    public static While loopWhen(String predicate) {
         return new While(predicate);
     }
     // TODO: should be withActivities, doesAction
-    public While withActions(Action... actions) {
+    public While actions(Action... actions) {
         this.actions.addAll(List.of(actions));
+        return this;
+    }
+
+    public While and(Action... actions) {
+        this.actions.addAll(List.of(actions));
+        return this;
+    }
+
+    public While then(Action... actions) {
+        this.actions.addAll(List.of(actions));
+        return this;
+    }
+
+    public While action(Action action) {
+        this.actions.add(action);
+        return this;
+    }
+
+    public While and(Action action) {
+        this.actions.add(action);
+        return this;
+    }
+
+    public While then(Action action) {
+        this.actions.add(action);
         return this;
     }
 

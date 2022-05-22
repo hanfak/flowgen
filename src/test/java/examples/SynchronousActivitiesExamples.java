@@ -16,10 +16,10 @@ public class SynchronousActivitiesExamples {
         flowchart()
                 .withTitle("Hello")
                 .withStartNode()
-                .thenActivity(activity("action1")).withLabel("then")
-                .thenActivity(activity("action2")).withLabel("then next")
-                .thenActivity(activity("action3")).withLabel("finally")
-                .thenActivity(activity("action4"))
+                .then(activity("action1")).withLabel("then")
+                .then(activity("action2")).withLabel("then next")
+                .then(activity("action3")).withLabel("finally")
+                .then(activity("action4"))
                 .withStopNode()
                 .createFile(Paths.get("./test1.html"));
     }
@@ -28,10 +28,10 @@ public class SynchronousActivitiesExamples {
     void ifWithGuardClauseNoReturn() {
         flowchart()
                 .withStartNode()
-                .withConditional(conditional("is big?")
+                .then(conditional("is big?")
                         .then("yes", activity("action1"), label("next"), activity("action2"))
                         .exitLabel("Carry On"))
-                .thenActivity(activity("action3"))
+                .then(activity("action3"))
                 .withLabel("label")
                 .withStopNode()
                 .createFile(Paths.get("./test1.html"));

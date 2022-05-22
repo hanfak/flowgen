@@ -41,6 +41,21 @@ public class Repeat implements Action {
         return this;
     }
 
+    public Repeat and(Action action) {
+        this.actions.add(action);
+        return this;
+    }
+
+    public Repeat then(Action... actions) {
+        this.actions.addAll(List.of(actions));
+        return this;
+    }
+
+    public Repeat then(Action action) {
+        this.actions.add(action);
+        return this;
+    }
+
     public Repeat repeatWhen(String predicate) {
         this.predicate = predicate;
         return this;

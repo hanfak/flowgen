@@ -3,7 +3,7 @@ package com.hanfak.flowgen;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import static com.hanfak.flowgen.Activity.activity;
+import static com.hanfak.flowgen.Activity.*;
 import static com.hanfak.flowgen.FlowchartGenerator.flowchart;
 import static com.hanfak.flowgen.Repeat.repeat;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -22,8 +22,11 @@ class RepeatFlowchartGeneratorTest {
         void simpleRepeatWithoutLabels() {
             String flowchart = flowchart()
                     .then(repeat()
-                            .actions(activity("action1"), activity("action2"))
-                            .actions(activity("action3"))
+                            .actions(activity("action1"), andActivity("action2"), thenActivity("action4"))
+                            .and(activity("action3"))
+                            .and(activity("action3a"), andActivity("action3b"))
+                            .then(activity("action5"))
+                            .then(activity("action6"), andActivity("action7"))
                             .repeatWhen("is Big?"))
                     .create();
             assertThat(flowchart).isEqualToNormalizingNewlines("""
@@ -32,6 +35,11 @@ class RepeatFlowchartGeneratorTest {
                     :action1;
                     :action2;
                     :action3;
+                    :action3a;
+                    :action3b;
+                    :action5;
+                    :action6;
+                    :action7;
                     repeat while (is Big?)
                     @enduml""");
         }
@@ -40,8 +48,8 @@ class RepeatFlowchartGeneratorTest {
         void simpleTrueLabelPredicateIs() {
             String flowchart = flowchart()
                     .then(repeat()
-                            .actions(activity("action1"), activity("action2"))
-                            .actions(activity("action3"))
+                            .action(activity("action1"))
+                            .and(activity("action2"), andActivity("action3"))
                             .repeatWhen("is Big?")
                             .isTrueFor("yes"))
                     .create();
@@ -60,7 +68,7 @@ class RepeatFlowchartGeneratorTest {
             String flowchart = flowchart()
                     .then(repeat()
                             .actions(activity("action1"), activity("action2"))
-                            .actions(activity("action3"))
+                            .then(activity("action3"))
                             .repeatWhen("is Big?")
                             .exitOn("no"))
                     .create();

@@ -2,7 +2,7 @@ package com.hanfak.flowgen;
 
 import org.junit.jupiter.api.Test;
 
-import static com.hanfak.flowgen.Activity.activity;
+import static com.hanfak.flowgen.Activity.*;
 import static com.hanfak.flowgen.Conditional.conditional;
 import static com.hanfak.flowgen.FlowchartGenerator.flowchart;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -15,8 +15,8 @@ class ConditionalFlowChartGeneratorTest {
     @Test
     void ifELseWithPredicatesOnBothPaths() {
         String flowchart = flowchart()
-                .withConditional(conditional("is big?")
-                        .then("yes", activity("action1"), activity("action3"))
+                .then(conditional("is big?")
+                        .then("yes", activity("action1"), andActivity("action3"))
                         .orElse("no", activity("action2")))
                 .create();
         assertThat(flowchart).isEqualToNormalizingNewlines("""
@@ -33,8 +33,8 @@ class ConditionalFlowChartGeneratorTest {
     @Test
     void elsePathHasNoPredicateDefined() {
         String flowchart = flowchart()
-                .withConditional(conditional("is big?")
-                        .then("yes", activity("action1"), activity("action3"))
+                .then(conditional("is big?")
+                        .then("yes", activity("action1"), thenActivity("action3"), andActivity("action4"))
                         .orElse(activity("action2")))
                 .create();
         assertThat(flowchart).isEqualToNormalizingNewlines("""
@@ -42,6 +42,7 @@ class ConditionalFlowChartGeneratorTest {
                 if (is big?) then (yes)
                 :action1;
                 :action3;
+                :action4;
                 else
                 :action2;
                 endif
@@ -51,7 +52,7 @@ class ConditionalFlowChartGeneratorTest {
     @Test
     void ifWithoutElse() {
         String flowchart = flowchart()
-                .withConditional(conditional("is big?")
+                .then(conditional("is big?")
                         .then("yes", activity("action1"), activity("action3")))
                 .create();
         assertThat(flowchart).isEqualToNormalizingNewlines("""
@@ -66,7 +67,7 @@ class ConditionalFlowChartGeneratorTest {
     @Test
     void ifWithoutElseLabelExitConnector() {
         String flowchart = flowchart()
-                .withConditional(conditional("is big?")
+                .then(conditional("is big?")
                         .then("yes", activity("action1"), activity("action3"))
                         .exitLabel("NOK")
                 )
@@ -84,7 +85,7 @@ class ConditionalFlowChartGeneratorTest {
     @Test
     void nestedIf() {
         String flowchart = flowchart()
-                .withConditional(conditional("is big?")
+                .then(conditional("is big?")
                         .then("yes", activity("action1"))
                         .orElse("no",
                                 conditional("is tiny?")

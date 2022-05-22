@@ -3,6 +3,7 @@ package com.hanfak.flowgen;
 import org.junit.jupiter.api.Test;
 
 import static com.hanfak.flowgen.Activity.activity;
+import static com.hanfak.flowgen.Activity.andActivity;
 import static com.hanfak.flowgen.FlowchartGenerator.flowchart;
 import static com.hanfak.flowgen.MultiConditional.multiConditional;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -18,10 +19,10 @@ class MultipleConditionalFlowchartGeneratorTest {
     @Test
     void multipleIfELseWithPredicatesOnAllPaths() {
         String flowchart = flowchart()
-                .withMultipleConditional(
+                .then(
                         multiConditional("big?")
                                 .then("yes", activity("action"))
-                                .elseIf("no", "condition 1", "yes", activity("action1"), activity("action3"))
+                                .elseIf("no", "condition 1", "yes", activity("action1"), andActivity("action3"))
                                 .elseIf("no", "condition 2", "yes", activity("action2"))
                                 .elseIf("no", "condition 3", "yes", activity("action3"))
                                 .orElse("none", activity("action4")))

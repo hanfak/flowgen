@@ -3,8 +3,9 @@ package com.hanfak.flowgen;
 import org.junit.jupiter.api.Test;
 
 import static com.hanfak.flowgen.Activity.activity;
+import static com.hanfak.flowgen.Activity.andActivity;
 import static com.hanfak.flowgen.FlowchartGenerator.flowchart;
-import static com.hanfak.flowgen.While.loop;
+import static com.hanfak.flowgen.While.loopWhen;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class WhileFlowchartGeneratorTest {
@@ -19,26 +20,34 @@ class WhileFlowchartGeneratorTest {
     @Test
     void simpleWhileLoop() {
         String flowchart = flowchart()
-                .withWhile(loop("is Big?")
-                        .withActions(activity("action1"), activity("action2")))
-                .thenActivity(activity("action3"))
+                .then(loopWhen("is Big?")
+                        .action(activity("action1"))
+                        .then(activity("action2"))
+                        .then(activity("action2"), andActivity("action3"))
+                        .and(activity("action4"))
+                        .and(activity("action5"), andActivity("action6")))
+                .then(activity("action8"))
                 .create();
         assertThat(flowchart).isEqualToNormalizingNewlines("""
                 @startuml Activity
                 while (is Big?)
                 :action1;
                 :action2;
-                endwhile
                 :action3;
+                :action4;
+                :action5;
+                :action6;
+                endwhile
+                :action7;
                 @enduml""");
     }
 
     @Test
     void simpleWhileWithLabelForPredicateIsTrueLoop() {
         String flowchart = flowchart()
-                .withWhile(loop("is Big?").isTrueFor("yes")
-                        .withActions(activity("action1"), activity("action2")))
-                .thenActivity(activity("action3"))
+                .then(loopWhen("is Big?").isTrueFor("yes")
+                        .actions(activity("action1"), activity("action2")))
+                .then(activity("action3"))
                 .create();
         assertThat(flowchart).isEqualToNormalizingNewlines("""
                 @startuml Activity
@@ -53,9 +62,9 @@ class WhileFlowchartGeneratorTest {
     @Test
     void simpleWhileWithLabelForPredicateIsFalseLoop() {
         String flowchart = flowchart()
-                .withWhile(loop("is Big?").exitLabel("no")
-                        .withActions(activity("action1"), activity("action2")))
-                .thenActivity(activity("action3"))
+                .then(loopWhen("is Big?").exitLabel("no")
+                        .actions(activity("action1"), activity("action2")))
+                .then(activity("action3"))
                 .create();
         assertThat(flowchart).isEqualToNormalizingNewlines("""
                 @startuml Activity
@@ -70,10 +79,10 @@ class WhileFlowchartGeneratorTest {
     @Test
     void simpleWhileWithBothLabelsLoop() {
         String flowchart = flowchart()
-                .withWhile(loop("is Big?").isTrueFor("yes")
+                .then(loopWhen("is Big?").isTrueFor("yes")
                         .exitLabel("no")
-                        .withActions(activity("action1"), activity("action2")))
-                .thenActivity(activity("action3"))
+                        .actions(activity("action1"), activity("action2")))
+                .then(activity("action3"))
                 .create();
         assertThat(flowchart).isEqualToNormalizingNewlines("""
                 @startuml Activity

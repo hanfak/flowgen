@@ -17,10 +17,10 @@ public class IfExamples {
         flowchart()
                 .withTitle("Hello")
                 .withStartNode()
-                .withConditional(conditional("is big?")
+                .then(conditional("is big?")
                         .then("yes", activity("action1"), activity("action2"), Nodes.STOP))
                 .withLabel("no")
-                .thenActivity(activity("action2"))
+                .then(activity("action2"))
                 .withStopNode()
                 .createFile(Paths.get("./test1.html"));
     }
@@ -29,10 +29,10 @@ public class IfExamples {
     void ifWithGuardClauseNoReturn() {
         flowchart()
                 .withStartNode()
-                .withConditional(conditional("is big?")
+                .then(conditional("is big?")
                         .then("yes", activity("action1"), label("next"), activity("action2"))
                         .exitLabel("Carry On"))
-                .thenActivity(activity("action3"))
+                .then(activity("action3"))
                 .withLabel("label")
                 .withStopNode()
                 .createFile(Paths.get("./test1.html"));

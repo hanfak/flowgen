@@ -50,17 +50,27 @@ public class FlowchartGenerator {
 
     // TODO: Duplicate with extra param for config
     // TODO: Better name ie withActivity, doesAction??
-    public FlowchartGenerator thenActivity(Activity activity) { // TODO: Param should be string, and create object in line below
+    public FlowchartGenerator then(Activity activity) { // TODO: Param should be string, and create object in line below
         this.actions.add(activity.build());
         return this;
     }
 
-    public FlowchartGenerator withConditional(Conditional conditional) {
+    public FlowchartGenerator and(Activity activity) { // TODO: Param should be string, and create object in line below
+        this.actions.add(activity.build());
+        return this;
+    }
+
+    public FlowchartGenerator last(Activity activity) { // TODO: Param should be string, and create object in line below
+        this.actions.add(activity.build());
+        return this;
+    }
+
+    public FlowchartGenerator then(Conditional conditional) {
         this.actions.add(conditional.build());
         return this;
     }
 
-    public FlowchartGenerator withMultipleConditional(MultiConditional multiConditional) {
+    public FlowchartGenerator then(MultiConditional multiConditional) {
         this.actions.add(multiConditional.build());
         return this;
     }
@@ -70,7 +80,7 @@ public class FlowchartGenerator {
         return this;
     }
 
-    public FlowchartGenerator withWhile(While loop) {
+    public FlowchartGenerator then(While loop) {
         this.actions.add(loop.build());
         return this;
     }
