@@ -16,10 +16,10 @@ public class SynchronousActivitiesExamples {
         flowchart()
                 .withTitle("Hello")
                 .withStartNode()
-                .withActivity(activity("action1")).withLabel("then")
-                .withActivity(activity("action2")).withLabel("then next")
-                .withActivity(activity("action3")).withLabel("finally")
-                .withActivity(activity("action4"))
+                .thenActivity(activity("action1")).withLabel("then")
+                .thenActivity(activity("action2")).withLabel("then next")
+                .thenActivity(activity("action3")).withLabel("finally")
+                .thenActivity(activity("action4"))
                 .withStopNode()
                 .createFile(Paths.get("./test1.html"));
     }
@@ -31,7 +31,7 @@ public class SynchronousActivitiesExamples {
                 .withConditional(conditional("is big?")
                         .then("yes", activity("action1"), label("next"), activity("action2"))
                         .exitLabel("Carry On"))
-                .withActivity(activity("action3"))
+                .thenActivity(activity("action3"))
                 .withLabel("label")
                 .withStopNode()
                 .createFile(Paths.get("./test1.html"));

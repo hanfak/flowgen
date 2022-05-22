@@ -15,6 +15,7 @@ Instead of writing plantuml syntax, you write java with the help of ab builder t
 
 ## Usage 
 
+- Java 17
 - see tests and examples 
 
 - Maven instructions

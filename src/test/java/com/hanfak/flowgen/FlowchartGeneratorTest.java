@@ -1,5 +1,6 @@
 package com.hanfak.flowgen;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -13,6 +14,7 @@ import static com.hanfak.flowgen.Conditional.conditional;
 import static com.hanfak.flowgen.FlowchartGenerator.flowchart;
 import static com.hanfak.flowgen.MultiConditional.multiConditional;
 import static com.hanfak.flowgen.Repeat.repeat;
+import static com.hanfak.flowgen.While.loop;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class FlowchartGeneratorTest {
@@ -35,8 +37,8 @@ class FlowchartGeneratorTest {
             String flowchart = flowchart()
                     .withTitle("Title")
                     .withStartNode()
-                    .withActivity(activity("action1"))
-                    .withActivity(activity("action2"))
+                    .thenActivity(activity("action1"))
+                    .thenActivity(activity("action2"))
                     .create();
             assertThat(flowchart).isEqualToNormalizingNewlines("""
                     @startuml Activity
@@ -55,7 +57,7 @@ class FlowchartGeneratorTest {
         void createOneActivityWithStartAndStopNodes() {
             String flowchart = flowchart()
                     .withStartNode()
-                    .withActivity(activity("action"))
+                    .thenActivity(activity("action"))
                     .withStopNode()
                     .create();
             assertThat(flowchart).isEqualToNormalizingNewlines("""
@@ -70,7 +72,7 @@ class FlowchartGeneratorTest {
         void createOneActivityWithStartAndEndNodes() {
             String flowchart = flowchart()
                     .withStartNode()
-                    .withActivity(activity("action"))
+                    .thenActivity(activity("action"))
                     .withEndNode()
                     .create();
             assertThat(flowchart).isEqualToNormalizingNewlines("""
@@ -85,7 +87,7 @@ class FlowchartGeneratorTest {
         void createOneActivityWithStartNodeOnly() {
             String flowchart = flowchart()
                     .withStartNode()
-                    .withActivity(activity("action"))
+                    .thenActivity(activity("action"))
                     .create();
             assertThat(flowchart).isEqualToNormalizingNewlines("""
                     @startuml Activity
@@ -97,7 +99,7 @@ class FlowchartGeneratorTest {
         @Test
         void createOneActivityWithStopNodeOnly() {
             String flowchart = flowchart()
-                    .withActivity(activity("action"))
+                    .thenActivity(activity("action"))
                     .withStopNode()
                     .create();
             assertThat(flowchart).isEqualToNormalizingNewlines("""
@@ -110,7 +112,7 @@ class FlowchartGeneratorTest {
         @Test
         void createOneActivityWithEndNodeOnly() {
             String flowchart = flowchart()
-                    .withActivity(activity("action"))
+                    .thenActivity(activity("action"))
                     .withEndNode()
                     .create();
             assertThat(flowchart).isEqualToNormalizingNewlines("""
@@ -129,7 +131,7 @@ class FlowchartGeneratorTest {
         @Test
         void createOneActivity() {
             String flowchart = flowchart()
-                    .withActivity(activity("action"))
+                    .thenActivity(activity("action"))
                     .create();
             assertThat(flowchart).isEqualToNormalizingNewlines("""
                     @startuml Activity
@@ -140,9 +142,9 @@ class FlowchartGeneratorTest {
         @Test
         void oneFlowBetweenMultipleActivities() {
             String flowchart = flowchart()
-                    .withActivity(activity("action1"))
-                    .withActivity(activity("action2"))
-                    .withActivity(activity("action3"))
+                    .thenActivity(activity("action1"))
+                    .thenActivity(activity("action2"))
+                    .thenActivity(activity("action3"))
                     .create();
             assertThat(flowchart).isEqualToNormalizingNewlines("""
                     @startuml Activity
@@ -158,13 +160,13 @@ class FlowchartGeneratorTest {
         @Test
         void labelConnectorsBetweenActions() {
             String flowchart = flowchart()
-                    .withActivity(activity("action1"))
+                    .thenActivity(activity("action1"))
                     .withLabel("then")
-                    .withActivity(activity("action2"))
+                    .thenActivity(activity("action2"))
                     .withLabel("then next")
-                    .withActivity(activity("action3"))
+                    .thenActivity(activity("action3"))
                     .withLabel("finally")
-                    .withActivity(activity("action4"))
+                    .thenActivity(activity("action4"))
                     .create();
             assertThat(flowchart).isEqualToNormalizingNewlines("""
                     @startuml Activity
@@ -183,6 +185,7 @@ class FlowchartGeneratorTest {
     class ConditionalFlow {
 
         // TODO: No predicate outcome show for then branch
+        // TODO: then without predicateOutcome
         // TODO: styling - diamond, line, colour
         @Test
         void ifELseWithPredicatesOnBothPaths() {
@@ -325,14 +328,34 @@ class FlowchartGeneratorTest {
         // TODO: isTrue not set,
         // TODO: break in repeat, merge with before next action outside of repeat
         // TODO: use not (%s) instead of arrow for exit label, rename to not
-        // TODO: nested repeat
+        // TODO: step builder to force correct usage
+
         @Test
+        @Disabled("Todo")
         void simpleRepeat() {
             String flowchart = flowchart()
-                    .withRepeat(repeat()
-                            .withActions(activity("action1"), activity("action2"))
-                            .withActions(activity("action3"))
-                            .where("is Big?").isTrueFor("yes"))
+                    .then(repeat()
+                            .actions(activity("action1"), activity("action2"))
+                            .actions(activity("action3"))
+                            .repeatWhen("is Big?"))
+                    .create();
+            assertThat(flowchart).isEqualToNormalizingNewlines("""
+                    @startuml Activity
+                    repeat
+                    :action1;
+                    :action2;
+                    :action3;
+                    repeat while (is Big?)
+                    @enduml""");
+        }
+
+        @Test
+        void simpleRepeatLabelPredicateIs() {
+            String flowchart = flowchart()
+                    .then(repeat()
+                            .actions(activity("action1"), activity("action2"))
+                            .actions(activity("action3"))
+                            .repeatWhen("is Big?").isTrueFor("yes"))
                     .create();
             assertThat(flowchart).isEqualToNormalizingNewlines("""
                     @startuml Activity
@@ -347,10 +370,10 @@ class FlowchartGeneratorTest {
         @Test
         void simpleRepeatLabelPredicateIsFalse() {
             String flowchart = flowchart()
-                    .withRepeat(repeat()
-                            .withActions(activity("action1"), activity("action2"))
-                            .withActions(activity("action3"))
-                            .where("is Big?").isTrueFor("yes")
+                    .then(repeat()
+                            .actions(activity("action1"), activity("action2"))
+                            .actions(activity("action3"))
+                            .repeatWhen("is Big?").isTrueFor("yes")
                             .labelRepeat(activity("This is repeated")))
                     .create();
             assertThat(flowchart).isEqualToNormalizingNewlines("""
@@ -367,11 +390,11 @@ class FlowchartGeneratorTest {
         @Test
         void simpleRepeatWithActionOnLoopConnectorWithExitLabel() {
             String flowchart = flowchart()
-                    .withRepeat(repeat()
-                            .withActions(activity("action1"), activity("action2"))
-                            .withActions(activity("action3"))
-                            .where("is Big?").isTrueFor("yes").labelRepeat(activity("Repeat"))
-                            .exitLabel("no"))
+                    .then(repeat()
+                            .actions(activity("action1"), activity("action2"))
+                            .actions(activity("action3"))
+                            .repeatWhen("is Big?").isTrueFor("yes").labelRepeat(activity("Repeat"))
+                            .exitOn("no"))
                     .create();
             assertThat(flowchart).isEqualToNormalizingNewlines("""
                     @startuml Activity
@@ -388,11 +411,11 @@ class FlowchartGeneratorTest {
         @Test
         void simpleRepeatWithActionOnLoopConnector() {
             String flowchart = flowchart()
-                    .withRepeat(repeat()
-                            .withActions(activity("action1"), activity("action2"))
-                            .withActions(activity("action3"))
-                            .where("is Big?").labelRepeat( activity("Repeat"))
-                            .exitLabel("no"))
+                    .then(repeat()
+                            .actions(activity("action1"), activity("action2"))
+                            .actions(activity("action3"))
+                            .repeatWhen("is Big?").labelRepeat( activity("Repeat"))
+                            .exitOn("no"))
                     .create();
             assertThat(flowchart).isEqualToNormalizingNewlines("""
                     @startuml Activity
@@ -407,9 +430,83 @@ class FlowchartGeneratorTest {
         }
     }
 
+    @Nested
+    class WhileFlow {
+        // TODO: add detach to form infinite loop (static method infniiteLoop) -[hidden]->
+        // TODO: styling - diamond, line, colour
+        // TODO: Label at start of while action
+        // TODO: isTrue not set,
+        // TODO: exitLabel not set,
+        // TODO: step builder to force correct usage
+        @Test
+        void simpleWhileLoop() {
+            String flowchart = flowchart()
+                    .withWhile(loop("is Big?")
+                            .withActions(activity("action1"), activity("action2")))
+                    .thenActivity(activity("action3"))
+                    .create();
+            assertThat(flowchart).isEqualToNormalizingNewlines("""
+                    @startuml Activity
+                    while (is Big?)
+                    :action1;
+                    :action2;
+                    endwhile
+                    :action3;
+                    @enduml""");
+        }
+
+        @Test
+        void simpleWhileWithLabelForPredicateIsTrueLoop() {
+            String flowchart = flowchart()
+                    .withWhile(loop("is Big?").isTrueFor("yes")
+                            .withActions(activity("action1"), activity("action2")))
+                    .thenActivity(activity("action3"))
+                    .create();
+            assertThat(flowchart).isEqualToNormalizingNewlines("""
+                    @startuml Activity
+                    while (is Big?) is (yes)
+                    :action1;
+                    :action2;
+                    endwhile
+                    :action3;
+                    @enduml""");
+        }
+
+        @Test
+        void simpleWhileWithLabelForPredicateIsFalseLoop() {
+            String flowchart = flowchart()
+                    .withWhile(loop("is Big?").exitLabel("no")
+                            .withActions(activity("action1"), activity("action2")))
+                    .thenActivity(activity("action3"))
+                    .create();
+            assertThat(flowchart).isEqualToNormalizingNewlines("""
+                    @startuml Activity
+                    while (is Big?)
+                    :action1;
+                    :action2;
+                    endwhile (no)
+                    :action3;
+                    @enduml""");
+        }
+
+        @Test
+        void simpleWhileWithBothLabelsLoop() {
+            String flowchart = flowchart()
+                    .withWhile(loop("is Big?").isTrueFor("yes").exitLabel("no")
+                            .withActions(activity("action1"), activity("action2")))
+                    .thenActivity(activity("action3"))
+                    .create();
+            assertThat(flowchart).isEqualToNormalizingNewlines("""
+                    @startuml Activity
+                    while (is Big?) is (yes)
+                    :action1;
+                    :action2;
+                    endwhile (no)
+                    :action3;
+                    @enduml""");
+        }
+    }
     // TODO: Split each nested test class to indiviaul files
-    // TODO: While loop (predicate at start of loop)
-    // TODO: infinite loop -hiddne->
     // TODO: split processing
     // TODO: notes
     // TODO: parallel fork
@@ -439,9 +536,9 @@ class FlowchartGeneratorTest {
         @Test
         void oneFlowBetweenMultipleActivitiesReturnsFileWithDiagram() {
             String svg = flowchart()
-                    .withActivity(activity("action1"))
-                    .withActivity(activity("action2"))
-                    .withActivity(activity("action3"))
+                    .thenActivity(activity("action1"))
+                    .thenActivity(activity("action2"))
+                    .thenActivity(activity("action3"))
                     .createSvg();
 
             assertThat(svg).containsSubsequence("@startuml Activity", ":action1;", ":action2;", ":action3;", "@enduml");
@@ -471,9 +568,9 @@ class FlowchartGeneratorTest {
         void oneFlowBetweenMultipleActivitiesReturnsFileWithDiagram(@TempDir Path tempDir) throws IOException {
             Path file = tempDir.resolve("flowchart.html");
             flowchart()
-                    .withActivity(activity("action1"))
-                    .withActivity(activity("action2"))
-                    .withActivity(activity("action3"))
+                    .thenActivity(activity("action1"))
+                    .thenActivity(activity("action2"))
+                    .thenActivity(activity("action3"))
                     .createFile(file);
 
             assertThat(Files.readAllLines(file)).containsSequence(

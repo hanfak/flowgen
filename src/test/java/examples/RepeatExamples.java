@@ -9,16 +9,35 @@ import static com.hanfak.flowgen.FlowchartGenerator.flowchart;
 import static com.hanfak.flowgen.Repeat.repeat;
 
 public class RepeatExamples {
+
     @Test
     void simpleRepeatLoop() {
         flowchart()
                 .withStartNode()
-                .withRepeat(repeat()
-                        .withActions(activity("action1"), activity("action2"))
-                        .withActions(activity("action3"))
-                        .where("is Big?").isTrueFor("yes")
-                        .exitLabel("no"))
-                .withActivity(activity("action3"))
+                .then(repeat()
+                        .actions(activity("action1"), activity("action2"))
+                        .actions(activity("action3"))
+                        .repeatWhen("is Big?")
+                        .isTrueFor("yes")
+                        .exitOn("no"))
+                .thenActivity(activity("action3"))
+                .withStopNode()
+                .createFile(Paths.get("./test1.html"));
+    }
+
+    @Test
+    void nestedRepeatLoop() {
+        flowchart()
+                .withStartNode()
+                .then(repeat()
+                        .action(activity("action1"))
+                        .and(repeat()
+                                .action(activity("action2"))
+                                .repeatWhen("is empty?").isTrueFor("yes")
+                                .exitOn("no"))
+                        .repeatWhen("is Big?").isTrueFor("yes")
+                        .exitOn("no"))
+                .thenActivity(activity("action3"))
                 .withStopNode()
                 .createFile(Paths.get("./test1.html"));
     }
@@ -27,12 +46,13 @@ public class RepeatExamples {
     void simpleRepeatLoopWithStartAndRepeatConnectorsHaveActions() {
         flowchart()
                 .withStartNode()
-                .withRepeat(repeat()
-                        .withActions(activity("action1"), activity("action2"))
-                        .withActions(activity("action3"))
-                        .where("is Big?").isTrueFor("yes").labelRepeat(activity("Repeat"))
-                        .exitLabel("no"))
-                .withActivity(activity("action3"))
+                .then(repeat()
+                        .actions(activity("action1"), activity("action2"))
+                        .action(activity("action3"))
+                        .repeatWhen("is Big?").isTrueFor("yes")
+                        .labelRepeat(activity("Repeat"))
+                        .exitOn("no"))
+                .thenActivity(activity("action3"))
                 .withStopNode()
                 .createFile(Paths.get("./test1.html"));
     }

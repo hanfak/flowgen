@@ -49,7 +49,8 @@ public class FlowchartGenerator {
     }
 
     // TODO: Duplicate with extra param for config
-    public FlowchartGenerator withActivity(Activity activity) { // TODO: Param should be string, and create object in line below
+    // TODO: Better name ie withActivity, doesAction??
+    public FlowchartGenerator thenActivity(Activity activity) { // TODO: Param should be string, and create object in line below
         this.actions.add(activity.build());
         return this;
     }
@@ -64,8 +65,13 @@ public class FlowchartGenerator {
         return this;
     }
 
-    public FlowchartGenerator withRepeat(Repeat repeat) {
+    public FlowchartGenerator then(Repeat repeat) {
         this.actions.add(repeat.build());
+        return this;
+    }
+
+    public FlowchartGenerator withWhile(While loop) {
+        this.actions.add(loop.build());
         return this;
     }
 

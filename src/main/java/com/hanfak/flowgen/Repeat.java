@@ -24,12 +24,23 @@ public class Repeat implements Action {
         return new Repeat();
     }
 
-    public Repeat withActions(Action... actions) {
+    // TODO: should be withActivities
+    public Repeat actions(Action... actions) {
         this.actions.addAll(List.of(actions));
         return this;
     }
 
-    public Repeat where(String predicate) {
+    public Repeat action(Action action) {
+        this.actions.add(action);
+        return this;
+    }
+
+    public Repeat and(Action... actions) {
+        this.actions.addAll(List.of(actions));
+        return this;
+    }
+
+    public Repeat repeatWhen(String predicate) {
         this.predicate = predicate;
         return this;
     }
@@ -39,13 +50,13 @@ public class Repeat implements Action {
         return this;
     }
 
-    public Repeat labelRepeat(Activity repeatLoopActivity) {
+    public Repeat labelRepeat(Action repeatLoopActivity) {
         this.repeatLoopActivity = repeatLoopActivity.build();
         return this;
     }
 
     // TODO: better name- exitLoopFor?
-    public Repeat  exitLabel(String predicateFalseOutcome) {
+    public Repeat exitOn(String predicateFalseOutcome) {
         this.predicateFalseOutcome = predicateFalseOutcome + ";";
         return this;
     }

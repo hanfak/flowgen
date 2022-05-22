@@ -20,7 +20,7 @@ public class IfExamples {
                 .withConditional(conditional("is big?")
                         .then("yes", activity("action1"), activity("action2"), Nodes.STOP))
                 .withLabel("no")
-                .withActivity(activity("action2"))
+                .thenActivity(activity("action2"))
                 .withStopNode()
                 .createFile(Paths.get("./test1.html"));
     }
@@ -32,7 +32,7 @@ public class IfExamples {
                 .withConditional(conditional("is big?")
                         .then("yes", activity("action1"), label("next"), activity("action2"))
                         .exitLabel("Carry On"))
-                .withActivity(activity("action3"))
+                .thenActivity(activity("action3"))
                 .withLabel("label")
                 .withStopNode()
                 .createFile(Paths.get("./test1.html"));
