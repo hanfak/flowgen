@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import static com.hanfak.flowgen.Activity.activity;
+import static com.hanfak.flowgen.Activity.doActivity;
 import static com.hanfak.flowgen.FlowchartGenerator.flowchart;
 import static com.hanfak.flowgen.MultiConditional.multiConditional;
 
@@ -17,11 +17,11 @@ public class FileChecker {
                 .withStartNode()
                 .then(
                         multiConditional("size?")
-                                .then("yes",activity("action") )
-                                .elseIf("no", "condition 1", "yes", activity("action1"), activity("action3"))
-                                .elseIf("no", "condition 2", "yes", activity("action2"))
-                                .elseIf("no", "condition 3", "yes", activity("action3"))
-                                .orElse("no", activity("action4")))
+                                .then("yes", doActivity("action") )
+                                .elseIf("no", "condition 1", "yes", doActivity("action1"), doActivity("action3"))
+                                .elseIf("no", "condition 2", "yes", doActivity("action2"))
+                                .elseIf("no", "condition 3", "yes", doActivity("action3"))
+                                .orElse("no", doActivity("action4")))
                 .withStopNode()
                 .createFile(path);
     }

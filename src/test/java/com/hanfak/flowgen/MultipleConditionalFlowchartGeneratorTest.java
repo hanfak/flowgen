@@ -2,7 +2,7 @@ package com.hanfak.flowgen;
 
 import org.junit.jupiter.api.Test;
 
-import static com.hanfak.flowgen.Activity.activity;
+import static com.hanfak.flowgen.Activity.doActivity;
 import static com.hanfak.flowgen.Activity.andActivity;
 import static com.hanfak.flowgen.FlowchartGenerator.flowchart;
 import static com.hanfak.flowgen.MultiConditional.multiConditional;
@@ -21,11 +21,11 @@ class MultipleConditionalFlowchartGeneratorTest {
         String flowchart = flowchart()
                 .then(
                         multiConditional("big?")
-                                .then("yes", activity("action"))
-                                .elseIf("no", "condition 1", "yes", activity("action1"), andActivity("action3"))
-                                .elseIf("no", "condition 2", "yes", activity("action2"))
-                                .elseIf("no", "condition 3", "yes", activity("action3"))
-                                .orElse("none", activity("action4")))
+                                .then("yes", doActivity("action"))
+                                .elseIf("no", "condition 1", "yes", doActivity("action1"), andActivity("action3"))
+                                .elseIf("no", "condition 2", "yes", doActivity("action2"))
+                                .elseIf("no", "condition 3", "yes", doActivity("action3"))
+                                .orElse("none", doActivity("action4")))
                 .create();
         assertThat(flowchart).isEqualToNormalizingNewlines("""
                 @startuml Activity

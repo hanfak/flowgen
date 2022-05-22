@@ -10,7 +10,7 @@ public class Activity implements Action{
         this.name = name;
     }
 
-    public static Activity activity(String name) {
+    public static Activity doActivity(String name) {
         return new Activity(name);
     }
 

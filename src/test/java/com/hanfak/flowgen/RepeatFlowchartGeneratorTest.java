@@ -22,11 +22,11 @@ class RepeatFlowchartGeneratorTest {
         void simpleRepeatWithoutLabels() {
             String flowchart = flowchart()
                     .then(repeat()
-                            .actions(activity("action1"), andActivity("action2"), thenActivity("action4"))
-                            .and(activity("action3"))
-                            .and(activity("action3a"), andActivity("action3b"))
-                            .then(activity("action5"))
-                            .then(activity("action6"), andActivity("action7"))
+                            .doActions(doActivity("action1"), andActivity("action2"), thenActivity("action4"))
+                            .and(doActivity("action3"))
+                            .and(doActivity("action3a"), andActivity("action3b"))
+                            .then(doActivity("action5"))
+                            .then(doActivity("action6"), andActivity("action7"))
                             .repeatWhen("is Big?"))
                     .create();
             assertThat(flowchart).isEqualToNormalizingNewlines("""
@@ -48,8 +48,8 @@ class RepeatFlowchartGeneratorTest {
         void simpleTrueLabelPredicateIs() {
             String flowchart = flowchart()
                     .then(repeat()
-                            .action(activity("action1"))
-                            .and(activity("action2"), andActivity("action3"))
+                            .doAction(doActivity("action1"))
+                            .and(doActivity("action2"), andActivity("action3"))
                             .repeatWhen("is Big?")
                             .isTrueFor("yes"))
                     .create();
@@ -67,8 +67,8 @@ class RepeatFlowchartGeneratorTest {
         void simpleFalseLabelPredicate() {
             String flowchart = flowchart()
                     .then(repeat()
-                            .actions(activity("action1"), activity("action2"))
-                            .then(activity("action3"))
+                            .doActions(doActivity("action1"), doActivity("action2"))
+                            .then(doActivity("action3"))
                             .repeatWhen("is Big?")
                             .exitOn("no"))
                     .create();
@@ -87,8 +87,8 @@ class RepeatFlowchartGeneratorTest {
         void simpleWithBothLabelsPredicate() {
             String flowchart = flowchart()
                     .then(repeat()
-                            .actions(activity("action1"), activity("action2"))
-                            .actions(activity("action3"))
+                            .doActions(doActivity("action1"), doActivity("action2"))
+                            .doActions(doActivity("action3"))
                             .repeatWhen("is Big?")
                             .isTrueFor("yes")
                             .exitOn("no"))
@@ -112,10 +112,10 @@ class RepeatFlowchartGeneratorTest {
         void withoutLabelPredicate() {
             String flowchart = flowchart()
                     .then(repeat()
-                            .actions(activity("action1"), activity("action2"))
-                            .actions(activity("action3"))
+                            .doActions(doActivity("action1"), doActivity("action2"))
+                            .doActions(doActivity("action3"))
                             .repeatWhen("is Big?")
-                            .labelRepeat(activity("This is repeated")))
+                            .labelRepeat(doActivity("This is repeated")))
                     .create();
             assertThat(flowchart).isEqualToNormalizingNewlines("""
                     @startuml Activity
@@ -132,11 +132,11 @@ class RepeatFlowchartGeneratorTest {
         void withTrueLabelPredicate() {
             String flowchart = flowchart()
                     .then(repeat()
-                            .actions(activity("action1"), activity("action2"))
-                            .actions(activity("action3"))
+                            .doActions(doActivity("action1"), doActivity("action2"))
+                            .doActions(doActivity("action3"))
                             .repeatWhen("is Big?")
                             .isTrueFor("yes")
-                            .labelRepeat(activity("This is repeated")))
+                            .labelRepeat(doActivity("This is repeated")))
                     .create();
             assertThat(flowchart).isEqualToNormalizingNewlines("""
                     @startuml Activity
@@ -153,11 +153,11 @@ class RepeatFlowchartGeneratorTest {
         void withExitLabelPredicate() {
             String flowchart = flowchart()
                     .then(repeat()
-                            .actions(activity("action1"), activity("action2"))
-                            .actions(activity("action3"))
+                            .doActions(doActivity("action1"), doActivity("action2"))
+                            .doActions(doActivity("action3"))
                             .repeatWhen("is Big?")
                             .exitOn("no")
-                            .labelRepeat(activity("This is repeated")))
+                            .labelRepeat(doActivity("This is repeated")))
                     .create();
             assertThat(flowchart).isEqualToNormalizingNewlines("""
                     @startuml Activity
@@ -175,11 +175,11 @@ class RepeatFlowchartGeneratorTest {
         void withTrueAndExitLabels() {
             String flowchart = flowchart()
                     .then(repeat()
-                            .actions(activity("action1"), activity("action2"))
-                            .actions(activity("action3"))
+                            .doActions(doActivity("action1"), doActivity("action2"))
+                            .doActions(doActivity("action3"))
                             .repeatWhen("is Big?")
                             .isTrueFor("yes")
-                            .labelRepeat(activity("Repeat"))
+                            .labelRepeat(doActivity("Repeat"))
                             .exitOn("no"))
                     .create();
             assertThat(flowchart).isEqualToNormalizingNewlines("""

@@ -28,7 +28,7 @@ public class While implements Action {
         return new While(predicate);
     }
     // TODO: should be withActivities, doesAction
-    public While actions(Action... actions) {
+    public While doActions(Action... actions) {
         this.actions.addAll(List.of(actions));
         return this;
     }
@@ -43,7 +43,7 @@ public class While implements Action {
         return this;
     }
 
-    public While action(Action action) {
+    public While doAction(Action action) {
         this.actions.add(action);
         return this;
     }

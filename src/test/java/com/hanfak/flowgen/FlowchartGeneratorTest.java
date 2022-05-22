@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import static com.hanfak.flowgen.Activity.activity;
+import static com.hanfak.flowgen.Activity.doActivity;
 import static com.hanfak.flowgen.FlowchartGenerator.flowchart;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -32,8 +32,8 @@ class FlowchartGeneratorTest {
             String flowchart = flowchart()
                     .withTitle("Title")
                     .withStartNode()
-                    .then(activity("action1"))
-                    .then(activity("action2"))
+                    .then(doActivity("action1"))
+                    .then(doActivity("action2"))
                     .create();
             assertThat(flowchart).isEqualToNormalizingNewlines("""
                     @startuml Activity
@@ -52,7 +52,7 @@ class FlowchartGeneratorTest {
         void createOneActivityWithStartAndStopNodes() {
             String flowchart = flowchart()
                     .withStartNode()
-                    .then(activity("action"))
+                    .then(doActivity("action"))
                     .withStopNode()
                     .create();
             assertThat(flowchart).isEqualToNormalizingNewlines("""
@@ -67,7 +67,7 @@ class FlowchartGeneratorTest {
         void createOneActivityWithStartAndEndNodes() {
             String flowchart = flowchart()
                     .withStartNode()
-                    .then(activity("action"))
+                    .then(doActivity("action"))
                     .withEndNode()
                     .create();
             assertThat(flowchart).isEqualToNormalizingNewlines("""
@@ -82,7 +82,7 @@ class FlowchartGeneratorTest {
         void createOneActivityWithStartNodeOnly() {
             String flowchart = flowchart()
                     .withStartNode()
-                    .then(activity("action"))
+                    .then(doActivity("action"))
                     .create();
             assertThat(flowchart).isEqualToNormalizingNewlines("""
                     @startuml Activity
@@ -94,7 +94,7 @@ class FlowchartGeneratorTest {
         @Test
         void createOneActivityWithStopNodeOnly() {
             String flowchart = flowchart()
-                    .then(activity("action"))
+                    .then(doActivity("action"))
                     .withStopNode()
                     .create();
             assertThat(flowchart).isEqualToNormalizingNewlines("""
@@ -107,7 +107,7 @@ class FlowchartGeneratorTest {
         @Test
         void createOneActivityWithEndNodeOnly() {
             String flowchart = flowchart()
-                    .then(activity("action"))
+                    .then(doActivity("action"))
                     .withEndNode()
                     .create();
             assertThat(flowchart).isEqualToNormalizingNewlines("""
@@ -126,7 +126,7 @@ class FlowchartGeneratorTest {
         @Test
         void createOneActivity() {
             String flowchart = flowchart()
-                    .then(activity("action"))
+                    .then(doActivity("action"))
                     .create();
             assertThat(flowchart).isEqualToNormalizingNewlines("""
                     @startuml Activity
@@ -137,9 +137,9 @@ class FlowchartGeneratorTest {
         @Test
         void oneFlowBetweenMultipleActivities() {
             String flowchart = flowchart()
-                    .then(activity("action1"))
-                    .and(activity("action2"))
-                    .last(activity("action3"))
+                    .then(doActivity("action1"))
+                    .and(doActivity("action2"))
+                    .last(doActivity("action3"))
                     .create();
             assertThat(flowchart).isEqualToNormalizingNewlines("""
                     @startuml Activity
@@ -155,13 +155,13 @@ class FlowchartGeneratorTest {
         @Test
         void labelConnectorsBetweenActions() {
             String flowchart = flowchart()
-                    .then(activity("action1"))
+                    .then(doActivity("action1"))
                     .withLabel("then")
-                    .then(activity("action2"))
+                    .then(doActivity("action2"))
                     .withLabel("then next")
-                    .then(activity("action3"))
+                    .then(doActivity("action3"))
                     .withLabel("finally")
-                    .then(activity("action4"))
+                    .then(doActivity("action4"))
                     .create();
             assertThat(flowchart).isEqualToNormalizingNewlines("""
                     @startuml Activity
@@ -210,9 +210,9 @@ class FlowchartGeneratorTest {
         @Test
         void oneFlowBetweenMultipleActivitiesReturnsFileWithDiagram() {
             String svg = flowchart()
-                    .then(activity("action1"))
-                    .then(activity("action2"))
-                    .then(activity("action3"))
+                    .then(doActivity("action1"))
+                    .then(doActivity("action2"))
+                    .then(doActivity("action3"))
                     .createSvg();
 
             assertThat(svg).containsSubsequence("@startuml Activity", ":action1;", ":action2;", ":action3;", "@enduml");
@@ -240,9 +240,9 @@ class FlowchartGeneratorTest {
         void oneFlowBetweenMultipleActivitiesReturnsFileWithDiagram(@TempDir Path tempDir) throws IOException {
             Path file = tempDir.resolve("flowchart.html");
             flowchart()
-                    .then(activity("action1"))
-                    .then(activity("action2"))
-                    .then(activity("action3"))
+                    .then(doActivity("action1"))
+                    .then(doActivity("action2"))
+                    .then(doActivity("action3"))
                     .createFile(file);
 
             assertThat(Files.readAllLines(file)).containsSequence(

@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.nio.file.Paths;
 
-import static com.hanfak.flowgen.Activity.activity;
+import static com.hanfak.flowgen.Activity.doActivity;
 import static com.hanfak.flowgen.Conditional.conditional;
 import static com.hanfak.flowgen.FlowchartGenerator.flowchart;
 import static com.hanfak.flowgen.Label.label;
@@ -18,9 +18,9 @@ public class IfExamples {
                 .withTitle("Hello")
                 .withStartNode()
                 .then(conditional("is big?")
-                        .then("yes", activity("action1"), activity("action2"), Nodes.STOP))
+                        .then("yes", doActivity("action1"), doActivity("action2"), Nodes.STOP))
                 .withLabel("no")
-                .then(activity("action2"))
+                .then(doActivity("action2"))
                 .withStopNode()
                 .createFile(Paths.get("./test1.html"));
     }
@@ -30,9 +30,9 @@ public class IfExamples {
         flowchart()
                 .withStartNode()
                 .then(conditional("is big?")
-                        .then("yes", activity("action1"), label("next"), activity("action2"))
+                        .then("yes", doActivity("action1"), label("next"), doActivity("action2"))
                         .exitLabel("Carry On"))
-                .then(activity("action3"))
+                .then(doActivity("action3"))
                 .withLabel("label")
                 .withStopNode()
                 .createFile(Paths.get("./test1.html"));

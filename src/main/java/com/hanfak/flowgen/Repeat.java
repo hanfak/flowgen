@@ -26,12 +26,12 @@ public class Repeat implements Action {
     }
 
     // TODO: should be withActivities
-    public Repeat actions(Action... actions) {
+    public Repeat doActions(Action... actions) {
         this.actions.addAll(List.of(actions));
         return this;
     }
 
-    public Repeat action(Action action) {
+    public Repeat doAction(Action action) {
         this.actions.add(action);
         return this;
     }
