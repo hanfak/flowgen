@@ -48,7 +48,7 @@ class RepeatFlowchartGeneratorTest {
         void simpleTrueLabelPredicateIs() {
             String flowchart = flowchart()
                     .then(repeat()
-                            .doAction(doActivity("action1"))
+                            .doAction(activity("action1"))
                             .and(doActivity("action2"), andActivity("action3"))
                             .repeatWhen("is Big?")
                             .isTrueFor("yes"))

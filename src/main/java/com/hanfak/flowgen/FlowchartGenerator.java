@@ -64,7 +64,7 @@ public class FlowchartGenerator {
         this.actions.add(activity.build());
         return this;
     }
-
+    // TODO: As all methods with same name excepts super type, can get rid of tbe then methods
     public FlowchartGenerator then(Conditional conditional) {
         this.actions.add(conditional.build());
         return this;
@@ -82,6 +82,11 @@ public class FlowchartGenerator {
 
     public FlowchartGenerator then(While loop) {
         this.actions.add(loop.build());
+        return this;
+    }
+
+    public FlowchartGenerator then(Split split) {
+        this.actions.add(split.build());
         return this;
     }
 
