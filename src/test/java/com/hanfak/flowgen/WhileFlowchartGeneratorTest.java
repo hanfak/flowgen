@@ -23,9 +23,9 @@ class WhileFlowchartGeneratorTest {
                 .then(loopWhen("is Big?")
                         .doAction(doActivity("action1"))
                         .then(doActivity("action2"))
-                        .then(doActivity("action2"), andActivity("action3"))
-                        .and(doActivity("action4"))
-                        .and(doActivity("action5"), andActivity("action6")))
+                        .then(doActivity("action3"), andActivity("action4"))
+                        .and(doActivity("action5"))
+                        .and(doActivity("action6"), andActivity("action7")))
                 .then(doActivity("action8"))
                 .create();
         assertThat(flowchart).isEqualToNormalizingNewlines("""
@@ -37,8 +37,9 @@ class WhileFlowchartGeneratorTest {
                 :action4;
                 :action5;
                 :action6;
-                endwhile
                 :action7;
+                endwhile
+                :action8;
                 @enduml""");
     }
 

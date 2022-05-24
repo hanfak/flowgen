@@ -48,45 +48,18 @@ public class FlowchartGenerator {
         return this;
     }
 
+    public FlowchartGenerator and(Action action) { // TODO: Param should be string, and create object in line below
+        this.actions.add(action.build());
+        return this;
+    }
+
+    public FlowchartGenerator last(Action action) { // TODO: Param should be string, and create object in line below
+        this.actions.add(action.build());
+        return this;
+    }
     // TODO: Duplicate with extra param for config
-    // TODO: Better name ie withActivity, doesAction??
-    public FlowchartGenerator then(Activity activity) { // TODO: Param should be string, and create object in line below
-        this.actions.add(activity.build());
-        return this;
-    }
-
-    public FlowchartGenerator and(Activity activity) { // TODO: Param should be string, and create object in line below
-        this.actions.add(activity.build());
-        return this;
-    }
-
-    public FlowchartGenerator last(Activity activity) { // TODO: Param should be string, and create object in line below
-        this.actions.add(activity.build());
-        return this;
-    }
-    // TODO: As all methods with same name excepts super type, can get rid of tbe then methods
-    public FlowchartGenerator then(Conditional conditional) {
-        this.actions.add(conditional.build());
-        return this;
-    }
-
-    public FlowchartGenerator then(MultiConditional multiConditional) {
-        this.actions.add(multiConditional.build());
-        return this;
-    }
-
-    public FlowchartGenerator then(Repeat repeat) {
-        this.actions.add(repeat.build());
-        return this;
-    }
-
-    public FlowchartGenerator then(While loop) {
-        this.actions.add(loop.build());
-        return this;
-    }
-
-    public FlowchartGenerator then(Split split) {
-        this.actions.add(split.build());
+    public FlowchartGenerator then(Action action) {
+        this.actions.add(action.build());
         return this;
     }
 
