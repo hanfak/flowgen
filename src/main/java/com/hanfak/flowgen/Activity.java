@@ -2,7 +2,8 @@ package com.hanfak.flowgen;
 
 import static java.lang.System.lineSeparator;
 
-public class Activity implements Action{
+// TODO: Add a builder ie activity("action2").thenDo("action2")
+public class Activity implements Action {
 
     private final String name;
 

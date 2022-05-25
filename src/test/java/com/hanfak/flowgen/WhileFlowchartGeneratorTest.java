@@ -2,8 +2,8 @@ package com.hanfak.flowgen;
 
 import org.junit.jupiter.api.Test;
 
-import static com.hanfak.flowgen.Activity.doActivity;
 import static com.hanfak.flowgen.Activity.andActivity;
+import static com.hanfak.flowgen.Activity.doActivity;
 import static com.hanfak.flowgen.FlowchartGenerator.flowchart;
 import static com.hanfak.flowgen.While.loopWhen;
 import static org.assertj.core.api.Assertions.assertThat;
