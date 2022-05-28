@@ -30,7 +30,7 @@ class RepeatFlowchartGeneratorTest {
                             .repeatWhen("is Big?"))
                     .create();
             assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml Activity
+                    @startuml
                     repeat
                     :action1;
                     :action2;
@@ -54,7 +54,7 @@ class RepeatFlowchartGeneratorTest {
                             .isTrueFor("yes"))
                     .create();
             assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml Activity
+                    @startuml 
                     repeat
                     :action1;
                     :action2;
@@ -73,7 +73,7 @@ class RepeatFlowchartGeneratorTest {
                             .exitOn("no"))
                     .create();
             assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml Activity
+                    @startuml
                     repeat
                     :action1;
                     :action2;
@@ -94,7 +94,7 @@ class RepeatFlowchartGeneratorTest {
                             .exitOn("no"))
                     .create();
             assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml Activity
+                    @startuml 
                     repeat
                     :action1;
                     :action2;
@@ -118,7 +118,7 @@ class RepeatFlowchartGeneratorTest {
                             .labelRepeat(doActivity("This is repeated")))
                     .create();
             assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml Activity
+                    @startuml
                     repeat
                     :action1;
                     :action2;
@@ -139,7 +139,7 @@ class RepeatFlowchartGeneratorTest {
                             .labelRepeat(doActivity("This is repeated")))
                     .create();
             assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml Activity
+                    @startuml 
                     repeat
                     :action1;
                     :action2;
@@ -160,7 +160,7 @@ class RepeatFlowchartGeneratorTest {
                             .labelRepeat(doActivity("This is repeated")))
                     .create();
             assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml Activity
+                    @startuml
                     repeat
                     :action1;
                     :action2;
@@ -183,7 +183,7 @@ class RepeatFlowchartGeneratorTest {
                             .exitOn("no"))
                     .create();
             assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml Activity
+                    @startuml 
                     repeat
                     :action1;
                     :action2;

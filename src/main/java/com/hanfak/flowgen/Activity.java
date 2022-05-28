@@ -1,11 +1,15 @@
 package com.hanfak.flowgen;
 
+import java.util.Objects;
+
 import static java.lang.System.lineSeparator;
 
-// TODO: Add a builder ie activity("action2").thenDo("action2")
+// TODO: Add a builder (Activities) implement Action ie Activities.activity("action2").thenDo("action2")
 public class Activity implements Action {
 
+    private static final String SIMPLE_DEFAULT_ACTIVITY_TEMPLATE = "%s%s%s%s";
     private final String name;
+    private String note;
 
     private Activity(String name) {
         this.name = name;
@@ -27,8 +31,17 @@ public class Activity implements Action {
         return new Activity(name);
     }
 
+    public Activity with(Note note) {
+        this.note = note.build();
+        return this;
+    }
+
     @Override
     public String build() {
-        return "%s%s%s%s".formatted(":", name, ";", lineSeparator());
+        String activityPopulated = SIMPLE_DEFAULT_ACTIVITY_TEMPLATE.formatted(":", name, ";", lineSeparator());
+        if (Objects.nonNull(note)) {
+            return activityPopulated + "\n" + note;
+        }
+        return activityPopulated;
     }
 }

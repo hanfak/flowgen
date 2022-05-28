@@ -82,7 +82,7 @@ public class FlowchartGenerator {
     }
 
     public String create() {
-        String startUml = "@startuml Activity" + lineSeparator();
+        String startUml = "@startuml" + lineSeparator();
         String endUml = "@enduml";
         StringBuilder finished = flowchartString
                 .append(startUml)

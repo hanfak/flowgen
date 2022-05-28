@@ -28,7 +28,7 @@ class MultipleConditionalFlowchartGeneratorTest {
                                 .orElse("none", doActivity("action4")))
                 .create();
         assertThat(flowchart).isEqualToNormalizingNewlines("""
-                @startuml Activity
+                @startuml 
                 if (big?) then (yes)
                 :action;
                 (no) elseif (condition 1) then (yes)

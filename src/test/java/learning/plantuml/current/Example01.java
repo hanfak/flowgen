@@ -17,7 +17,8 @@ public class Example01 {
     public static void main(String... args) throws IOException {
 //
         String source = """
-                @startuml Activity
+                @startuml
+                !theme spacelab
                 """;
         source += """
                 
@@ -27,6 +28,7 @@ public class Example01 {
                 group Initialization\s
                     repeat:
                         :action1]
+                        floating note right: This is a note
                         :action2;
                     repeat while
                     :action3>

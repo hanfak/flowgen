@@ -12,7 +12,7 @@ import static com.hanfak.flowgen.Label.label;
 public class SynchronousActivitiesExamples {
 
     @Test
-    void ifWithGuardClauseReturnEarly() {
+    void multiActivitiesWithLabelsOnArrows() {
         flowchart()
                 .withTitle("Hello")
                 .withStartNode()

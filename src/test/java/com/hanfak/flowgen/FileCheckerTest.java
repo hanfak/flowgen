@@ -9,7 +9,7 @@ import static com.hanfak.flowgen.Activity.doActivity;
 import static com.hanfak.flowgen.FlowchartGenerator.flowchart;
 import static com.hanfak.flowgen.MultiConditional.multiConditional;
 
-public class FileChecker {
+public class FileCheckerTest {
     @Test
     void createOneActivity() {
         Path path = Paths.get("./test1.html");

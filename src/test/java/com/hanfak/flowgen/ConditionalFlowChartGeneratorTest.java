@@ -20,7 +20,7 @@ class ConditionalFlowChartGeneratorTest {
                         .orElse("no", doActivity("action2")))
                 .create();
         assertThat(flowchart).isEqualToNormalizingNewlines("""
-                @startuml Activity
+                @startuml 
                 if (is big?) then (yes)
                 :action1;
                 :action3;
@@ -38,7 +38,7 @@ class ConditionalFlowChartGeneratorTest {
                         .orElse(doActivity("action2")))
                 .create();
         assertThat(flowchart).isEqualToNormalizingNewlines("""
-                @startuml Activity
+                @startuml 
                 if (is big?) then (yes)
                 :action1;
                 :action3;
@@ -56,7 +56,7 @@ class ConditionalFlowChartGeneratorTest {
                         .then("yes", doActivity("action1"), doActivity("action3")))
                 .create();
         assertThat(flowchart).isEqualToNormalizingNewlines("""
-                @startuml Activity
+                @startuml 
                 if (is big?) then (yes)
                 :action1;
                 :action3;
@@ -73,7 +73,7 @@ class ConditionalFlowChartGeneratorTest {
                 )
                 .create();
         assertThat(flowchart).isEqualToNormalizingNewlines("""
-                @startuml Activity
+                @startuml 
                 if (is big?) then (yes)
                 :action1;
                 :action3;
@@ -94,7 +94,7 @@ class ConditionalFlowChartGeneratorTest {
                                 doActivity("action4")))
                 .create();
         assertThat(flowchart).isEqualToNormalizingNewlines("""
-                @startuml Activity
+                @startuml 
                 if (is big?) then (yes)
                 :action1;
                 else (no)

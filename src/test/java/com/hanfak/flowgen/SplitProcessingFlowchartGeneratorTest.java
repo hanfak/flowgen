@@ -30,7 +30,7 @@ class SplitProcessingFlowchartGeneratorTest {
                     .then(doActivity("action3"))
                     .create();
             assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml Activity
+                    @startuml 
                     :action1;
                     split
                     :action2a;
@@ -54,7 +54,7 @@ class SplitProcessingFlowchartGeneratorTest {
                     .then(doActivity("action3"))
                     .create();
             assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml Activity
+                    @startuml 
                     :action1;
                     split
                     :action2aa;

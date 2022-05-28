@@ -25,7 +25,7 @@ class FlowchartGeneratorTest {
 
     @Nested
     class Title {
-
+        // TODO: multi line title
         // TODO: Font colour "title <color:red><size:50>Hello" -> single, multiple styling
         @Test
         void titleAtTopOfFlowchart() {
@@ -36,7 +36,7 @@ class FlowchartGeneratorTest {
                     .then(doActivity("action2"))
                     .create();
             assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml Activity
+                    @startuml 
                     title Title
                     start
                     :action1;
@@ -47,7 +47,7 @@ class FlowchartGeneratorTest {
 
     @Nested
     class Nodes {
-
+        // TODO: label on start node for preconditions
         @Test
         void createOneActivityWithStartAndStopNodes() {
             String flowchart = flowchart()
@@ -56,7 +56,7 @@ class FlowchartGeneratorTest {
                     .withStopNode()
                     .create();
             assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml Activity
+                    @startuml 
                     start
                     :action;
                     stop
@@ -71,7 +71,7 @@ class FlowchartGeneratorTest {
                     .withEndNode()
                     .create();
             assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml Activity
+                    @startuml 
                     start
                     :action;
                     end
@@ -85,7 +85,7 @@ class FlowchartGeneratorTest {
                     .then(doActivity("action"))
                     .create();
             assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml Activity
+                    @startuml 
                     start
                     :action;
                     @enduml""");
@@ -98,7 +98,7 @@ class FlowchartGeneratorTest {
                     .withStopNode()
                     .create();
             assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml Activity
+                    @startuml 
                     :action;
                     stop
                     @enduml""");
@@ -111,43 +111,13 @@ class FlowchartGeneratorTest {
                     .withEndNode()
                     .create();
             assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml Activity
+                    @startuml 
                     :action;
                     end
                     @enduml""");
         }
 
         // TODO: Mulitple stops at different points
-    }
-
-    @Nested
-    class SynchronousActivityFlow {
-
-        @Test
-        void createOneActivity() {
-            String flowchart = flowchart()
-                    .then(doActivity("action"))
-                    .create();
-            assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml Activity
-                    :action;
-                    @enduml""");
-        }
-
-        @Test
-        void oneFlowBetweenMultipleActivities() {
-            String flowchart = flowchart()
-                    .then(doActivity("action1"))
-                    .and(doActivity("action2"))
-                    .last(doActivity("action3"))
-                    .create();
-            assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml Activity
-                    :action1;
-                    :action2;
-                    :action3;
-                    @enduml""");
-        }
     }
 
     @Nested
@@ -164,7 +134,7 @@ class FlowchartGeneratorTest {
                     .then(doActivity("action4"))
                     .create();
             assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml Activity
+                    @startuml 
                     :action1;
                     ->then;
                     :action2;
@@ -176,13 +146,13 @@ class FlowchartGeneratorTest {
         }
     }
 
-    // TODO: split processing
     // TODO: notes
-    // TODO: parallel fork
+    // TODO: Themes https://plantuml.com/theme  https://the-lum.github.io/puml-themes-gallery/
     // TODO: General styling use of <style>...</style>
     // TODO: connectors, detach, connected
     // TODO: Grouping/partitions, config
     // TODO: arrows, css, detach, kill, hidden
+    // TODO: Swimlanes
 
 
     // TODO: colours on activities, box type
@@ -193,7 +163,6 @@ class FlowchartGeneratorTest {
     // TODO: add links to activities, notes, partitions(low priority)
     // TODO: switch (low priority)
     // TODO: set PLANTUML_LIMIT_SIZE=8192 (low priority)
-    // TODO: Swimlanes (v low priority)
 
     // TODO: arrow direction ??? Not available yet
 
@@ -204,7 +173,7 @@ class FlowchartGeneratorTest {
         void emptyFlowchart() {
             assertThat(flowchart().createSvg())
                     .containsSubsequence("Welcome to PlantUML!", "You can start with a simple UML Diagram like:")
-                    .containsSubsequence("@startuml Activity", "@enduml");
+                    .containsSubsequence("@startuml", "@enduml");
         }
 
         @Test
@@ -215,7 +184,7 @@ class FlowchartGeneratorTest {
                     .then(doActivity("action3"))
                     .createSvg();
 
-            assertThat(svg).containsSubsequence("@startuml Activity", ":action1;", ":action2;", ":action3;", "@enduml");
+            assertThat(svg).containsSubsequence("@startuml", ":action1;", ":action2;", ":action3;", "@enduml");
         }
 
         // TODO: Failed to generate
@@ -232,7 +201,7 @@ class FlowchartGeneratorTest {
             assertThat(Files.readAllLines(file)
                     .get(0)).contains("Welcome to PlantUML!", "You can start with a simple UML Diagram like:");
             assertThat(Files.readAllLines(file)).containsSequence(
-                    "@startuml Activity",
+                    "@startuml",
                     "@enduml");
         }
 
@@ -246,7 +215,7 @@ class FlowchartGeneratorTest {
                     .createFile(file);
 
             assertThat(Files.readAllLines(file)).containsSequence(
-                    "@startuml Activity",
+                    "@startuml",
                     ":action1;",
                     ":action2;",
                     ":action3;",
