@@ -20,7 +20,7 @@ class ActivitiesTest {
                     .then(doActivity("action"))
                     .create();
             assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml 
+                    @startuml
                     :action;
                     @enduml""");
         }
@@ -33,7 +33,7 @@ class ActivitiesTest {
                     .last(doActivity("action3"))
                     .create();
             assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml 
+                    @startuml
                     :action1;
                     :action2;
                     :action3;
@@ -54,7 +54,7 @@ class ActivitiesTest {
                         .then(doActivity("action").with(note("A Note")))
                         .create();
                 assertThat(flowchart).isEqualToNormalizingNewlines("""
-                        @startuml 
+                        @startuml
                         :action;
                         note right
                         A Note
@@ -68,7 +68,7 @@ class ActivitiesTest {
                         .then(doActivity("action").with(note("A Note").left()))
                         .create();
                 assertThat(flowchart).isEqualToNormalizingNewlines("""
-                        @startuml 
+                        @startuml
                         :action;
                         note left
                         A Note
@@ -82,7 +82,7 @@ class ActivitiesTest {
                         .then(doActivity("action").with(note("A Note").right()))
                         .create();
                 assertThat(flowchart).isEqualToNormalizingNewlines("""
-                        @startuml 
+                        @startuml
                         :action;
                         note right
                         A Note
@@ -96,7 +96,7 @@ class ActivitiesTest {
                         .then(doActivity("action").with(note("A Note").floating()))
                         .create();
                 assertThat(flowchart).isEqualToNormalizingNewlines("""
-                        @startuml 
+                        @startuml
                         :action;
                         note floating right
                         A Note
@@ -111,7 +111,7 @@ class ActivitiesTest {
                                 .left()))
                         .create();
                 assertThat(flowchart).isEqualToNormalizingNewlines("""
-                        @startuml 
+                        @startuml
                         :action;
                         note floating left
                         A Note
@@ -126,7 +126,7 @@ class ActivitiesTest {
                                 .right()))
                         .create();
                 assertThat(flowchart).isEqualToNormalizingNewlines("""
-                        @startuml 
+                        @startuml
                         :action;
                         note floating right
                         A Note
@@ -140,7 +140,7 @@ class ActivitiesTest {
                         .then(doActivity("action").with(note("A Note").right().left()))
                         .create();
                 assertThat(flowchart).isEqualToNormalizingNewlines("""
-                        @startuml 
+                        @startuml
                         :action;
                         note left
                         A Note
@@ -154,7 +154,7 @@ class ActivitiesTest {
                         .then(doActivity("action").with(note("A Note").left().right()))
                         .create();
                 assertThat(flowchart).isEqualToNormalizingNewlines("""
-                        @startuml 
+                        @startuml
                         :action;
                         note right
                         A Note
@@ -180,7 +180,7 @@ class ActivitiesTest {
                                     contain <b>HTML</b>""")))
                             .create();
                     assertThat(flowchart).isEqualToNormalizingNewlines("""
-                            @startuml 
+                            @startuml
                             :action;
                             note right
                             A Note

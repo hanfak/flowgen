@@ -10,6 +10,7 @@ import java.nio.file.Path;
 
 import static com.hanfak.flowgen.Activity.doActivity;
 import static com.hanfak.flowgen.FlowchartGenerator.flowchart;
+import static com.hanfak.flowgen.FlowchartGenerator.flowchartWith;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class FlowchartGeneratorTest {
@@ -36,7 +37,7 @@ class FlowchartGeneratorTest {
                     .then(doActivity("action2"))
                     .create();
             assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml 
+                    @startuml
                     title Title
                     start
                     :action1;
@@ -56,7 +57,7 @@ class FlowchartGeneratorTest {
                     .withStopNode()
                     .create();
             assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml 
+                    @startuml
                     start
                     :action;
                     stop
@@ -71,7 +72,7 @@ class FlowchartGeneratorTest {
                     .withEndNode()
                     .create();
             assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml 
+                    @startuml
                     start
                     :action;
                     end
@@ -85,7 +86,7 @@ class FlowchartGeneratorTest {
                     .then(doActivity("action"))
                     .create();
             assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml 
+                    @startuml
                     start
                     :action;
                     @enduml""");
@@ -98,7 +99,7 @@ class FlowchartGeneratorTest {
                     .withStopNode()
                     .create();
             assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml 
+                    @startuml
                     :action;
                     stop
                     @enduml""");
@@ -111,7 +112,7 @@ class FlowchartGeneratorTest {
                     .withEndNode()
                     .create();
             assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml 
+                    @startuml
                     :action;
                     end
                     @enduml""");
@@ -134,7 +135,7 @@ class FlowchartGeneratorTest {
                     .then(doActivity("action4"))
                     .create();
             assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml 
+                    @startuml
                     :action1;
                     ->then;
                     :action2;
@@ -146,15 +147,53 @@ class FlowchartGeneratorTest {
         }
     }
 
-    // TODO: notes
-    // TODO: Themes https://plantuml.com/theme  https://the-lum.github.io/puml-themes-gallery/
+    @Nested
+    class Themes {
+        // TODO: Add to docs https://plantuml.com/theme  https://the-lum.github.io/puml-themes-gallery/
+        @Test
+        void flowchartHasNoThemeByDefault() {
+            String flowchart = flowchart()
+                    .withTitle("Title")
+                    .withStartNode()
+                    .then(doActivity("action1"))
+                    .then(doActivity("action2"))
+                    .create();
+            assertThat(flowchart).isEqualToNormalizingNewlines("""
+                    @startuml
+                    title Title
+                    start
+                    :action1;
+                    :action2;
+                    @enduml""");
+        }
+
+        @Test
+        void flowchartWithAvailablePlantUmlThemes() {
+            String flowchart = flowchartWith(Theme.SPACELAB)
+                    .withTitle("Title")
+                    .withStartNode()
+                    .then(doActivity("action1"))
+                    .then(doActivity("action2"))
+                    .create();
+            assertThat(flowchart).isEqualToNormalizingNewlines("""
+                    @startuml
+                    !theme spacelab
+                    title Title
+                    start
+                    :action1;
+                    :action2;
+                    @enduml""");
+        }
+    }
     // TODO: General styling use of <style>...</style>
+    // TODO: use %n,\n or lineSeparator
     // TODO: connectors, detach, connected
     // TODO: Grouping/partitions, config
     // TODO: arrows, css, detach, kill, hidden
     // TODO: Swimlanes
 
 
+    // TODO: Add custom themes
     // TODO: colours on activities, box type
     // TODO: syling on actions etc using <color:red> etc
     // TODO: STyling on text -> add to individual words or or substring

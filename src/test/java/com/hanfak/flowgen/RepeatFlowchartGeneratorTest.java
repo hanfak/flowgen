@@ -22,7 +22,7 @@ class RepeatFlowchartGeneratorTest {
         void simpleRepeatWithoutLabels() {
             String flowchart = flowchart()
                     .then(repeat()
-                            .doActions(doActivity("action1"), andActivity("action2"), thenActivity("action4"))
+                            .execute(doActivity("action1"), andActivity("action2"), thenActivity("action4"))
                             .and(doActivity("action3"))
                             .and(doActivity("action3a"), andActivity("action3b"))
                             .then(doActivity("action5"))
@@ -48,7 +48,7 @@ class RepeatFlowchartGeneratorTest {
         void simpleTrueLabelPredicateIs() {
             String flowchart = flowchart()
                     .then(repeat()
-                            .doAction(activity("action1"))
+                            .execute(activity("action1"))
                             .and(doActivity("action2"), andActivity("action3"))
                             .repeatWhen("is Big?")
                             .isTrueFor("yes"))
@@ -67,7 +67,7 @@ class RepeatFlowchartGeneratorTest {
         void simpleFalseLabelPredicate() {
             String flowchart = flowchart()
                     .then(repeat()
-                            .doActions(doActivity("action1"), doActivity("action2"))
+                            .execute(doActivity("action1"), doActivity("action2"))
                             .then(doActivity("action3"))
                             .repeatWhen("is Big?")
                             .exitOn("no"))
@@ -87,8 +87,8 @@ class RepeatFlowchartGeneratorTest {
         void simpleWithBothLabelsPredicate() {
             String flowchart = flowchart()
                     .then(repeat()
-                            .doActions(doActivity("action1"), doActivity("action2"))
-                            .doActions(doActivity("action3"))
+                            .execute(doActivity("action1"), doActivity("action2"))
+                            .execute(doActivity("action3"))
                             .repeatWhen("is Big?")
                             .isTrueFor("yes")
                             .exitOn("no"))
@@ -112,8 +112,8 @@ class RepeatFlowchartGeneratorTest {
         void withoutLabelPredicate() {
             String flowchart = flowchart()
                     .then(repeat()
-                            .doActions(doActivity("action1"), doActivity("action2"))
-                            .doActions(doActivity("action3"))
+                            .execute(doActivity("action1"), doActivity("action2"))
+                            .execute(doActivity("action3"))
                             .repeatWhen("is Big?")
                             .labelRepeat(doActivity("This is repeated")))
                     .create();
@@ -132,8 +132,8 @@ class RepeatFlowchartGeneratorTest {
         void withTrueLabelPredicate() {
             String flowchart = flowchart()
                     .then(repeat()
-                            .doActions(doActivity("action1"), doActivity("action2"))
-                            .doActions(doActivity("action3"))
+                            .execute(doActivity("action1"), doActivity("action2"))
+                            .execute(doActivity("action3"))
                             .repeatWhen("is Big?")
                             .isTrueFor("yes")
                             .labelRepeat(doActivity("This is repeated")))
@@ -153,8 +153,8 @@ class RepeatFlowchartGeneratorTest {
         void withExitLabelPredicate() {
             String flowchart = flowchart()
                     .then(repeat()
-                            .doActions(doActivity("action1"), doActivity("action2"))
-                            .doActions(doActivity("action3"))
+                            .execute(doActivity("action1"), doActivity("action2"))
+                            .execute(doActivity("action3"))
                             .repeatWhen("is Big?")
                             .exitOn("no")
                             .labelRepeat(doActivity("This is repeated")))
@@ -175,8 +175,8 @@ class RepeatFlowchartGeneratorTest {
         void withTrueAndExitLabels() {
             String flowchart = flowchart()
                     .then(repeat()
-                            .doActions(doActivity("action1"), doActivity("action2"))
-                            .doActions(doActivity("action3"))
+                            .execute(doActivity("action1"), doActivity("action2"))
+                            .execute(doActivity("action3"))
                             .repeatWhen("is Big?")
                             .isTrueFor("yes")
                             .labelRepeat(doActivity("Repeat"))

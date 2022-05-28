@@ -11,6 +11,7 @@ import java.util.*;
 
 import static com.hanfak.flowgen.Label.label;
 import static com.hanfak.flowgen.Nodes.*;
+import static com.hanfak.flowgen.Theme.NONE;
 import static java.lang.System.lineSeparator;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static net.sourceforge.plantuml.FileFormat.SVG;
@@ -33,12 +34,23 @@ public class FlowchartGenerator {
 
     // TODO: Add new constructor for overall config (<style>)
     public static FlowchartGenerator flowchart() {
-        return new FlowchartGenerator();
+        return new FlowchartGenerator().with(NONE);
+    }
+
+    public static FlowchartGenerator flowchartWith(Theme theme) {
+        return new FlowchartGenerator().with(theme);
+    }
+
+    private FlowchartGenerator with(Theme theme) {
+        if (!Objects.equals(theme, NONE)) {
+            this.actions.add("!theme %s%s".formatted(theme.value(), lineSeparator()));
+        }
+        return this;
     }
 
     // TODO: Duplicate with extra param for config
     public FlowchartGenerator withTitle(String title) { // TODO: Param should be string, and create object (TITLE) in line below
-        actions.add("title %s\n".formatted(title));
+        actions.add("title %s%s".formatted(title, lineSeparator()));
         return this;
     }
 
