@@ -28,7 +28,7 @@ public class Conditional implements Action {
         this.predicate = predicate;
     }
 
-    public static Conditional conditional(String predicate) {
+    public static Conditional ifIsTrue(String predicate) {
         return new Conditional(predicate);
     }
 

@@ -7,7 +7,7 @@ import java.nio.file.Paths;
 
 import static com.hanfak.flowgen.Activity.doActivity;
 import static com.hanfak.flowgen.FlowchartGenerator.flowchart;
-import static com.hanfak.flowgen.MultiConditional.multiConditional;
+import static com.hanfak.flowgen.MultiConditional.multiIf;
 
 public class FileCheckerTest {
     @Test
@@ -16,7 +16,7 @@ public class FileCheckerTest {
         flowchart()
                 .withStartNode()
                 .then(
-                        multiConditional("size?")
+                        multiIf("size?")
                                 .then("yes", doActivity("action") )
                                 .elseIf("no", "condition 1", "yes", doActivity("action1"), doActivity("action3"))
                                 .elseIf("no", "condition 2", "yes", doActivity("action2"))

@@ -188,7 +188,7 @@ class FlowchartGeneratorTest {
     // TODO: General styling use of <style>...</style>
     // TODO: use %n,\n or lineSeparator
     // TODO: connectors, detach, connected
-    // TODO: Grouping/partitions, config
+    // TODO: Grouping or partitions, config
     // TODO: arrows, css, detach, kill, hidden
     // TODO: Swimlanes
 

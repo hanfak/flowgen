@@ -25,8 +25,8 @@ class SplitProcessingFlowchartGeneratorTest {
                     .then(doActivity("action1"))
                     .then(split()
                             .andDo(activity("action2a"))
-                            .thenDo(activity("action2b"))
-                            .thenDo(activity("action2c")))
+                            .andDo(activity("action2b"))
+                            .andDo(activity("action2c")))
                     .then(doActivity("action3"))
                     .create();
             assertThat(flowchart).isEqualToNormalizingNewlines("""
@@ -49,8 +49,8 @@ class SplitProcessingFlowchartGeneratorTest {
                     .then(doActivity("action1"))
                     .then(split()
                             .andDo(activity("action2aa"), activity("action2ab"))
-                            .thenDo(activity("action2b"))
-                            .thenDo(activity("action2ca"), activity("action2cb"), activity("action2cc")))
+                            .andDo(activity("action2b"))
+                            .andDo(activity("action2ca"), activity("action2cb"), activity("action2cc")))
                     .then(doActivity("action3"))
                     .create();
             assertThat(flowchart).isEqualToNormalizingNewlines("""

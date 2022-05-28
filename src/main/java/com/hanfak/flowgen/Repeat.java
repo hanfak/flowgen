@@ -25,17 +25,6 @@ public class Repeat implements Action {
         return new Repeat();
     }
 
-    // TODO: should be withActivities
-    public Repeat execute(Action... actions) {
-        this.actions.addAll(List.of(actions));
-        return this;
-    }
-
-    public Repeat execute(Action action) {
-        this.actions.add(action);
-        return this;
-    }
-
     public Repeat and(Action... actions) {
         this.actions.addAll(List.of(actions));
         return this;

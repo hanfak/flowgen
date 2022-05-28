@@ -29,9 +29,9 @@ public class ParallelExamples {
         flowchart()
                 .withStartNode()
                 .then(loopWhen("is Big?")
-                        .doAction(
+                        .execute(
                                 loopWhen("is empty?")
-                                        .doActions(doActivity("action1"), doActivity("action2"))))
+                                        .execute(doActivity("action1"), doActivity("action2"))))
                 .then(doActivity("action3"))
                 .withStopNode()
                 .createFile(Paths.get("./test1.html"));

@@ -24,11 +24,7 @@ public class NotesExamples {
                           |_ prop2
                           |_ prop3
                         |_ Last line""")))
-                .then(doActivity("action1").with(note("""
-                            Example of simple table
-                            |= |= table |= header |
-                            | a | table | row |
-                            | b | table | row |""")))
+                .then(doActivity("action1").with(note("Example of simple table\n|= |= table |= header |\n| a | table | row |\n| b | table | row |")))
                 .withStopNode()
                 .createFile(Paths.get("./test1.html"));
     }

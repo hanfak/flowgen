@@ -21,7 +21,7 @@ class WhileFlowchartGeneratorTest {
     void simpleWhileLoop() {
         String flowchart = flowchart()
                 .then(loopWhen("is Big?")
-                        .doAction(doActivity("action1"))
+                        .execute(doActivity("action1"))
                         .then(doActivity("action2"))
                         .then(doActivity("action3"), andActivity("action4"))
                         .and(doActivity("action5"))
@@ -47,7 +47,7 @@ class WhileFlowchartGeneratorTest {
     void simpleWhileWithLabelForPredicateIsTrueLoop() {
         String flowchart = flowchart()
                 .then(loopWhen("is Big?").isTrueFor("yes")
-                        .doActions(doActivity("action1"), doActivity("action2")))
+                        .execute(doActivity("action1"), doActivity("action2")))
                 .then(doActivity("action3"))
                 .create();
         assertThat(flowchart).isEqualToNormalizingNewlines("""
@@ -64,7 +64,7 @@ class WhileFlowchartGeneratorTest {
     void simpleWhileWithLabelForPredicateIsFalseLoop() {
         String flowchart = flowchart()
                 .then(loopWhen("is Big?").exitLabel("no")
-                        .doActions(doActivity("action1"), doActivity("action2")))
+                        .execute(doActivity("action1"), doActivity("action2")))
                 .then(doActivity("action3"))
                 .create();
         assertThat(flowchart).isEqualToNormalizingNewlines("""
@@ -82,7 +82,7 @@ class WhileFlowchartGeneratorTest {
         String flowchart = flowchart()
                 .then(loopWhen("is Big?").isTrueFor("yes")
                         .exitLabel("no")
-                        .doActions(doActivity("action1"), doActivity("action2")))
+                        .execute(doActivity("action1"), doActivity("action2")))
                 .then(doActivity("action3"))
                 .create();
         assertThat(flowchart).isEqualToNormalizingNewlines("""

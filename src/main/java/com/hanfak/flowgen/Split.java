@@ -15,16 +15,6 @@ public class Split implements Action {
         return new Split();
     }
 
-    public Split thenDo(Action action) {
-        this.actions.add(List.of(action));
-        return this;
-    }
-
-    public Split thenDo(Action... actions) {
-        this.actions.addAll(List.of(List.of(actions)));
-        return this;
-    }
-
     public Split andDo(Action action) {
         this.actions.add(List.of(action));
         return this;

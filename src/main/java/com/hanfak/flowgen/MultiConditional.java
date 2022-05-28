@@ -19,7 +19,7 @@ public class MultiConditional implements Action {
         this.predicate = predicate;
     }
 
-    public static MultiConditional multiConditional(String predicate) {
+    public static MultiConditional multiIf(String predicate) {
         return new MultiConditional(predicate);
     }
 

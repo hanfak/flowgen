@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.nio.file.Paths;
 
 import static com.hanfak.flowgen.Activity.doActivity;
-import static com.hanfak.flowgen.Conditional.conditional;
+import static com.hanfak.flowgen.Conditional.ifIsTrue;
 import static com.hanfak.flowgen.FlowchartGenerator.flowchart;
 import static com.hanfak.flowgen.Label.label;
 
@@ -28,7 +28,7 @@ public class SynchronousActivitiesExamples {
     void ifWithGuardClauseNoReturn() {
         flowchart()
                 .withStartNode()
-                .then(conditional("is big?")
+                .then(ifIsTrue("is big?")
                         .then("yes", doActivity("action1"), label("next"), doActivity("action2"))
                         .exitLabel("Carry On"))
                 .then(doActivity("action3"))
