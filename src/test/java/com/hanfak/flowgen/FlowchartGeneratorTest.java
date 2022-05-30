@@ -11,6 +11,7 @@ import java.nio.file.Path;
 import static com.hanfak.flowgen.Activity.doActivity;
 import static com.hanfak.flowgen.FlowchartGenerator.flowchart;
 import static com.hanfak.flowgen.FlowchartGenerator.flowchartWith;
+import static com.hanfak.flowgen.Exit.exit;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class FlowchartGeneratorTest {
@@ -230,11 +231,30 @@ class FlowchartGeneratorTest {
                     @enduml""");
         }
     }
+
+    @Nested
+    class Detach {
+        @Test
+        void stopAndHideArrowAfterAction() {
+            String flowchart = flowchart()
+                    .withStartNode()
+                    .then(doActivity("action"))
+                    .then(exit())
+                    .create();
+            assertThat(flowchart).isEqualToNormalizingNewlines("""
+                    @startuml
+                    start
+                    :action;
+                    -[hidden]->
+                    detach
+                    @enduml""");
+        }
+    }
     // TODO: General styling use of <style>...</style>
     // TODO: use %n,\n or lineSeparator
-    // TODO: detach, connected
+    // TODO: connected
     // TODO: Grouping or partitions, config
-    // TODO: arrows, css, detach, kill, hidden
+    // TODO: arrows, css, kill, hidden
     // TODO: Swimlanes
 
 

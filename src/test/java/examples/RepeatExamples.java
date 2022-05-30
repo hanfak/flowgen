@@ -6,8 +6,10 @@ import java.nio.file.Paths;
 
 import static com.hanfak.flowgen.Activity.doActivity;
 import static com.hanfak.flowgen.Activity.thenActivity;
+import static com.hanfak.flowgen.Conditional.ifIsTrue;
 import static com.hanfak.flowgen.FlowchartGenerator.flowchart;
 import static com.hanfak.flowgen.Repeat.repeat;
+import static com.hanfak.flowgen.Exit.exit;
 
 public class RepeatExamples {
 
@@ -50,6 +52,24 @@ public class RepeatExamples {
                 .then(repeat()
                         .and(doActivity("action1"), thenActivity("action2"))
                         .and(doActivity("action3"))
+                        .repeatWhen("is Big?").isTrueFor("yes")
+                        .labelRepeat(doActivity("Repeat"))
+                        .exitOn("no"))
+                .then(doActivity("action3"))
+                .withStopNode()
+                .createFile(Paths.get("./test1.html"));
+    }
+
+    @Test
+    void simpleRepeatLoopWithInnerIf() {
+        flowchart()
+                .withStartNode()
+                .then(repeat()
+                        .and(doActivity("action1"), thenActivity("action2"))
+                        .and(doActivity("action3"))
+                        .and(ifIsTrue("is big?")
+                                .then("yes", doActivity("action55"), doActivity("action66"), exit())
+                                .orElse("no", doActivity("action77")))
                         .repeatWhen("is Big?").isTrueFor("yes")
                         .labelRepeat(doActivity("Repeat"))
                         .exitOn("no"))

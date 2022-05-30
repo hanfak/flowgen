@@ -6,6 +6,7 @@ import java.nio.file.Paths;
 
 import static com.hanfak.flowgen.Activity.*;
 import static com.hanfak.flowgen.FlowchartGenerator.flowchart;
+import static com.hanfak.flowgen.Exit.exit;
 import static com.hanfak.flowgen.While.loopWhen;
 
 public class WhileExamples {
@@ -17,6 +18,16 @@ public class WhileExamples {
                         .execute(activity("action1"), thenActivity("action2")))
                 .then(doActivity("action3"))
                 .withStopNode()
+                .createFile(Paths.get("./test1.html"));
+    }
+
+    @Test
+    void infiniteWhileLoop() {
+        flowchart()
+                .withStartNode()
+                .then(loopWhen("is Big?").isTrueFor("yes")
+                        .execute(activity("action1"), thenActivity("action2")))
+                .then(exit())
                 .createFile(Paths.get("./test1.html"));
     }
 
