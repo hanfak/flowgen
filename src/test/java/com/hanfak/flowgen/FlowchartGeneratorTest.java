@@ -123,6 +123,7 @@ class FlowchartGeneratorTest {
 
     @Nested
     class LabelOnConnectors {
+        // TODO: labels be part of Activity class?
         @Test
         void labelConnectorsBetweenActions() {
             String flowchart = flowchart()
@@ -185,9 +186,53 @@ class FlowchartGeneratorTest {
                     @enduml""");
         }
     }
+
+    @Nested
+    class Connectors {
+        // TODO: Styliing on connector
+        @Test
+        void detachedConnectorBetweenActions() {
+            String flowchart = flowchart()
+                    .withStartNode()
+                    .then(doActivity("action"))
+                    .withDetachedConnector("A")
+                    .then(doActivity("action"))
+                    .withStopNode()
+                    .create();
+            assertThat(flowchart).isEqualToNormalizingNewlines("""
+                    @startuml
+                    start
+                    :action;
+                    (A)
+                    detach
+                    (A)
+                    :action;
+                    stop
+                    @enduml""");
+        }
+
+        @Test
+        void nonDetachedConnectorBetweenActions() {
+            String flowchart = flowchart()
+                    .withStartNode()
+                    .then(doActivity("action"))
+                    .withConnector("A")
+                    .then(doActivity("action"))
+                    .withStopNode()
+                    .create();
+            assertThat(flowchart).isEqualToNormalizingNewlines("""
+                    @startuml
+                    start
+                    :action;
+                    (A)
+                    :action;
+                    stop
+                    @enduml""");
+        }
+    }
     // TODO: General styling use of <style>...</style>
     // TODO: use %n,\n or lineSeparator
-    // TODO: connectors, detach, connected
+    // TODO: detach, connected
     // TODO: Grouping or partitions, config
     // TODO: arrows, css, detach, kill, hidden
     // TODO: Swimlanes

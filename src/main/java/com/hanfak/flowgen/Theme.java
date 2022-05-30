@@ -1,27 +1,28 @@
 package com.hanfak.flowgen;
 
+// TODO: Deletes text on arrow ie using label
 public enum Theme {
 
     NONE("none"),
     AMIGA("amiga"),
     AWS_ORANGE("aws-orange"),
-    BLACK_KNIGHT("black-knight"),
+    BLACK_KNIGHT("black-knight"),//n
     BLUEGRAY("bluegray"),
     BLUEPRINT("blueprint"),
     CERULEAN("cerulean"),
     CERULEAN_OUTLINE("cerulean-outline"),
     CRT_AMBER("crt-amber"),
     CRT_GREEN("crt-green"),
-    CYBORG("cyborg"),
-    CYBORG_OUTLINE("cyborg-outline"),
-    HACKER("hacker"),
+    CYBORG("cyborg"), //n
+    CYBORG_OUTLINE("cyborg-outline"), //n
+    HACKER("hacker"), //n
     LIGHTGRAY("lightgray"),
     MARS("mars"),
     MATERIA("materia"),
     MATERIA_OUTLINE("materia-outline"),
     METAL("metal"),
     MIMEOGRAPH("mimeograph"),
-    MINTY("minty"),
+    MINTY("minty"), //n
     PLAIN("plain"),
     REDDRESS_DARKBLUE("reddress-darkblue"),
     REDDRESS_DARKGREEN("reddress-darkgreen"),
@@ -31,16 +32,16 @@ public enum Theme {
     REDDRESS_LIGHTGREEN("reddress-lightgreen"),
     REDDRESS_LIGHTORANGE("reddress-lightorange"),
     REDDRESS_LIGHTRED("reddress-lightred"),
-    SANDSTONE("sandstone"),
+    SANDSTONE("sandstone"), //n
     SILVER("silver"),
-    SKETCHY("sketchy"),
+    SKETCHY("sketchy"), //n
     SKETCHY_OUTLINE("sketchy-outline"),
-    SPACELAB("spacelab"),
-    SPACELAB_WHITE("spacelab-white"),
-    SUPERHERO("superhero"),
-    SUPERHERO_OUTLINE("superhero-outline"),
+    SPACELAB("spacelab"), //n
+    SPACELAB_WHITE("spacelab-white"),//n
+    SUPERHERO("superhero"), //n
+    SUPERHERO_OUTLINE("superhero-outline"), //n
     TOY("toy"),
-    UNITED("united"),
+    UNITED("united"), //n
     VIBRANT("vibrant");
 
     private final String value;

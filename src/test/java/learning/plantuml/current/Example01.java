@@ -18,19 +18,22 @@ public class Example01 {
 //
         String source = """
                 @startuml
-                !theme spacelab
+                !theme amiga
                 """;
         source += """
                 
                 title PlantUML workflow
                 
                 start
+                -> You can put text on arrows;
                 group Initialization\s
                     repeat:
                         :action1]
-                        floating note right: This is a note
+                        floating note left: This is a note
                         :action2;
+                        -> then;
                     repeat while
+                    -> then;
                     :action3>
                 end group
                 group nextStep\s

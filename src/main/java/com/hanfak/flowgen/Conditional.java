@@ -31,13 +31,13 @@ public class Conditional implements Action {
     public static Conditional ifIsTrue(String predicate) {
         return new Conditional(predicate);
     }
-
+// TODO: arg as builder, factory takes action,
     public Conditional then(String predicateOutcome, Action... actions) {
         this.thenActivity.addAll(List.of(actions));
         this.predicatePassOutcome = predicateOutcome;
         return this;
     }
-
+    // TODO: arg as builder, factory takes action,
     public Conditional orElse(String predicateOutcome,  Action... actions) {
         this.elseActivity.addAll(List.of(actions));
         this.predicateFailOutcome = predicateOutcome;

@@ -93,6 +93,17 @@ public class FlowchartGenerator {
         return this;
     }
 
+    public FlowchartGenerator withDetachedConnector(String value) {
+        this.actions.add("(%s)%ndetach%n(%s)%n".formatted(value, value));
+        return this;
+    }
+
+
+    public FlowchartGenerator withConnector(String value) {
+        this.actions.add("(%s)%n".formatted(value));
+        return this;
+    }
+
     public String create() {
         String startUml = "@startuml" + lineSeparator();
         String endUml = "@enduml";

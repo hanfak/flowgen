@@ -19,6 +19,8 @@ public class Activity implements Action {
         return new Activity(name);
     }
 
+    // TODO: pass in Content factory (build to string). a builder that build a multiline content (using queue) and have methods for bold, tables, list, lines etc
+
     public static Activity activity(String name) {
         return new Activity(name);
     }
