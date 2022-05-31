@@ -18,7 +18,7 @@ public class Example01 {
 //
         String source = """
                 @startuml
-                !theme amiga
+                skin rose
                 """;
         source += """
                 
@@ -53,8 +53,10 @@ public class Example01 {
                     end fork
                     if (color?) is (<color:red>red) then
                         :print red;
-                    else\s
+                        detach
+                    else
                         :print not red;
+                        detach
                     endif
                 end group
                 """;

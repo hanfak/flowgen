@@ -2,47 +2,47 @@ package com.hanfak.flowgen;
 
 // TODO: Deletes text on arrow ie using label
 public enum Theme {
-
-    NONE("none"),
-    AMIGA("amiga"),
-    AWS_ORANGE("aws-orange"),
-    BLACK_KNIGHT("black-knight"),//n
-    BLUEGRAY("bluegray"),
-    BLUEPRINT("blueprint"),
-    CERULEAN("cerulean"),
-    CERULEAN_OUTLINE("cerulean-outline"),
-    CRT_AMBER("crt-amber"),
-    CRT_GREEN("crt-green"),
-    CYBORG("cyborg"), //n
-    CYBORG_OUTLINE("cyborg-outline"), //n
-    HACKER("hacker"), //n
-    LIGHTGRAY("lightgray"),
-    MARS("mars"),
-    MATERIA("materia"),
-    MATERIA_OUTLINE("materia-outline"),
-    METAL("metal"),
-    MIMEOGRAPH("mimeograph"),
-    MINTY("minty"), //n
-    PLAIN("plain"),
-    REDDRESS_DARKBLUE("reddress-darkblue"),
-    REDDRESS_DARKGREEN("reddress-darkgreen"),
-    REDDRESS_DARKORANGE("reddress-darkorange"),
-    REDDRESS_DARKRED("reddress-darkred"),
-    REDDRESS_LIGHTBLUE("reddress-lightblue"),
-    REDDRESS_LIGHTGREEN("reddress-lightgreen"),
-    REDDRESS_LIGHTORANGE("reddress-lightorange"),
-    REDDRESS_LIGHTRED("reddress-lightred"),
-    SANDSTONE("sandstone"), //n
-    SILVER("silver"),
-    SKETCHY("sketchy"), //n
-    SKETCHY_OUTLINE("sketchy-outline"),
-    SPACELAB("spacelab"), //n
-    SPACELAB_WHITE("spacelab-white"),//n
-    SUPERHERO("superhero"), //n
-    SUPERHERO_OUTLINE("superhero-outline"), //n
-    TOY("toy"),
-    UNITED("united"), //n
-    VIBRANT("vibrant");
+    CLASSIC("skin rose"),
+    NONE("!theme none"),
+    AMIGA("!theme amiga"),
+    AWS_ORANGE("!theme aws-orange"),
+    BLACK_KNIGHT("!theme black-knight"),//n
+    BLUEGRAY("!theme bluegray"),
+    BLUEPRINT("!theme blueprint"),
+    CERULEAN("!theme cerulean"),
+    CERULEAN_OUTLINE("!theme cerulean-outline"),
+    CRT_AMBER("!theme crt-amber"),
+    CRT_GREEN("!theme crt-green"),
+    CYBORG("!theme cyborg"), //n
+    CYBORG_OUTLINE("!theme cyborg-outline"), //n
+    HACKER("!theme hacker"), //n
+    LIGHTGRAY("!theme lightgray"),
+    MARS("!theme mars"),
+    MATERIA("!theme materia"),
+    MATERIA_OUTLINE("!theme materia-outline"),
+    METAL("!theme metal"),
+    MIMEOGRAPH("!theme mimeograph"),
+    MINTY("!theme minty"), //n
+    PLAIN("!theme plain"),
+    REDDRESS_DARKBLUE("!theme reddress-darkblue"),
+    REDDRESS_DARKGREEN("!theme reddress-darkgreen"),
+    REDDRESS_DARKORANGE("!theme reddress-darkorange"),
+    REDDRESS_DARKRED("!theme reddress-darkred"),
+    REDDRESS_LIGHTBLUE("!theme reddress-lightblue"),
+    REDDRESS_LIGHTGREEN("!theme reddress-lightgreen"),
+    REDDRESS_LIGHTORANGE("!theme reddress-lightorange"),
+    REDDRESS_LIGHTRED("!theme reddress-lightred"),
+    SANDSTONE("!theme sandstone"), //n
+    SILVER("!theme silver"),
+    SKETCHY("!theme sketchy"), //n
+    SKETCHY_OUTLINE("!theme sketchy-outline"),
+    SPACELAB("!theme spacelab"), //n
+    SPACELAB_WHITE("!theme spacelab-white"),//n
+    SUPERHERO("!theme superhero"), //n
+    SUPERHERO_OUTLINE("!theme superhero-outline"), //n
+    TOY("!theme toy"),
+    UNITED("!theme united"), //n
+    VIBRANT("!theme vibrant");
 
     private final String value;
 

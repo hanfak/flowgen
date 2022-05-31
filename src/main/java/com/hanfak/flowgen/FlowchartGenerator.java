@@ -43,7 +43,7 @@ public class FlowchartGenerator {
 
     private FlowchartGenerator with(Theme theme) {
         if (!Objects.equals(theme, NONE)) {
-            this.actions.add("!theme %s%s".formatted(theme.value(), lineSeparator()));
+            this.actions.add("%s%s".formatted(theme.value(), lineSeparator()));
         }
         return this;
     }

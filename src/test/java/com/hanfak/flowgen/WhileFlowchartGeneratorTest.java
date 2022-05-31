@@ -11,7 +11,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 class WhileFlowchartGeneratorTest {
 
     // TODO: add label on loop connector  backward:This is repeated;
-    // TODO: add detach to form infinite loop (static method infniiteLoop) -[hidden]->
     // TODO: styling - diamond, line, colour
     // TODO: Label at start of while action
     // TODO: isTrue not set,

@@ -12,6 +12,7 @@ import static com.hanfak.flowgen.Activity.doActivity;
 import static com.hanfak.flowgen.FlowchartGenerator.flowchart;
 import static com.hanfak.flowgen.FlowchartGenerator.flowchartWith;
 import static com.hanfak.flowgen.Exit.exit;
+import static com.hanfak.flowgen.Theme.SPACELAB;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class FlowchartGeneratorTest {
@@ -171,7 +172,7 @@ class FlowchartGeneratorTest {
 
         @Test
         void flowchartWithAvailablePlantUmlThemes() {
-            String flowchart = flowchartWith(Theme.SPACELAB)
+            String flowchart = flowchartWith(SPACELAB)
                     .withTitle("Title")
                     .withStartNode()
                     .then(doActivity("action1"))
@@ -250,11 +251,11 @@ class FlowchartGeneratorTest {
                     @enduml""");
         }
     }
+
     // TODO: General styling use of <style>...</style>
     // TODO: use %n,\n or lineSeparator
-    // TODO: connected
     // TODO: Grouping or partitions, config
-    // TODO: arrows, css, kill, hidden
+    // TODO: arrows, css, kill, hidden, dotted|dashed|plain|bold|hidden|norank|single|thickness
     // TODO: Swimlanes
 
 
