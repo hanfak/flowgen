@@ -10,11 +10,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class RepeatFlowchartGeneratorTest {
 
-    // TODO: styling - diamond, line, colour
     // TODO: Label at start of repeat action
     // TODO: break in repeat, merge with before next action outside of repeat
     // TODO: use not (%s) instead of arrow for exit label, rename to not
+    // TODO: arrow style on repeat section, on branch after action in repeat section, after repeat finishes, at start of repeat,
     // TODO: step builder to force correct usage
+    // TODO: styling - diamond, line, colour
+
     @Nested
     class Simple {
 

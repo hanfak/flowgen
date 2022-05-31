@@ -12,6 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ParallelProcessingFlowchartGeneratorTest {
     // TODO: merge 2 and more than 2 actions
     // TODO: end one parallel action, use node ,detach, kill
+    // TODO: arrow style after start of fork or fork again,
     // TODO: label on end fork
     // TODO: styling on fork
     // TODO: config

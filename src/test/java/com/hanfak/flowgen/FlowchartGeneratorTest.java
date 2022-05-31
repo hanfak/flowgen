@@ -51,6 +51,7 @@ class FlowchartGeneratorTest {
     @Nested
     class Nodes {
         // TODO: label on start node for preconditions
+        // TODO: arrow style after start node
         @Test
         void createOneActivityWithStartAndStopNodes() {
             String flowchart = flowchart()
@@ -255,7 +256,7 @@ class FlowchartGeneratorTest {
     // TODO: General styling use of <style>...</style>
     // TODO: use %n,\n or lineSeparator
     // TODO: Grouping or partitions, config
-    // TODO: arrows, css, kill, hidden, dotted|dashed|plain|bold|hidden|norank|single|thickness
+    // TODO: arrows, css, kill, hidden, dotted|dashed|bold|hidden|
     // TODO: Swimlanes
 
 

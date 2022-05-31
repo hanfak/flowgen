@@ -12,6 +12,7 @@ class ConditionalFlowChartGeneratorTest {
 
     // TODO: No predicate outcome show for then branch
     // TODO: then without predicateOutcome
+    // TODO: arrow style after than, after end if
     // TODO: styling - diamond, line, colour
     @Test
     void ifELseWithPredicatesOnBothPaths() {

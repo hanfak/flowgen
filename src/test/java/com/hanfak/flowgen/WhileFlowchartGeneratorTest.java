@@ -11,11 +11,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 class WhileFlowchartGeneratorTest {
 
     // TODO: add label on loop connector  backward:This is repeated;
-    // TODO: styling - diamond, line, colour
     // TODO: Label at start of while action
     // TODO: isTrue not set,
     // TODO: exitLabel not set,
+    // TODO: arrow style after while statment, after end while
     // TODO: step builder to force correct usage
+    // TODO: styling - diamond, line, colour
+
     @Test
     void simpleWhileLoop() {
         String flowchart = flowchart()

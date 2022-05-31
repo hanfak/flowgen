@@ -8,6 +8,7 @@ import static com.hanfak.flowgen.FlowchartGenerator.flowchart;
 import static com.hanfak.flowgen.MultiConditional.multiIf;
 import static org.assertj.core.api.Assertions.assertThat;
 
+// TODO: combine with conditional
 class MultipleConditionalFlowchartGeneratorTest {
     // TODO: better naming and implementation
     // TODO: No predicate outcome show for then branch
@@ -15,6 +16,7 @@ class MultipleConditionalFlowchartGeneratorTest {
     // TODO: No predicate outcome show for multiple elseif branch
     // TODO: No predicate outcome show for orelse branch
     // TODO: guard clause
+    // TODO: arrow style after if, after elseif, after else, after end if
     // TODO: inline styling
     @Test
     void multipleIfELseWithPredicatesOnAllPaths() {

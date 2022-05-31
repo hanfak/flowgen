@@ -197,4 +197,6 @@ class ActivitiesTest {
             }
         }
     }
+
+    // TODO: Arrow styling
 }
