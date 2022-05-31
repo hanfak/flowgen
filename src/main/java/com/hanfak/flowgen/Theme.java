@@ -1,28 +1,25 @@
 package com.hanfak.flowgen;
 
-// TODO: Deletes text on arrow ie using label
 public enum Theme {
     CLASSIC("skin rose"),
+    DEBUG("skin debug"),
+    PLANT_UML("skin plantuml"),
+    PLANT_UML_TWO("skin plantuml2"),
     NONE("!theme none"),
     AMIGA("!theme amiga"),
     AWS_ORANGE("!theme aws-orange"),
-    BLACK_KNIGHT("!theme black-knight"),//n
     BLUEGRAY("!theme bluegray"),
     BLUEPRINT("!theme blueprint"),
     CERULEAN("!theme cerulean"),
     CERULEAN_OUTLINE("!theme cerulean-outline"),
     CRT_AMBER("!theme crt-amber"),
     CRT_GREEN("!theme crt-green"),
-    CYBORG("!theme cyborg"), //n
-    CYBORG_OUTLINE("!theme cyborg-outline"), //n
-    HACKER("!theme hacker"), //n
     LIGHTGRAY("!theme lightgray"),
     MARS("!theme mars"),
     MATERIA("!theme materia"),
     MATERIA_OUTLINE("!theme materia-outline"),
     METAL("!theme metal"),
     MIMEOGRAPH("!theme mimeograph"),
-    MINTY("!theme minty"), //n
     PLAIN("!theme plain"),
     REDDRESS_DARKBLUE("!theme reddress-darkblue"),
     REDDRESS_DARKGREEN("!theme reddress-darkgreen"),
@@ -32,17 +29,24 @@ public enum Theme {
     REDDRESS_LIGHTGREEN("!theme reddress-lightgreen"),
     REDDRESS_LIGHTORANGE("!theme reddress-lightorange"),
     REDDRESS_LIGHTRED("!theme reddress-lightred"),
-    SANDSTONE("!theme sandstone"), //n
     SILVER("!theme silver"),
-    SKETCHY("!theme sketchy"), //n
     SKETCHY_OUTLINE("!theme sketchy-outline"),
-    SPACELAB("!theme spacelab"), //n
-    SPACELAB_WHITE("!theme spacelab-white"),//n
-    SUPERHERO("!theme superhero"), //n
-    SUPERHERO_OUTLINE("!theme superhero-outline"), //n
     TOY("!theme toy"),
-    UNITED("!theme united"), //n
-    VIBRANT("!theme vibrant");
+    VIBRANT("!theme vibrant"),
+
+    // These themes hide the labels on arrows
+    BLACK_KNIGHT("!theme black-knight"),
+    CYBORG("!theme cyborg"),
+    CYBORG_OUTLINE("!theme cyborg-outline"),
+    HACKER("!theme hacker"),
+    MINTY("!theme minty"),
+    SANDSTONE("!theme sandstone"),
+    SKETCHY("!theme sketchy"),
+    SPACELAB("!theme spacelab"),
+    SPACELAB_WHITE("!theme spacelab-white"),
+    SUPERHERO_OUTLINE("!theme superhero-outline"),
+    SUPERHERO("!theme superhero"),
+    UNITED("!theme united");
 
     private final String value;
 

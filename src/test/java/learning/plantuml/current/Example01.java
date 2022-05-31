@@ -18,7 +18,7 @@ public class Example01 {
 //
         String source = """
                 @startuml
-                skin rose
+                skin strictuml
                 """;
         source += """
                 

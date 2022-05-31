@@ -253,16 +253,17 @@ class FlowchartGeneratorTest {
         }
     }
 
-    // TODO: General styling use of <style>...</style>
+
     // TODO: use %n,\n or lineSeparator
     // TODO: Grouping or partitions, config
     // TODO: arrows, css, kill, hidden, dotted|dashed|bold|hidden|
     // TODO: Swimlanes
-
-
-    // TODO: Add custom themes
     // TODO: colours on activities, box type
-    // TODO: syling on actions etc using <color:red> etc
+
+
+    // TODO: General styling use of <style>...</style>
+    // TODO: Add custom themes
+    // TODO: styling on actions etc using <color:red> etc
     // TODO: STyling on text -> add to individual words or or substring
     // TODO: config, diamond style
 
