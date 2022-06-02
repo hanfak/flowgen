@@ -266,6 +266,10 @@ class FlowchartGeneratorTest {
     // TODO: Swimlanes
     // TODO: colours on activities, box type
     // TODO: All todos throughout code base
+    // TODO: caption https://plantuml.com/commons#8413c683b4b27cc3
+    // TODO: header and footer
+    // TODO: legend
+    // TODO: zoom
 
     // NExt release
     // TODO: General styling use of <style>...</style>

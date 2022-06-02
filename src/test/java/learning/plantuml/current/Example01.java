@@ -21,9 +21,12 @@ public class Example01 {
                 skin rose
                 """;
         source += """
-                
+                legend right
+                  Short
+                  legend
+                endlegend
                 title PlantUML workflow
-                
+                caption figure 1
                 start
                 -> You can put text on arrows;
                 group Initialization
