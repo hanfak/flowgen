@@ -18,7 +18,7 @@ public class Example01 {
 //
         String source = """
                 @startuml
-                skin strictuml
+                skin rose
                 """;
         source += """
                 
@@ -29,7 +29,7 @@ public class Example01 {
                 group Initialization
                     repeat:
                         -[dotted]->
-                        :action1]
+                        :action1\nhello]
                         floating note left: This is a note
                         :action2;
                         -[dashed]-> then;

@@ -15,7 +15,7 @@ public class IfExamples {
     @Test
     void ifWithGuardClauseReturnEarly() {
         flowchart()
-                .withTitle("Hello")
+                .withTitle("Hello\nbye")
                 .withStartNode()
                 .then(ifIsTrue("is big?")
                         .then("yes", doActivity("action1"), doActivity("action2"), exit()))

@@ -13,7 +13,6 @@ class ActivitiesTest {
     @Nested
     class SynchronousActivityFlow {
 
-        // TODO: multi line activity contents
         @Test
         void createOneActivity() {
             String flowchart = flowchart()

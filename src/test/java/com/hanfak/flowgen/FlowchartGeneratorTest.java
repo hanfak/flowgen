@@ -28,7 +28,7 @@ class FlowchartGeneratorTest {
 
     @Nested
     class Title {
-        // TODO: multi line title
+        // TODO: multi line title (not possible yet)
         // TODO: Font colour "title <color:red><size:50>Hello" -> single, multiple styling
         @Test
         void titleAtTopOfFlowchart() {
@@ -40,7 +40,9 @@ class FlowchartGeneratorTest {
                     .create();
             assertThat(flowchart).isEqualToNormalizingNewlines("""
                     @startuml
-                    title Title
+                    title
+                    Title
+                    end title
                     start
                     :action1;
                     :action2;
@@ -164,7 +166,9 @@ class FlowchartGeneratorTest {
                     .create();
             assertThat(flowchart).isEqualToNormalizingNewlines("""
                     @startuml
-                    title Title
+                    title
+                    Title
+                    end title
                     start
                     :action1;
                     :action2;
@@ -182,7 +186,9 @@ class FlowchartGeneratorTest {
             assertThat(flowchart).isEqualToNormalizingNewlines("""
                     @startuml
                     !theme spacelab
-                    title Title
+                    title
+                    Title
+                    end title
                     start
                     :action1;
                     :action2;
@@ -256,20 +262,24 @@ class FlowchartGeneratorTest {
 
     // TODO: use %n,\n or lineSeparator
     // TODO: Grouping or partitions, config
-    // TODO: arrows, css, kill, hidden, dotted|dashed|bold|hidden|
+    // TODO: arrows, kill, hidden, dotted|dashed|bold|hidden|
     // TODO: Swimlanes
     // TODO: colours on activities, box type
+    // TODO: All todos throughout code base
 
-
+    // NExt release
     // TODO: General styling use of <style>...</style>
+    // TODO: STyling on text -> add to individual words or or substring
     // TODO: Add custom themes
     // TODO: styling on actions etc using <color:red> etc
-    // TODO: STyling on text -> add to individual words or or substring
-    // TODO: config, diamond style
 
+    // Further releases
+    // TODO: skinparams for styling
     // TODO: add links to activities, notes, partitions(low priority)
     // TODO: switch (low priority)
     // TODO: set PLANTUML_LIMIT_SIZE=8192 (low priority)
+    // TODO: config, diamond style
+
 
     // TODO: arrow direction ??? Not available yet
 

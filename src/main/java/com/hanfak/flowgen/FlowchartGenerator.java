@@ -50,7 +50,7 @@ public class FlowchartGenerator {
 
     // TODO: Duplicate with extra param for config
     public FlowchartGenerator withTitle(String title) { // TODO: Param should be string, and create object (TITLE) in line below
-        actions.add("title %s%s".formatted(title, lineSeparator()));
+        actions.add("title%n%s%nend title%n".formatted(title));
         return this;
     }
 
