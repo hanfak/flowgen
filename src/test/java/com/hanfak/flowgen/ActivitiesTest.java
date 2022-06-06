@@ -195,6 +195,31 @@ class ActivitiesTest {
                 }
             }
         }
+
+        @Nested
+        class WithSwimLane {
+            @Test
+            void createMultipleActivitiesWithSimpleDefaultNoteInSwimLanes() {
+                String flowchart = flowchart()
+                        .then(doActivity("action").with(note("A Note")).inSwimLane("S1"))
+                        .then(doActivity("action 1").with(note("A Note 1")).inSwimLane("S2"))
+                        .create();
+                assertThat(flowchart).isEqualToNormalizingNewlines("""
+                        @startuml
+                        |S1|
+                        |S1|
+                        :action;
+                        note right
+                        A Note
+                        end note
+                        |S2|
+                        :action 1;
+                        note right
+                        A Note 1
+                        end note
+                        @enduml""");
+            }
+        }
     }
 
     @Nested

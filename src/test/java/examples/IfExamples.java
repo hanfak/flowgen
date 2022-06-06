@@ -10,7 +10,7 @@ import static com.hanfak.flowgen.FlowchartGenerator.flowchart;
 import static com.hanfak.flowgen.Label.label;
 import static com.hanfak.flowgen.Exit.exit;
 
-public class IfExamples {
+class IfExamples {
 
     @Test
     void ifWithGuardClauseReturnEarly() {

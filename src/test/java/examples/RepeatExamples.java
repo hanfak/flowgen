@@ -11,7 +11,7 @@ import static com.hanfak.flowgen.FlowchartGenerator.flowchart;
 import static com.hanfak.flowgen.Repeat.repeat;
 import static com.hanfak.flowgen.Exit.exit;
 
-public class RepeatExamples {
+class RepeatExamples {
 
     @Test
     void simpleRepeatLoop() {

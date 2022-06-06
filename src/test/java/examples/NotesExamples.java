@@ -9,7 +9,7 @@ import static com.hanfak.flowgen.Activity.doActivity;
 import static com.hanfak.flowgen.FlowchartGenerator.flowchart;
 import static com.hanfak.flowgen.Note.note;
 
-public class NotesExamples {
+class NotesExamples {
 
     @Test
     void notesWithNotesOnMultipleActivities() {

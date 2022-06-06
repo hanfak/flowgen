@@ -11,7 +11,7 @@ import static com.hanfak.flowgen.Label.label;
 import static java.lang.String.format;
 import static java.lang.System.lineSeparator;
 
-public class SynchronousActivitiesExamples {
+class SynchronousActivitiesExamples {
 
     @Test
     void multiActivitiesWithLabelsOnArrows() {

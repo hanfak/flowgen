@@ -11,7 +11,7 @@ import static com.hanfak.flowgen.ParallelProcess.doInParallel;
 import static com.hanfak.flowgen.Exit.exit;
 import static com.hanfak.flowgen.While.loopWhen;
 
-public class ParallelExamples {
+class ParallelExamples {
 
     @Test
     void nestedParallelActivitiesIncludingAsyncProcess() {

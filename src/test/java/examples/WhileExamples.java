@@ -9,7 +9,8 @@ import static com.hanfak.flowgen.FlowchartGenerator.flowchart;
 import static com.hanfak.flowgen.Exit.exit;
 import static com.hanfak.flowgen.While.loopWhen;
 
-public class WhileExamples {
+class WhileExamples {
+
     @Test
     void simpleWhileLoop() {
         flowchart()

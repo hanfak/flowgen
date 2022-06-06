@@ -9,7 +9,7 @@ import static com.hanfak.flowgen.FlowchartGenerator.flowchart;
 import static com.hanfak.flowgen.ParallelProcess.doInParallel;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ParallelProcessingFlowchartGeneratorTest {
+class ParallelProcessingFlowchartGeneratorTest {
     // TODO: merge 2 and more than 2 actions
     // TODO: end one parallel action, use node ,detach, kill
     // TODO: arrow style after start of fork or fork again,

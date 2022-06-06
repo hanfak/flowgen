@@ -263,8 +263,7 @@ class FlowchartGeneratorTest {
 
     // TODO: use %n,\n or lineSeparator
     // TODO: arrows, kill, hidden, dotted|dashed|bold|hidden|
-    // TODO: Swimlanes
-    // TODO: All todos throughout code base
+    // TODO: All todos throughout code base, incl failing tests
     // TODO: caption https://plantuml.com/commons#8413c683b4b27cc3
     // TODO: header and footer
     // TODO: legend
@@ -279,6 +278,7 @@ class FlowchartGeneratorTest {
 
 
     // Further releases
+    // TODO: activity uses a builder to add styling, pass in Content factory (build to string). a builder that build a multiline content (using queue) and have methods for bold, tables, list, lines etc
     // TODO: skinparams for styling
     // TODO: add links to activities, notes, partitions(low priority)
     // TODO: switch (low priority)

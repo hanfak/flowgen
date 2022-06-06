@@ -8,7 +8,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import static com.hanfak.flowgen.Activity.activity;
 import static com.hanfak.flowgen.Group.group;
 import static com.hanfak.flowgen.Label.label;
 import static com.hanfak.flowgen.Nodes.*;
@@ -19,6 +22,9 @@ import static net.sourceforge.plantuml.FileFormat.SVG;
 // TODO: Instead of methods starting with, just use then() and overload
 //
 public class FlowchartGenerator {
+
+    public static final Pattern SWIM_LANE_REGEX = Pattern.compile("(\\|.+?\\|)");
+
     // Impl queue as linkedlist: Deque<E> queue = new LinkedList<>();
     // Store all activities put in queue, and certain actions (groups, if, repeat etc) will have their on subqueue
     // When creating string, get first item from queue (pop), if contains subqueue, do this queue unitl finished then hand back to main queue
@@ -123,11 +129,14 @@ public class FlowchartGenerator {
     public String create() {
         String startUml = "@startuml" + lineSeparator();
         String endUml = "@enduml";
-        StringBuilder finished = flowchartString
-                .append(startUml)
-                .append(String.join("", this.actions).replaceAll("(?m)^[ \t]*\r?\n", ""))
-                .append(endUml);
-        return finished.toString();
+
+        String details = String.join("", this.actions).replaceAll("(?m)^[ \t]*\r?\n", "");
+        StringBuilder start = flowchartString.append(startUml);
+        Matcher matchFirstSwimLane = SWIM_LANE_REGEX.matcher(details);
+        if (matchFirstSwimLane.find()) {
+            start.append(matchFirstSwimLane.group(0)).append(lineSeparator());
+        }
+        return start.append(details).append(endUml).toString();
     }
 
     public String createSvg() {

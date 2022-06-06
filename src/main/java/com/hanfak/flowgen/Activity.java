@@ -9,13 +9,13 @@ public class Activity implements Action {
 
     private static final String SIMPLE_DEFAULT_ACTIVITY_TEMPLATE = "%s%s%s%s";
     private final String name;
+    private String swimLane;
     private String note;
     private String style = ";";
 
     private Activity(String name) {
         this.name = name;
     }
-    // TODO: pass in Content factory (build to string). a builder that build a multiline content (using queue) and have methods for bold, tables, list, lines etc
 
     public static Activity doActivity(String name) {
         return new Activity(name);
@@ -57,12 +57,21 @@ public class Activity implements Action {
         this.note = note.build();
         return this;
     }
-
+    public Activity inSwimLane(String swimLane) {
+        this.swimLane = swimLane;
+        return this;
+    }
     // TODO: Labels
 
     @Override
     public String build() {
         String activityPopulated = SIMPLE_DEFAULT_ACTIVITY_TEMPLATE.formatted(":", name, style, lineSeparator());
+        if (Objects.nonNull(swimLane)) {
+            if (Objects.nonNull(note)) {
+                return "|%s|%n%s%n%s".formatted(swimLane, activityPopulated, note);
+            }
+            return "|%s|%n%s".formatted(swimLane, activityPopulated);
+        }
         if (Objects.nonNull(note)) {
             return activityPopulated + "\n" + note;
         }
