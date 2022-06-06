@@ -29,7 +29,7 @@ public class Example01 {
                 caption figure 1
                 start
                 -> You can put text on arrows;
-                group Initialization
+                group
                     repeat:
                         -[dotted]->
                         :action1\nhello]

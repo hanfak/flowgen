@@ -9,6 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
 
+import static com.hanfak.flowgen.Group.group;
 import static com.hanfak.flowgen.Label.label;
 import static com.hanfak.flowgen.Nodes.*;
 import static com.hanfak.flowgen.Theme.NONE;
@@ -75,6 +76,21 @@ public class FlowchartGenerator {
         return this;
     }
 
+    public FlowchartGenerator has(Action action) {
+        this.actions.add(action.build());
+        return this;
+    }
+
+
+    public FlowchartGenerator hasGroupWith(Action... actions) {
+        this.actions.add(group().containing(actions).build());
+        return this;
+    }
+
+    public FlowchartGenerator hasGroupWith(String name, Action... actions) {
+        this.actions.add(group(name).containing(actions).build());
+        return this;
+    }
     // TODO: Duplicate with extra param for config
     public FlowchartGenerator withStartNode() {
         this.actions.add(START.build());

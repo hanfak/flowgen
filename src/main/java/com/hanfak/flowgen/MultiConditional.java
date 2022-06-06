@@ -44,7 +44,7 @@ public class MultiConditional implements Action {
     }
 
 
-    MultiConditional orElse(String predicateOutcome, Action... actions) {
+    public MultiConditional orElse(String predicateOutcome, Action... actions) {
         String elseWithPredicateOutcomeTemplate = "else (%s)%n%s%n";
         String activitiesString = getActivitiesString(List.of(actions));
         actionStrings.add(elseWithPredicateOutcomeTemplate.formatted(predicateOutcome, activitiesString));

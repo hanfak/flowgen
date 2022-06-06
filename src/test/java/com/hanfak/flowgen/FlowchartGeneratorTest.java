@@ -261,7 +261,6 @@ class FlowchartGeneratorTest {
 
 
     // TODO: use %n,\n or lineSeparator
-    // TODO: Grouping or partitions, config
     // TODO: arrows, kill, hidden, dotted|dashed|bold|hidden|
     // TODO: Swimlanes
     // TODO: colours on activities, box type
@@ -281,6 +280,7 @@ class FlowchartGeneratorTest {
     // TODO: skinparams for styling
     // TODO: add links to activities, notes, partitions(low priority)
     // TODO: switch (low priority)
+    // TODO: partitions
     // TODO: set PLANTUML_LIMIT_SIZE=8192 (low priority)
     // TODO: config, diamond style
 

@@ -37,6 +37,8 @@ public class Activity implements Action {
         return this;
     }
 
+    // TODO: Labels
+
     @Override
     public String build() {
         String activityPopulated = SIMPLE_DEFAULT_ACTIVITY_TEMPLATE.formatted(":", name, ";", lineSeparator());
