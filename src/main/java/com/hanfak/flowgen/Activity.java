@@ -10,6 +10,7 @@ public class Activity implements Action {
     private static final String SIMPLE_DEFAULT_ACTIVITY_TEMPLATE = "%s%s%s%s";
     private final String name;
     private String note;
+    private String style = ";";
 
     private Activity(String name) {
         this.name = name;
@@ -32,6 +33,26 @@ public class Activity implements Action {
         return new Activity(name);
     }
 
+    public Activity send() {
+        this.style = ">";
+        return this;
+    }
+
+    public Activity receive() {
+        this.style = "<";
+        return this;
+    }
+
+    public Activity square() {
+        this.style = "]";
+        return this;
+    }
+
+    public Activity angled() {
+        this.style = ">";
+        return this;
+    }
+
     public Activity with(Note note) {
         this.note = note.build();
         return this;
@@ -41,7 +62,7 @@ public class Activity implements Action {
 
     @Override
     public String build() {
-        String activityPopulated = SIMPLE_DEFAULT_ACTIVITY_TEMPLATE.formatted(":", name, ";", lineSeparator());
+        String activityPopulated = SIMPLE_DEFAULT_ACTIVITY_TEMPLATE.formatted(":", name, style, lineSeparator());
         if (Objects.nonNull(note)) {
             return activityPopulated + "\n" + note;
         }

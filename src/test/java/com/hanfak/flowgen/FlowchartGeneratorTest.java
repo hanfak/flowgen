@@ -263,7 +263,6 @@ class FlowchartGeneratorTest {
     // TODO: use %n,\n or lineSeparator
     // TODO: arrows, kill, hidden, dotted|dashed|bold|hidden|
     // TODO: Swimlanes
-    // TODO: colours on activities, box type
     // TODO: All todos throughout code base
     // TODO: caption https://plantuml.com/commons#8413c683b4b27cc3
     // TODO: header and footer
@@ -275,6 +274,8 @@ class FlowchartGeneratorTest {
     // TODO: STyling on text -> add to individual words or or substring
     // TODO: Add custom themes
     // TODO: styling on actions etc using <color:red> etc
+    // TODO: box type - slanted, bars
+
 
     // Further releases
     // TODO: skinparams for styling

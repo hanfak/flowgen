@@ -197,5 +197,68 @@ class ActivitiesTest {
         }
     }
 
+    @Nested
+    class ActivitySignals {
+        @Test
+        void sendActivity() {
+            String flowchart = flowchart()
+                    .then(doActivity("action1"))
+                    .and(doActivity("action2").send())
+                    .last(doActivity("action3"))
+                    .create();
+            assertThat(flowchart).isEqualToNormalizingNewlines("""
+                    @startuml
+                    :action1;
+                    :action2>
+                    :action3;
+                    @enduml""");
+        }
+
+        @Test
+        void receiveActivity() {
+            String flowchart = flowchart()
+                    .then(doActivity("action1"))
+                    .and(doActivity("action2").receive())
+                    .last(doActivity("action3"))
+                    .create();
+            assertThat(flowchart).isEqualToNormalizingNewlines("""
+                    @startuml
+                    :action1;
+                    :action2<
+                    :action3;
+                    @enduml""");
+        }
+
+        @Test
+        void squareActivity() {
+            String flowchart = flowchart()
+                    .then(doActivity("action1"))
+                    .and(doActivity("action2").square())
+                    .last(doActivity("action3"))
+                    .create();
+            assertThat(flowchart).isEqualToNormalizingNewlines("""
+                    @startuml
+                    :action1;
+                    :action2]
+                    :action3;
+                    @enduml""");
+        }
+
+        @Test
+        void angledActivity() {
+            String flowchart = flowchart()
+                    .then(doActivity("action1"))
+                    .and(doActivity("action2").angled())
+                    .last(doActivity("action3"))
+                    .create();
+            assertThat(flowchart).isEqualToNormalizingNewlines("""
+                    @startuml
+                    :action1;
+                    :action2>
+                    :action3;
+                    @enduml""");
+        }
+    }
+
     // TODO: Arrow styling
 }
