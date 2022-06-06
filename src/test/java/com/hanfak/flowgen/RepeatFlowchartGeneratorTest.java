@@ -1,5 +1,6 @@
 package com.hanfak.flowgen;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
@@ -21,6 +22,7 @@ class RepeatFlowchartGeneratorTest {
     class Simple {
 
         @Test
+        @Disabled
         void simpleRepeatWithoutLabels() {
             String flowchart = flowchart()
                     .then(repeat()
@@ -66,6 +68,7 @@ class RepeatFlowchartGeneratorTest {
         }
 
         @Test
+        @Disabled
         void simpleFalseLabelPredicate() {
             String flowchart = flowchart()
                     .then(repeat()
@@ -111,6 +114,7 @@ class RepeatFlowchartGeneratorTest {
     class RepeatLabel {
 
         @Test
+        @Disabled
         void withoutLabelPredicate() {
             String flowchart = flowchart()
                     .then(repeat()
@@ -152,6 +156,7 @@ class RepeatFlowchartGeneratorTest {
         }
 
         @Test
+        @Disabled
         void withExitLabelPredicate() {
             String flowchart = flowchart()
                     .then(repeat()

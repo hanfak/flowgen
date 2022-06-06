@@ -136,7 +136,7 @@ public class FlowchartGenerator {
             reader.outputImage(os, new FileFormatOption(SVG));
             return os.toString(UTF_8);
         } catch (IOException e) {
-            throw new IllegalStateException();
+            throw new IllegalStateException(); // TODO: test
         }
     }
 
@@ -146,7 +146,7 @@ public class FlowchartGenerator {
         try {
             Files.write(path, svg.getBytes());
         } catch (IOException e) {
-            e.printStackTrace();
+           throw new IllegalStateException(); // TODO:  test
         }
     }
 }
