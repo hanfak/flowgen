@@ -73,7 +73,7 @@ public class Activity implements Action {
             return "|%s|%n%s".formatted(swimLane, activityPopulated);
         }
         if (Objects.nonNull(note)) {
-            return activityPopulated + "\n" + note;
+            return activityPopulated + lineSeparator() + note;
         }
         return activityPopulated;
     }

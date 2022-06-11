@@ -36,6 +36,6 @@ public class Split implements Action {
                 .map(actions -> actions.stream()
                         .map(Action::build)
                         .collect(joining(lineSeparator())))
-                .collect(joining("split again\n"));
+                .collect(joining("split again" + lineSeparator()));
     }
 }

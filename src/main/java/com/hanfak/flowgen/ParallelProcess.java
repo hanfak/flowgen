@@ -36,6 +36,6 @@ public class ParallelProcess implements Action {
                 .map(actions -> actions.stream()
                         .map(Action::build)
                         .collect(joining(lineSeparator())))
-                .collect(joining("fork again\n"));
+                .collect(joining("fork again" + lineSeparator()));
     }
 }

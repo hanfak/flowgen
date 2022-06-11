@@ -10,6 +10,6 @@ public class Exit implements Action {
 
     @Override
     public String build() {
-        return "-[hidden]->\ndetach" + lineSeparator();
+        return "-[hidden]->" + lineSeparator() + "detach" + lineSeparator();
     }
 }

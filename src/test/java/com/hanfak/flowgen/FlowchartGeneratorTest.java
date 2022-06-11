@@ -304,7 +304,6 @@ class FlowchartGeneratorTest {
     }
 
 
-    // TODO: use \n or lineSeparator
     // TODO: All todos throughout code base, incl failing tests
     // TODO: header and footer https://plantuml.com/commons#8413c683b4b27cc3
     // TODO: legend https://plantuml.com/commons#8413c683b4b27cc3
