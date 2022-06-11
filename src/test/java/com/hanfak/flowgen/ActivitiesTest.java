@@ -12,7 +12,7 @@ class ActivitiesTest {
 
     @Nested
     class SynchronousActivityFlow {
-
+        // TODO: styling an individual activity
         @Test
         void createOneActivity() {
             String flowchart = flowchart()
@@ -284,6 +284,4 @@ class ActivitiesTest {
                     @enduml""");
         }
     }
-
-    // TODO: Arrow styling
 }

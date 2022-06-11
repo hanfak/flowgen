@@ -28,6 +28,7 @@ public class Conditional implements Action {
         this.predicate = predicate;
     }
 
+    // TODO: naming - branchWhen()?
     public static Conditional ifIsTrue(String predicate) {
         return new Conditional(predicate);
     }

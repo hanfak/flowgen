@@ -74,6 +74,6 @@ class GroupExamples {
                                                         .exitOn("no"))
                                                 .and(doActivity("action4")))))
                 .withStopNode()
-                .createFile(Paths.get("./test1.html"));
+                .createPngFile(Paths.get("./test2.png"));
     }
 }

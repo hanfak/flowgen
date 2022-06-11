@@ -12,16 +12,17 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static com.hanfak.flowgen.Activity.activity;
 import static com.hanfak.flowgen.Group.group;
 import static com.hanfak.flowgen.Label.label;
 import static com.hanfak.flowgen.Nodes.*;
 import static com.hanfak.flowgen.Theme.NONE;
 import static java.lang.System.lineSeparator;
 import static java.nio.charset.StandardCharsets.UTF_8;
+import static net.sourceforge.plantuml.FileFormat.PNG;
 import static net.sourceforge.plantuml.FileFormat.SVG;
 // TODO: Instead of methods starting with, just use then() and overload
 //
+// TODO: Duplicate setters with extra param for config for that specific action
 public class FlowchartGenerator {
 
     public static final Pattern SWIM_LANE_REGEX = Pattern.compile("(\\|.+?\\|)");
@@ -56,7 +57,6 @@ public class FlowchartGenerator {
         return this;
     }
 
-    // TODO: Duplicate with extra param for config
     public FlowchartGenerator withTitle(String title) { // TODO: Param should be builder, and create object (TITLE) in line below for multi line
         actions.add("title%n%s%nend title%n".formatted(title));
         return this;
@@ -67,7 +67,6 @@ public class FlowchartGenerator {
         return this;
     }
 
-    // TODO: Duplicate with extra param for config
     public FlowchartGenerator withLabel(String label) {
         actions.add(label(label).build());
         return this;
@@ -82,7 +81,7 @@ public class FlowchartGenerator {
         this.actions.add(action.build());
         return this;
     }
-    // TODO: Duplicate with extra param for config
+
     public FlowchartGenerator then(Action action) {
         this.actions.add(action.build());
         return this;
@@ -93,7 +92,6 @@ public class FlowchartGenerator {
         return this;
     }
 
-
     public FlowchartGenerator hasGroupWith(Action... actions) {
         this.actions.add(group().containing(actions).build());
         return this;
@@ -103,19 +101,17 @@ public class FlowchartGenerator {
         this.actions.add(group(name).containing(actions).build());
         return this;
     }
-    // TODO: Duplicate with extra param for config
+
     public FlowchartGenerator withStartNode() {
         this.actions.add(START.build());
         return this;
     }
 
-    // TODO: Duplicate with extra param for config
     public FlowchartGenerator withStopNode() {
         this.actions.add(STOP.build());
         return this;
     }
 
-    // TODO: Duplicate with extra param for config
     public FlowchartGenerator withEndNode() {
         this.actions.add(END.build());
         return this;
@@ -149,7 +145,7 @@ public class FlowchartGenerator {
         SourceStringReader reader = new SourceStringReader(create());
         try (final ByteArrayOutputStream os = new ByteArrayOutputStream()) {
             DiagramDescription diagramDescription = reader.outputImage(os, new FileFormatOption(SVG));
-            if (diagramDescription.getDescription().contains("error")) {
+            if (diagramDescription.getDescription().contains("Error")) {
                 throw new IllegalStateException("There is something wrong with your syntax"); // TODO: test
             }
             return os.toString(UTF_8);
@@ -158,13 +154,31 @@ public class FlowchartGenerator {
         }
     }
 
-    // TODO: create png image file
     public void createFile(Path path) {
         String svg = createSvg();
         try {
             Files.write(path, svg.getBytes());
         } catch (IOException e) {
            throw new IllegalStateException(); // TODO:  test
+        }
+    }
+
+    public void createPngFile(Path path) {
+        try {
+            byte[] result;
+            SourceStringReader reader = new SourceStringReader(create());
+            try (final ByteArrayOutputStream os = new ByteArrayOutputStream()) {
+                DiagramDescription diagramDescription = reader.outputImage(os, new FileFormatOption(PNG));
+                if (diagramDescription.getDescription().contains("Error")) {
+                    throw new IllegalStateException("There is something wrong with your syntax"); // TODO: test
+                }
+                result = os.toByteArray();
+            } catch (IOException e) {
+                throw new IllegalStateException(); // TODO: test
+            }
+            Files.write(path, result);
+        } catch (IOException e) {
+            throw new IllegalStateException(); // TODO:  test
         }
     }
 }

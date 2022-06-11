@@ -7,6 +7,7 @@ import org.junit.jupiter.api.io.TempDir;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Arrays;
 
 import static com.hanfak.flowgen.Activity.doActivity;
 import static com.hanfak.flowgen.FlowchartGenerator.flowchart;
@@ -328,6 +329,7 @@ class FlowchartGeneratorTest {
     // TODO: partitions
     // TODO: set PLANTUML_LIMIT_SIZE=8192 (low priority)
     // TODO: config, diamond style
+    // TODO: Different file formats ie gifs see FileFormat, do some refactoring around generating instead of repetition
 
 
     // TODO: arrow direction ??? Not available yet
