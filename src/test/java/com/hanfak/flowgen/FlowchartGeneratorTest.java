@@ -51,6 +51,50 @@ class FlowchartGeneratorTest {
     }
 
     @Nested
+    class Caption {
+        // See https://plantuml.com/commons#8413c683b4b27cc3
+        // TODO: stylling on caption, location etc
+        @Test
+        void captionAtBottomOfFlowchart() {
+            String flowchart = flowchart()
+                    .withCaption("Figure 1")
+                    .withTitle("Title")
+                    .withStartNode()
+                    .then(doActivity("action1"))
+                    .create();
+            assertThat(flowchart).isEqualToNormalizingNewlines("""
+                    @startuml
+                    caption
+                    Figure 1
+                    end caption
+                    title
+                    Title
+                    end title
+                    start
+                    :action1;
+                    @enduml""");
+        }
+
+        @Test
+        void multiLineCaptionAtBottomOfFlowchart() {
+            String flowchart = flowchart()
+                    .withCaption("Figure 1\nAnother line")
+                    .withStartNode()
+                    .then(doActivity("action1"))
+                    .create();
+            assertThat(flowchart).isEqualToNormalizingNewlines("""
+                    @startuml
+                    caption
+                    Figure 1
+                    Another line
+                    end caption
+                    start
+                    :action1;
+                    @enduml""");
+        }
+    }
+
+    @Nested
     class Nodes {
         // TODO: label on start node for preconditions
         // TODO: arrow style after start node
@@ -260,14 +304,13 @@ class FlowchartGeneratorTest {
     }
 
 
-    // TODO: use %n,\n or lineSeparator
-    // TODO: detach on activity
+    // TODO: use \n or lineSeparator
     // TODO: All todos throughout code base, incl failing tests
-    // TODO: caption https://plantuml.com/commons#8413c683b4b27cc3
-    // TODO: header and footer
-    // TODO: legend
-    // TODO: zoom
+    // TODO: header and footer https://plantuml.com/commons#8413c683b4b27cc3
+    // TODO: legend https://plantuml.com/commons#8413c683b4b27cc3
+    // TODO: zoom https://plantuml.com/commons#8413c683b4b27cc3
     // TODO: create png file
+    // TODO: detach on activity
 
     // NExt release
     // TODO: General styling use of <style>...</style>

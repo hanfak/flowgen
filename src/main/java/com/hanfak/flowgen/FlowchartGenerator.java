@@ -57,8 +57,13 @@ public class FlowchartGenerator {
     }
 
     // TODO: Duplicate with extra param for config
-    public FlowchartGenerator withTitle(String title) { // TODO: Param should be string, and create object (TITLE) in line below
+    public FlowchartGenerator withTitle(String title) { // TODO: Param should be builder, and create object (TITLE) in line below for multi line
         actions.add("title%n%s%nend title%n".formatted(title));
+        return this;
+    }
+
+    public FlowchartGenerator withCaption(String caption) { // TODO: Param should be builder, and create object (CAPTION) in line below for multi line
+        actions.add("caption%n%s%nend caption%n".formatted(caption));
         return this;
     }
 
