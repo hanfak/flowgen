@@ -1,6 +1,5 @@
 package com.hanfak.flowgen;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -262,7 +261,7 @@ class FlowchartGeneratorTest {
 
 
     // TODO: use %n,\n or lineSeparator
-    // TODO: arrows, kill, hidden, dotted|dashed|bold|hidden|
+    // TODO: detach on activity
     // TODO: All todos throughout code base, incl failing tests
     // TODO: caption https://plantuml.com/commons#8413c683b4b27cc3
     // TODO: header and footer
@@ -272,6 +271,7 @@ class FlowchartGeneratorTest {
 
     // NExt release
     // TODO: General styling use of <style>...</style>
+    // TODO: arrows, kill, hidden, dotted|dashed|bold|hidden|
     // TODO: STyling on text -> add to individual words or or substring
     // TODO: Add custom themes
     // TODO: styling on actions etc using <color:red> etc

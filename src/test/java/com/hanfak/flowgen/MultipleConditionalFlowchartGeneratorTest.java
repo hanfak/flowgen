@@ -16,7 +16,7 @@ class MultipleConditionalFlowchartGeneratorTest {
     // TODO: No predicate outcome show for multiple elseif branch
     // TODO: No predicate outcome show for orelse branch
     // TODO: guard clause
-    // TODO: arrow style after if, after elseif, after else, after end if
+    // TODO: arrow style after if, after elseif, after else, after endif
     // TODO: inline styling
     @Test
     void multipleIfELseWithPredicatesOnAllPaths() {
@@ -42,7 +42,7 @@ class MultipleConditionalFlowchartGeneratorTest {
                 :action3;
                 else (none)
                 :action4;
-                end if
+                endif
                 @enduml""");
     }
 }

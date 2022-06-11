@@ -4,6 +4,9 @@ import org.junit.jupiter.api.Test;
 
 import static com.hanfak.flowgen.Activity.andActivity;
 import static com.hanfak.flowgen.Activity.doActivity;
+import static com.hanfak.flowgen.Break.leave;
+import static com.hanfak.flowgen.Conditional.ifIsTrue;
+import static com.hanfak.flowgen.Exit.exit;
 import static com.hanfak.flowgen.FlowchartGenerator.flowchart;
 import static com.hanfak.flowgen.While.loopWhen;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -14,7 +17,7 @@ class WhileFlowchartGeneratorTest {
     // TODO: Label at start of while action
     // TODO: isTrue not set,
     // TODO: exitLabel not set,
-    // TODO: arrow style after while statment, after end while
+    // TODO: arrow style after while statement, after end while
     // TODO: step builder to force correct usage
     // TODO: styling - diamond, line, colour
 
@@ -93,6 +96,36 @@ class WhileFlowchartGeneratorTest {
                 :action2;
                 end while (no)
                 :action3;
+                @enduml""");
+    }
+
+    @Test
+    void simpleWhileLoopWithBreak() {
+        String flowchart = flowchart()
+                .then(loopWhen("is Big?")
+                        .execute(ifIsTrue("is big?")
+                                .then("yes", doActivity("action1"), doActivity("action2"), leave()))
+                        .and(doActivity("action6"), andActivity("action7"))
+                        .and(ifIsTrue("is big?")
+                                .then("yes", doActivity("action10"), leave())))
+                .then(doActivity("action8"))
+                .create();
+        assertThat(flowchart).isEqualToNormalizingNewlines("""
+                @startuml 
+                while (is Big?)
+                if (is big?) then (yes)
+                :action1;
+                :action2;
+                break
+                endif
+                :action6;
+                :action7;
+                if (is big?) then (yes)
+                :action10;
+                break
+                endif
+                end while
+                :action8;
                 @enduml""");
     }
 }

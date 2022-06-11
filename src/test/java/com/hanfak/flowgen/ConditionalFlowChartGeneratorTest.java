@@ -12,7 +12,7 @@ class ConditionalFlowChartGeneratorTest {
 
     // TODO: No predicate outcome show for then branch
     // TODO: then without predicateOutcome
-    // TODO: arrow style after than, after end if
+    // TODO: arrow style after than, after endif
     // TODO: styling - diamond, line, colour
     @Test
     void ifELseWithPredicatesOnBothPaths() {
@@ -28,7 +28,7 @@ class ConditionalFlowChartGeneratorTest {
                 :action3;
                 else (no)
                 :action2;
-                end if
+                endif
                 @enduml""");
     }
 
@@ -49,7 +49,7 @@ class ConditionalFlowChartGeneratorTest {
                 detach
                 else (no)
                 :action2;
-                end if
+                endif
                 :action4;
                 @enduml""");
     }
@@ -71,7 +71,7 @@ class ConditionalFlowChartGeneratorTest {
                 :action2;
                 -[hidden]->
                 detach
-                end if
+                endif
                 :action4;
                 @enduml""");
     }
@@ -91,7 +91,7 @@ class ConditionalFlowChartGeneratorTest {
                 :action4;
                 else
                 :action2;
-                end if
+                endif
                 @enduml""");
     }
 
@@ -106,7 +106,7 @@ class ConditionalFlowChartGeneratorTest {
                 if (is big?) then (yes)
                 :action1;
                 :action3;
-                end if
+                endif
                 @enduml""");
     }
 
@@ -123,7 +123,7 @@ class ConditionalFlowChartGeneratorTest {
                 if (is big?) then (yes)
                 :action1;
                 :action3;
-                end if
+                endif
                 ->NOK;
                 @enduml""");
     }
@@ -148,9 +148,9 @@ class ConditionalFlowChartGeneratorTest {
                 :action2;
                 else (no)
                 :action3;
-                end if
+                endif
                 :action4;
-                end if
+                endif
                 @enduml""");
     }
 }
