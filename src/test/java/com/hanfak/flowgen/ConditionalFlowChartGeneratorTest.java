@@ -28,7 +28,7 @@ class ConditionalFlowChartGeneratorTest {
                 :action3;
                 else (no)
                 :action2;
-                endif
+                end if
                 @enduml""");
     }
 
@@ -49,7 +49,7 @@ class ConditionalFlowChartGeneratorTest {
                 detach
                 else (no)
                 :action2;
-                endif
+                end if
                 :action4;
                 @enduml""");
     }
@@ -71,7 +71,7 @@ class ConditionalFlowChartGeneratorTest {
                 :action2;
                 -[hidden]->
                 detach
-                endif
+                end if
                 :action4;
                 @enduml""");
     }
@@ -91,7 +91,7 @@ class ConditionalFlowChartGeneratorTest {
                 :action4;
                 else
                 :action2;
-                endif
+                end if
                 @enduml""");
     }
 
@@ -106,7 +106,7 @@ class ConditionalFlowChartGeneratorTest {
                 if (is big?) then (yes)
                 :action1;
                 :action3;
-                endif
+                end if
                 @enduml""");
     }
 
@@ -123,7 +123,7 @@ class ConditionalFlowChartGeneratorTest {
                 if (is big?) then (yes)
                 :action1;
                 :action3;
-                endif
+                end if
                 ->NOK;
                 @enduml""");
     }
@@ -148,9 +148,9 @@ class ConditionalFlowChartGeneratorTest {
                 :action2;
                 else (no)
                 :action3;
-                endif
+                end if
                 :action4;
-                endif
+                end if
                 @enduml""");
     }
 }

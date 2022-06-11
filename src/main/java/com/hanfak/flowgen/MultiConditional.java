@@ -60,7 +60,7 @@ public class MultiConditional implements Action {
 
     @Override
     public String build() {
-        return "%s%sendif\n".formatted("if (%s) ".formatted(predicate), String.join("", this.actionStrings));
+        return "%s%send if\n".formatted("if (%s) ".formatted(predicate), String.join("", this.actionStrings));
     }
 
     private String getActivitiesString(List<Action> actions) {

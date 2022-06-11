@@ -268,6 +268,7 @@ class FlowchartGeneratorTest {
     // TODO: header and footer
     // TODO: legend
     // TODO: zoom
+    // TODO: create png file
 
     // NExt release
     // TODO: General styling use of <style>...</style>
@@ -317,11 +318,11 @@ class FlowchartGeneratorTest {
     class FileCreation {
 
         @Test
-        @Disabled // TODO: Fix, use awaitly to wait for file to be created
-        void emptyFlowchart(@TempDir Path tempDir) throws IOException {
+
+        void emptyFlowchart(@TempDir Path tempDir) throws IOException, InterruptedException {
             Path file = tempDir.resolve("flowchart.html");
             flowchart().createFile(file);
-
+            Thread.sleep(2000); // TODO: Fix, use awaitly to wait for file to be created
             assertThat(Files.readAllLines(file)
                     .get(0)).contains("Welcome to PlantUML!", "You can start with a simple UML Diagram like:");
             assertThat(Files.readAllLines(file)).containsSequence(

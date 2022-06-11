@@ -52,7 +52,7 @@ public class Example01 {
                             :action13;
                             :action23;
                             -[dashed]->
-                        endwhile (no)
+                        end while (no)
                         -[dotted]->
                         :action33;
                         end group
@@ -104,7 +104,7 @@ public class Example01 {
                     else
                         :print not red;
                         detach
-                    endif
+                    en
                 end group
                 """;
         source += "@enduml\n";
@@ -113,6 +113,7 @@ public class Example01 {
         final ByteArrayOutputStream os = new ByteArrayOutputStream();
         // Write the first image to "os"
         DiagramDescription desc = reader.outputImage(os, new FileFormatOption(FileFormat.SVG));
+
         System.out.println("desc = " + desc);
         os.close();
 

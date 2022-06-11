@@ -39,7 +39,7 @@ class WhileFlowchartGeneratorTest {
                 :action5;
                 :action6;
                 :action7;
-                endwhile
+                end while
                 :action8;
                 @enduml""");
     }
@@ -56,7 +56,7 @@ class WhileFlowchartGeneratorTest {
                 while (is Big?) is (yes)
                 :action1;
                 :action2;
-                endwhile
+                end while
                 :action3;
                 @enduml""");
     }
@@ -73,7 +73,7 @@ class WhileFlowchartGeneratorTest {
                 while (is Big?)
                 :action1;
                 :action2;
-                endwhile (no)
+                end while (no)
                 :action3;
                 @enduml""");
     }
@@ -91,7 +91,7 @@ class WhileFlowchartGeneratorTest {
                 while (is Big?) is (yes)
                 :action1;
                 :action2;
-                endwhile (no)
+                end while (no)
                 :action3;
                 @enduml""");
     }

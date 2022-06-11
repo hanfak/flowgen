@@ -9,10 +9,10 @@ import static java.util.stream.Collectors.joining;
 
 public class While implements Action {
 
-    private static final String WHILE_TEMPLATE = "while (%s)%n%s%nendwhile%n";
-    private static final String WHILE_WITH_EXIT_LABELS_TEMPLATE = "while (%s)%n%s%nendwhile (%s)%n";
-    private static final String WHILE_WITH_LOOP_LABELS_TEMPLATE = "while (%s) is (%s)%n%s%nendwhile%n";
-    private static final String WHILE_WITH_LOOP_AND_EXIT_LABELS_TEMPLATE = "while (%s) is (%s)%n%s%nendwhile (%s)%n";
+    private static final String WHILE_TEMPLATE = "while (%s)%n%s%nend while%n";
+    private static final String WHILE_WITH_EXIT_LABELS_TEMPLATE = "while (%s)%n%s%nend while (%s)%n";
+    private static final String WHILE_WITH_LOOP_LABELS_TEMPLATE = "while (%s) is (%s)%n%s%nend while%n";
+    private static final String WHILE_WITH_LOOP_AND_EXIT_LABELS_TEMPLATE = "while (%s) is (%s)%n%s%nend while (%s)%n";
 
     private final String predicate;
 

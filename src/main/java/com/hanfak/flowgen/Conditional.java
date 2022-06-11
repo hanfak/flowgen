@@ -10,10 +10,10 @@ import static java.util.stream.Collectors.joining;
 
 public class Conditional implements Action {
 
-    private static final String IF_ELSE_TEMPLATE = "if (%s) then (%s)%n%selse (%s)%n%sendif%n";
-    private static final String IF_ELSE_NO_ELSE_PREDICATE_TEMPLATE = "if (%s) then (%s)%n%selse%n%sendif%n";
-    private static final String IF_NO_ELSE_TEMPLATE = "if (%s) then (%s)%n%s%nendif%n";
-    private static final String IF_NO_ELSE_WITH_EXIT_LABEL_TEMPLATE = "if (%s) then (%s)%n%s%nendif%n->%s%n";
+    private static final String IF_ELSE_TEMPLATE = "if (%s) then (%s)%n%selse (%s)%n%send if%n";
+    private static final String IF_ELSE_NO_ELSE_PREDICATE_TEMPLATE = "if (%s) then (%s)%n%selse%n%send if%n";
+    private static final String IF_NO_ELSE_TEMPLATE = "if (%s) then (%s)%n%s%nend if%n";
+    private static final String IF_NO_ELSE_WITH_EXIT_LABEL_TEMPLATE = "if (%s) then (%s)%n%s%nend if%n->%s%n";
 
     private final String predicate;
 

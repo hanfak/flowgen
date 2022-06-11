@@ -2,6 +2,7 @@ package com.hanfak.flowgen;
 
 import net.sourceforge.plantuml.FileFormatOption;
 import net.sourceforge.plantuml.SourceStringReader;
+import net.sourceforge.plantuml.core.DiagramDescription;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -142,7 +143,10 @@ public class FlowchartGenerator {
     public String createSvg() {
         SourceStringReader reader = new SourceStringReader(create());
         try (final ByteArrayOutputStream os = new ByteArrayOutputStream()) {
-            reader.outputImage(os, new FileFormatOption(SVG));
+            DiagramDescription diagramDescription = reader.outputImage(os, new FileFormatOption(SVG));
+            if (diagramDescription.getDescription().contains("error")) {
+                throw new IllegalStateException("There is something wrong with your syntax"); // TODO: test
+            }
             return os.toString(UTF_8);
         } catch (IOException e) {
             throw new IllegalStateException(); // TODO: test

@@ -42,7 +42,7 @@ class MultipleConditionalFlowchartGeneratorTest {
                 :action3;
                 else (none)
                 :action4;
-                endif
+                end if
                 @enduml""");
     }
 }
