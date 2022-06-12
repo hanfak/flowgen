@@ -4,6 +4,7 @@ import java.util.*;
 
 import static java.lang.System.lineSeparator;
 import static java.util.stream.Collectors.joining;
+
 /**
  * Represents the doWhile Structure
  * See https://plantuml.com/activity-diagram-beta#219cebcef334f265
@@ -11,16 +12,14 @@ import static java.util.stream.Collectors.joining;
 public class Repeat implements Action {
 
     private static final String REPEAT_TEMPLATE = "repeat%n%s%nrepeat while (%s) is (%s)%n";
+    private static final String REPEAT_NO_ARROW_LABELS_TEMPLATE = "repeat%n%s%nrepeat while (%s)%n";
     private static final String REPEAT_WITH_LOOP_AND_EXIT_LABEL_TEMPLATE = "repeat%n%s%nrepeat while (%s) is (%s)%n->%s%n";
-    private static final String REPEAT_WITH_EXIT_LABEL_TEMPLATE = "repeat%n%s%nrepeat while (%s)%n->%s%n";
-    private static final String REPEAT_WITH_EXIT_LABEL_AND_REPEAT_LABEL_TEMPLATE = "repeat%n%s%nbackward%s%nrepeat while (%s) is (%s)%n->%s%n";
-    private static final String REPEAT_WITH_REPEAT_LABEL_TEMPLATE = "repeat%n%s%nbackward%s%nrepeat while (%s) is (%s)%n";
+    private static final String REPEAT_WITH_EXIT_ARROW_LABEL_ONLY_TEMPLATE = "repeat%n%s%nrepeat while (%s)%n->%s%n";
 
     private final Queue<Action> actions = new LinkedList<>();
     private String predicate;
     private String predicateTrueOutcome;
     private String predicateFalseOutcome;
-    private String repeatLoopActivity;
 
     private Repeat() {
     }
@@ -85,7 +84,7 @@ public class Repeat implements Action {
 
     // TODO: naming repeatLoopAction
     public Repeat labelRepeat(Action repeatLoopActivity) {
-        this.repeatLoopActivity = repeatLoopActivity.build();
+        this.actions.add(() -> "backward" + repeatLoopActivity.build());
         return this;
     }
 
@@ -98,19 +97,23 @@ public class Repeat implements Action {
     @Override
     public String build() {
         String allActions = getActivitiesString(actions);
-        if (Objects.isNull(repeatLoopActivity)) {
-            return Optional.ofNullable(predicateFalseOutcome)
-                    .map(label -> REPEAT_WITH_LOOP_AND_EXIT_LABEL_TEMPLATE.formatted(allActions, predicate, predicateTrueOutcome, label))
-                    .orElse(REPEAT_TEMPLATE.formatted(allActions, predicate, predicateTrueOutcome));
-        }
-
-//        if (Objects.isNull(predicateTrueOutcome)) {
-//            return REPEAT_WITH_EXIT_LABEL_TEMPLATE.formatted(allActions, predicate, predicateFalseOutcome);
-//        }
-
         return Optional.ofNullable(predicateFalseOutcome)
-                .map(label -> REPEAT_WITH_EXIT_LABEL_AND_REPEAT_LABEL_TEMPLATE.formatted(allActions, repeatLoopActivity, predicate, predicateTrueOutcome, label))
-                .orElse(REPEAT_WITH_REPEAT_LABEL_TEMPLATE.formatted(allActions, repeatLoopActivity, predicate, predicateTrueOutcome));
+                .map(label -> bothOrExitArrowLabelOnly(allActions, label))
+                .orElse(defaultOrTrueArrowOnly(allActions));
+    }
+
+    private String bothOrExitArrowLabelOnly(String allActions, String label) {
+        if (Objects.isNull(predicateTrueOutcome)) {
+            return REPEAT_WITH_EXIT_ARROW_LABEL_ONLY_TEMPLATE.formatted(allActions, predicate, label);
+        }
+        return REPEAT_WITH_LOOP_AND_EXIT_LABEL_TEMPLATE.formatted(allActions, predicate, predicateTrueOutcome, label);
+    }
+
+    private String defaultOrTrueArrowOnly(String allActions) {
+        if (Objects.isNull(predicateTrueOutcome)) {
+            return REPEAT_NO_ARROW_LABELS_TEMPLATE.formatted(allActions, predicate);
+        }
+        return REPEAT_TEMPLATE.formatted(allActions, predicate, predicateTrueOutcome);
     }
 
     private String getActivitiesString(Queue<Action> actions) {
