@@ -26,7 +26,7 @@ class RepeatFlowchartGeneratorTest {
         void simpleRepeatWithoutLabels() {
             String flowchart = flowchart()
                     .then(repeat()
-                            .and(doActivity("action1"), andActivity("action2"), thenActivity("action4"))
+                            .the(activity("action1"), andActivity("action2"), thenActivity("action4"))
                             .and(doActivity("action3"))
                             .and(doActivity("action3a"), andActivity("action3b"))
                             .then(doActivity("action5"))
@@ -49,13 +49,31 @@ class RepeatFlowchartGeneratorTest {
         }
 
         @Test
-        void simpleTrueLabelPredicateIs() {
+        void simpleRepeatWhenArrowLabelledWhenPredicateIsTrueInSeparateMethods() {
             String flowchart = flowchart()
                     .then(repeat()
-                            .and(activity("action1"))
+                            .the(activity("action1"))
                             .and(doActivity("action2"), andActivity("action3"))
                             .repeatWhen("is Big?")
                             .isTrueFor("yes"))
+                    .create();
+            assertThat(flowchart).isEqualToNormalizingNewlines("""
+                    @startuml 
+                    repeat
+                    :action1;
+                    :action2;
+                    :action3;
+                    repeat while (is Big?) is (yes)
+                    @enduml""");
+        }
+
+        @Test
+        void simpleRepeatWhenArrowLabelledWhenPredicateIsTrueInOneMethod() {
+            String flowchart = flowchart()
+                    .then(repeat()
+                            .the(activity("action1"))
+                            .and(doActivity("action2"), andActivity("action3"))
+                            .repeatWhen("is Big?", "yes"))
                     .create();
             assertThat(flowchart).isEqualToNormalizingNewlines("""
                     @startuml 
@@ -72,10 +90,9 @@ class RepeatFlowchartGeneratorTest {
         void simpleFalseLabelPredicate() {
             String flowchart = flowchart()
                     .then(repeat()
-                            .and(doActivity("action1"), thenActivity("action2"))
+                            .the(doActivity("action1"), thenActivity("action2"))
                             .then(doActivity("action3"))
-                            .repeatWhen("is Big?")
-                            .exitOn("no"))
+                            .repeatWhen("is Big?").exitOn("no"))
                     .create();
             assertThat(flowchart).isEqualToNormalizingNewlines("""
                     @startuml
@@ -92,11 +109,30 @@ class RepeatFlowchartGeneratorTest {
         void simpleWithBothLabelsPredicate() {
             String flowchart = flowchart()
                     .then(repeat()
-                            .and(doActivity("action1"), thenActivity("action2"))
+                            .the(doActivity("action1"), thenActivity("action2"))
                             .and(doActivity("action3"))
                             .repeatWhen("is Big?")
                             .isTrueFor("yes")
                             .exitOn("no"))
+                    .create();
+            assertThat(flowchart).isEqualToNormalizingNewlines("""
+                    @startuml 
+                    repeat
+                    :action1;
+                    :action2;
+                    :action3;
+                    repeat while (is Big?) is (yes)
+                    ->no;
+                    @enduml""");
+        }
+
+        @Test
+        void simpleWithBothLabelsPredicateInOneMethod() {
+            String flowchart = flowchart()
+                    .then(repeat()
+                            .the(doActivity("action1"), thenActivity("action2"))
+                            .and(doActivity("action3"))
+                            .repeatWhen("is Big?", "yes", "no"))
                     .create();
             assertThat(flowchart).isEqualToNormalizingNewlines("""
                     @startuml 
@@ -118,7 +154,7 @@ class RepeatFlowchartGeneratorTest {
         void withoutLabelPredicate() {
             String flowchart = flowchart()
                     .then(repeat()
-                            .and(doActivity("action1"), thenActivity("action2"))
+                            .the(doActivity("action1"), thenActivity("action2"))
                             .and(doActivity("action3"))
                             .repeatWhen("is Big?")
                             .labelRepeat(doActivity("This is repeated")))
@@ -138,7 +174,7 @@ class RepeatFlowchartGeneratorTest {
         void withTrueLabelPredicate() {
             String flowchart = flowchart()
                     .then(repeat()
-                            .and(doActivity("action1"), thenActivity("action2"))
+                            .the(doActivity("action1"), thenActivity("action2"))
                             .and(doActivity("action3"))
                             .repeatWhen("is Big?")
                             .isTrueFor("yes")
@@ -160,7 +196,7 @@ class RepeatFlowchartGeneratorTest {
         void withExitLabelPredicate() {
             String flowchart = flowchart()
                     .then(repeat()
-                            .and(doActivity("action1"), thenActivity("action2"))
+                            .the(doActivity("action1"), thenActivity("action2"))
                             .and(doActivity("action3"))
                             .repeatWhen("is Big?")
                             .exitOn("no")
@@ -182,7 +218,7 @@ class RepeatFlowchartGeneratorTest {
         void withTrueAndExitLabels() {
             String flowchart = flowchart()
                     .then(repeat()
-                            .and(doActivity("action1"), thenActivity("action2"))
+                            .the(doActivity("action1"), thenActivity("action2"))
                             .and(doActivity("action3"))
                             .repeatWhen("is Big?")
                             .isTrueFor("yes")

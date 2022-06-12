@@ -4,7 +4,10 @@ import java.util.*;
 
 import static java.lang.System.lineSeparator;
 import static java.util.stream.Collectors.joining;
-
+/**
+ * Represents the doWhile Structure
+ * See https://plantuml.com/activity-diagram-beta#219cebcef334f265
+ */
 public class Repeat implements Action {
 
     private static final String REPEAT_TEMPLATE = "repeat%n%s%nrepeat while (%s) is (%s)%n";
@@ -12,6 +15,7 @@ public class Repeat implements Action {
     private static final String REPEAT_WITH_EXIT_LABEL_TEMPLATE = "repeat%n%s%nrepeat while (%s)%n->%s%n";
     private static final String REPEAT_WITH_EXIT_LABEL_AND_REPEAT_LABEL_TEMPLATE = "repeat%n%s%nbackward%s%nrepeat while (%s) is (%s)%n->%s%n";
     private static final String REPEAT_WITH_REPEAT_LABEL_TEMPLATE = "repeat%n%s%nbackward%s%nrepeat while (%s) is (%s)%n";
+
     private final Queue<Action> actions = new LinkedList<>();
     private String predicate;
     private String predicateTrueOutcome;
@@ -23,6 +27,16 @@ public class Repeat implements Action {
 
     public static Repeat repeat() {
         return new Repeat();
+    }
+
+    public Repeat the(Action... actions) {
+        this.actions.addAll(List.of(actions));
+        return this;
+    }
+
+    public Repeat the(Action action) {
+        this.actions.add(action);
+        return this;
     }
 
     public Repeat and(Action... actions) {
@@ -50,12 +64,26 @@ public class Repeat implements Action {
         return this;
     }
 
+    public Repeat repeatWhen(String predicate, String predicateTrueOutcome) {
+        this.predicate = predicate;
+        this.predicateTrueOutcome = predicateTrueOutcome;
+        return this;
+    }
+
+    public Repeat repeatWhen(String predicate, String predicateTrueOutcome, String predicateFalseOutcome) {
+        this.predicate = predicate;
+        this.predicateTrueOutcome = predicateTrueOutcome;
+        this.predicateFalseOutcome = predicateFalseOutcome + ";";
+        return this;
+    }
+
     // TODO: naming - is? repeatAgainFor?
     public Repeat isTrueFor(String predicateTrueOutcome) {
         this.predicateTrueOutcome = predicateTrueOutcome;
         return this;
     }
 
+    // TODO: naming repeatLoopAction
     public Repeat labelRepeat(Action repeatLoopActivity) {
         this.repeatLoopActivity = repeatLoopActivity.build();
         return this;

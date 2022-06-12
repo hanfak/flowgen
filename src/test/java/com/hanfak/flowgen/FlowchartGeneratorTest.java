@@ -309,7 +309,6 @@ class FlowchartGeneratorTest {
     // TODO: header and footer https://plantuml.com/commons#8413c683b4b27cc3
     // TODO: legend https://plantuml.com/commons#8413c683b4b27cc3
     // TODO: zoom https://plantuml.com/commons#8413c683b4b27cc3
-    // TODO: create png file
     // TODO: detach on activity
 
     // NExt release
