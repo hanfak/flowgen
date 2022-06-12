@@ -1,14 +1,11 @@
 package com.hanfak.flowgen;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import static com.hanfak.flowgen.Activity.*;
 import static com.hanfak.flowgen.Break.leave;
 import static com.hanfak.flowgen.Conditional.ifIsTrue;
-import static com.hanfak.flowgen.Continue.skip;
-import static com.hanfak.flowgen.Exit.exit;
 import static com.hanfak.flowgen.FlowchartGenerator.flowchart;
 import static com.hanfak.flowgen.Repeat.repeat;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -17,6 +14,7 @@ class RepeatFlowchartGeneratorTest {
 
     // TODO: Label at start of repeat action ie http://www.plantuml.com/plantuml/uml/DOux3iCm34DtdK9ZUmLxQ0xH2p2LwXZr9v1LvFfj30JWGBw1v38SvjzQYAOZCjqLpk7TEsFmfBabBbYrH68EfX0ME6PAsjJWofAH37L4Ml7w7309poqF_ki2yMe_jboKRxMRpgR7_TplEz6YJSuxFm00
 
+    // TODO: use  continue (see git history for expected example) may not be possible (will need to wait for update in plantuml) may have to use goto
     // TODO: arrow style on repeat section, on branch after action in repeat section, after repeat finishes, at start of repeat,
     // TODO: step builder to force correct usage
     // TODO: styling - diamond, line, colour
@@ -258,34 +256,6 @@ class RepeatFlowchartGeneratorTest {
                     :action55;
                     :action66;
                     break
-                    endif
-                    :action2;
-                    repeat while (is Big?)
-                    @enduml""");
-        }
-    }
-
-    @Nested
-    class ContinueInside {
-        @Test
-        @Disabled("Cannot find functionality to do a continue. This is how I expect it to work")
-        void simpleRepeatWithoutArrowLabelsWithIf() {
-            String flowchart = flowchart()
-                    .then(repeat()
-                            .the(activity("action1"))
-                            .and(ifIsTrue("is big?")
-                                    .then("yes", doActivity("action55"), doActivity("action66"), skip()))
-                            .the(activity("action2"))
-                            .repeatWhen("is Big?"))
-                    .create();
-            assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml
-                    repeat
-                    :action1;
-                    if (is big?) then (yes)
-                    :action55;
-                    :action66;
-                    continue
                     endif
                     :action2;
                     repeat while (is Big?)
