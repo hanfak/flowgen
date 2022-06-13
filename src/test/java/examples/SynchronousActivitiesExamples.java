@@ -34,6 +34,8 @@ class SynchronousActivitiesExamples {
                 another line""";
         flowchart()
                 .withTitle("Hello")
+                .withFooter("\n\nFooter") // Add extra space between footer and activity diagram
+                .withHeader("Header")
                 .withStartNode()
                 .then(doActivity("action1" + lineSeparator() + "more lines")).withLabel("then")
                 .then(doActivity("action2\nanother line\nhello")).withLabel("then next")

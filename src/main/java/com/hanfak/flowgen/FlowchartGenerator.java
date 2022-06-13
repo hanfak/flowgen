@@ -62,6 +62,16 @@ public class FlowchartGenerator {
         return this;
     }
 
+    public FlowchartGenerator withHeader(String header) { // TODO: Param should be builder, and create object (TITLE) in line below for multi line
+        actions.add("header%n%s%nend header%n".formatted(header));
+        return this;
+    }
+
+    public FlowchartGenerator withFooter(String footer) { // TODO: Param should be builder, and create object (TITLE) in line below for multi line
+        actions.add("footer%n%s%nend footer%n".formatted(footer));
+        return this;
+    }
+
     public FlowchartGenerator withCaption(String caption) { // TODO: Param should be builder, and create object (CAPTION) in line below for multi line
         actions.add("caption%n%s%nend caption%n".formatted(caption));
         return this;

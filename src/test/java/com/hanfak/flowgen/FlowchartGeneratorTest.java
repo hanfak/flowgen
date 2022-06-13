@@ -304,9 +304,92 @@ class FlowchartGeneratorTest {
         }
     }
 
+    @Nested
+    class Header {
+        // TODO: styling
+        @Test
+        void singleLineHeaderAtTopOfFlowchart() {
+            String flowchart = flowchart()
+                    .withHeader("header")
+                    .withStartNode()
+                    .then(doActivity("action1"))
+                    .then(doActivity("action2"))
+                    .create();
+            assertThat(flowchart).isEqualToNormalizingNewlines("""
+                    @startuml
+                    header
+                    header
+                    end header
+                    start
+                    :action1;
+                    :action2;
+                    @enduml""");
+        }
 
+        @Test
+        void multiLineHeaderAtTopOfFlowchart() {
+            String flowchart = flowchart()
+                    .withHeader("header\nsecond line")
+                    .withStartNode()
+                    .then(doActivity("action1"))
+                    .then(doActivity("action2"))
+                    .create();
+            assertThat(flowchart).isEqualToNormalizingNewlines("""
+                    @startuml
+                    header
+                    header
+                    second line
+                    end header
+                    start
+                    :action1;
+                    :action2;
+                    @enduml""");
+        }
+    }
+
+    @Nested
+    class Footer {
+        // TODO: styling
+        @Test
+        void singleLineFooterAtTopOfFlowchart() {
+            String flowchart = flowchart()
+                    .withFooter("footer")
+                    .withStartNode()
+                    .then(doActivity("action1"))
+                    .then(doActivity("action2"))
+                    .create();
+            assertThat(flowchart).isEqualToNormalizingNewlines("""
+                    @startuml
+                    footer
+                    footer
+                    end footer
+                    start
+                    :action1;
+                    :action2;
+                    @enduml""");
+        }
+
+        @Test
+        void multiLineHeaderAtTopOfFlowchart() {
+            String flowchart = flowchart()
+                    .withFooter("footer\nsecond line")
+                    .withStartNode()
+                    .then(doActivity("action1"))
+                    .then(doActivity("action2"))
+                    .create();
+            assertThat(flowchart).isEqualToNormalizingNewlines("""
+                    @startuml
+                    footer
+                    footer
+                    second line
+                    end footer
+                    start
+                    :action1;
+                    :action2;
+                    @enduml""");
+        }
+    }
     // TODO: All todos throughout code base, incl failing tests
-    // TODO: header and footer https://plantuml.com/commons#8413c683b4b27cc3
     // TODO: legend https://plantuml.com/commons#8413c683b4b27cc3
     // TODO: zoom https://plantuml.com/commons#8413c683b4b27cc3
     // TODO: detach on activity
