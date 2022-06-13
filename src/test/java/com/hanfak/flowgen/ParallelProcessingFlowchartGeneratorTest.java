@@ -10,12 +10,12 @@ import static com.hanfak.flowgen.ParallelProcess.doInParallel;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ParallelProcessingFlowchartGeneratorTest {
-    // TODO: merge 2 and more than 2 actions
-    // TODO: end one parallel action, use node ,detach, kill
-    // TODO: arrow style after start of fork or fork again,
-    // TODO: label on end fork
-    // TODO: styling on fork
-    // TODO: config
+    // TODO: P1 merge 2 and more than 2 actions
+    // TODO: P1 end one parallel action, use node ,detach, kill
+    // TODO: P1 arrow style after start of fork or fork again,
+    // TODO: P1 label on end fork
+    // TODO: P2 styling on fork
+    // TODO: P2 config
 
     @Nested
     class Simple {

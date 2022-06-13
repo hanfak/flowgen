@@ -10,10 +10,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class ConditionalFlowChartGeneratorTest {
 
-    // TODO: No predicate outcome show for then branch
-    // TODO: then without predicateOutcome
-    // TODO: arrow style after than, after endif
-    // TODO: styling - diamond, line, colour
+    // TODO: P1 No predicate outcome show for then branch
+    // TODO: P1 then without predicateOutcome
+    // TODO: P2 arrow style after than, after endif
+    // TODO: P2 styling - diamond, line, colour
     @Test
     void ifELseWithPredicatesOnBothPaths() {
         String flowchart = flowchart()

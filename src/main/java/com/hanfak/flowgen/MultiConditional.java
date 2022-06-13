@@ -7,7 +7,6 @@ import java.util.Queue;
 import static java.lang.System.lineSeparator;
 import static java.util.stream.Collectors.joining;
 
-// TODO: WIP
 public class MultiConditional implements Action {
 
     /// NOTE: Storing the elseIf contents in queue<String> which is the
@@ -30,7 +29,6 @@ public class MultiConditional implements Action {
         return this;
     }
 
-    // TODO: could use builder? types - can add optional param of config?
     public MultiConditional elseIf(String elsePredicateOutcome, String predicate, String thenPredicateOutcome, Action... actions) {
         String elseIfTemplate = "(%s) elseif (%s) then (%s)%n%s%n";
         String activitiesString = getActivitiesString(List.of(actions));
@@ -38,7 +36,6 @@ public class MultiConditional implements Action {
         return this;
     }
 
-    // TODO: To overload will need types for Predicate, elsePredicateOutcome, thenPredicateOutcome
     public MultiConditional elseIf(String predicate, String thenPredicateOutcome, Action... actions) {
         return this;
     }

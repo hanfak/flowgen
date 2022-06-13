@@ -20,9 +20,7 @@ import static java.lang.System.lineSeparator;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static net.sourceforge.plantuml.FileFormat.PNG;
 import static net.sourceforge.plantuml.FileFormat.SVG;
-// TODO: Instead of methods starting with, just use then() and overload
-//
-// TODO: Duplicate setters with extra param for config for that specific action
+
 public class FlowchartGenerator {
 
     public static final Pattern SWIM_LANE_REGEX = Pattern.compile("(\\|.+?\\|)");
@@ -41,7 +39,6 @@ public class FlowchartGenerator {
     private FlowchartGenerator() {
     }
 
-    // TODO: Add new constructor for overall config (<style>)
     public static FlowchartGenerator flowchart() {
         return new FlowchartGenerator().with(NONE);
     }
@@ -57,22 +54,32 @@ public class FlowchartGenerator {
         return this;
     }
 
-    public FlowchartGenerator withTitle(String title) { // TODO: Param should be builder, and create object (TITLE) in line below for multi line
+    public FlowchartGenerator withTitle(String title) {
         actions.add("title%n%s%nend title%n".formatted(title));
         return this;
     }
 
-    public FlowchartGenerator withHeader(String header) { // TODO: Param should be builder, and create object (TITLE) in line below for multi line
+    public FlowchartGenerator withHeader(String header) {
         actions.add("header%n%s%nend header%n".formatted(header));
         return this;
     }
 
-    public FlowchartGenerator withFooter(String footer) { // TODO: Param should be builder, and create object (TITLE) in line below for multi line
+    public FlowchartGenerator withFooter(String footer) {
         actions.add("footer%n%s%nend footer%n".formatted(footer));
         return this;
     }
 
-    public FlowchartGenerator withCaption(String caption) { // TODO: Param should be builder, and create object (CAPTION) in line below for multi line
+    public FlowchartGenerator withLegend(String legend) {
+        actions.add("legend%n%s%nend legend%n".formatted(legend));
+        return this;
+    }
+
+    public FlowchartGenerator withLegendRight(String legend) {
+        actions.add("legend right%n%s%nend legend%n".formatted(legend));
+        return this;
+    }
+
+    public FlowchartGenerator withCaption(String caption) {
         actions.add("caption%n%s%nend caption%n".formatted(caption));
         return this;
     }
@@ -82,12 +89,12 @@ public class FlowchartGenerator {
         return this;
     }
 
-    public FlowchartGenerator and(Action action) { // TODO: Param should be string, and create object in line below
+    public FlowchartGenerator and(Action action) {
         this.actions.add(action.build());
         return this;
     }
 
-    public FlowchartGenerator last(Action action) { // TODO: Param should be string, and create object in line below
+    public FlowchartGenerator last(Action action) {
         this.actions.add(action.build());
         return this;
     }

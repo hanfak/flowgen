@@ -10,14 +10,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 // TODO: combine with conditional
 class MultipleConditionalFlowchartGeneratorTest {
-    // TODO: better naming and implementation
-    // TODO: No predicate outcome show for then branch
-    // TODO: No predicate outcome show for multiple then branch
-    // TODO: No predicate outcome show for multiple elseif branch
-    // TODO: No predicate outcome show for orelse branch
-    // TODO: guard clause
-    // TODO: arrow style after if, after elseif, after else, after endif
-    // TODO: inline styling
+    // TODO: P1 better naming and implementation
+    // TODO: P1 No predicate outcome show for then branch
+    // TODO: P1 No predicate outcome show for multiple then branch
+    // TODO: P1 No predicate outcome show for multiple elseif branch
+    // TODO: P1 No predicate outcome show for orelse branch
+    // TODO: P1 guard clause
+    // TODO: P2 arrow style after if, after elseif, after else, after endif
+    // TODO: P2 inline styling
     @Test
     void multipleIfELseWithPredicatesOnAllPaths() {
         String flowchart = flowchart()

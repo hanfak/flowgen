@@ -17,7 +17,6 @@ public class Conditional implements Action {
 
     private final String predicate;
 
-    // TODO: use type instead of List
     private final Queue<Action> thenActivity = new LinkedList<>();
     private final Queue<Action> elseActivity = new LinkedList<>();
     private String predicatePassOutcome;
@@ -28,20 +27,16 @@ public class Conditional implements Action {
         this.predicate = predicate;
     }
 
-    // TODO: naming - branchWhen()?
     public static Conditional ifIsTrue(String predicate) {
         return new Conditional(predicate);
     }
-// TODO: arg as builder, factory takes action,
+
     public Conditional then(String predicateOutcome, Action... actions) {
         this.thenActivity.addAll(List.of(actions));
         this.predicatePassOutcome = predicateOutcome;
         return this;
     }
 
-    // TODO: and() method to chain on to then and/or orElse
-
-    // TODO: arg as builder, factory takes action,
     public Conditional orElse(String predicateOutcome,  Action... actions) {
         this.elseActivity.addAll(List.of(actions));
         this.predicateFailOutcome = predicateOutcome;

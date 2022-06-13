@@ -76,19 +76,16 @@ public class Repeat implements Action {
         return this;
     }
 
-    // TODO: naming - is? repeatAgainFor?
     public Repeat isTrueFor(String predicateTrueOutcome) {
         this.predicateTrueOutcome = predicateTrueOutcome;
         return this;
     }
 
-    // TODO: naming repeatLoopAction
     public Repeat labelRepeat(Action repeatLoopActivity) {
         this.actions.add(() -> "backward" + repeatLoopActivity.build());
         return this;
     }
 
-    // TODO: better name- exitLoopFor?
     public Repeat exitOn(String predicateFalseOutcome) {
         this.predicateFalseOutcome = predicateFalseOutcome + ";";
         return this;

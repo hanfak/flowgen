@@ -25,6 +25,4 @@ class FileCheckerTest {
                 .withStopNode()
                 .createFile(path);
     }
-
-
 }

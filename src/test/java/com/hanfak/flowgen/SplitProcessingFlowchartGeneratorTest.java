@@ -10,12 +10,12 @@ import static com.hanfak.flowgen.Split.split;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class SplitProcessingFlowchartGeneratorTest {
-    // TODO: add end/stop node in one split
-    // TODO: Labels on each split, use -> balh; (issues of overlap)
-    // TODO: Multi line Labels on each split, use -> balh; (issues of overlap)
-    // TODO: arrow style after split or split again, after end split
-    // TODO: styling on line label
-    // TODO: Config, styling
+    // TODO: P1 add end/stop node in one split
+    // TODO: P1 Labels on each split, use -> balh; (issues of overlap)
+    // TODO: P1 Multi line Labels on each split, use -> balh; (issues of overlap)
+    // TODO: P2 arrow style after split or split again, after end split
+    // TODO: P2 styling on line label
+    // TODO: P2 Config, styling
 
     @Nested
     class SimpleSplit {

@@ -12,12 +12,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class RepeatFlowchartGeneratorTest {
 
-    // TODO: Label at start of repeat action ie http://www.plantuml.com/plantuml/uml/DOux3iCm34DtdK9ZUmLxQ0xH2p2LwXZr9v1LvFfj30JWGBw1v38SvjzQYAOZCjqLpk7TEsFmfBabBbYrH68EfX0ME6PAsjJWofAH37L4Ml7w7309poqF_ki2yMe_jboKRxMRpgR7_TplEz6YJSuxFm00
-
-    // TODO: use  continue (see git history for expected example) may not be possible (will need to wait for update in plantuml) may have to use goto
-    // TODO: arrow style on repeat section, on branch after action in repeat section, after repeat finishes, at start of repeat,
-    // TODO: step builder to force correct usage
-    // TODO: styling - diamond, line, colour
+    // TODO: P1 Label at start of repeat action ie http://www.plantuml.com/plantuml/uml/DOux3iCm34DtdK9ZUmLxQ0xH2p2LwXZr9v1LvFfj30JWGBw1v38SvjzQYAOZCjqLpk7TEsFmfBabBbYrH68EfX0ME6PAsjJWofAH37L4Ml7w7309poqF_ki2yMe_jboKRxMRpgR7_TplEz6YJSuxFm00
+    // TODO: P2 arrow style on repeat section, on branch after action in repeat section, after repeat finishes, at start of repeat,
+    // TODO: P2 step builder to force correct usage
+    // TODO: P2 styling - diamond, line, colour
+    // TODO: PX use  continue (see git history for expected example) may not be possible (will need to wait for update in plantuml) may have to use goto
 
     @Nested
     class Simple {

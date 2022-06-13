@@ -27,7 +27,7 @@ public class While implements Action {
     public static While loopWhen(String predicate) {
         return new While(predicate);
     }
-    // TODO: should be withActivities, doesAction
+
     public While execute(Action... actions) {
         this.actions.addAll(List.of(actions));
         return this;
@@ -63,7 +63,6 @@ public class While implements Action {
         return this;
     }
 
-    // TODO: better name- exitLoopFor?
     public While exitLabel(String predicateFalseOutcome) {
         this.predicateFalseOutcome = predicateFalseOutcome;
         return this;

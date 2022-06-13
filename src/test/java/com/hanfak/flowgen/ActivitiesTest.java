@@ -12,7 +12,7 @@ class ActivitiesTest {
 
     @Nested
     class SynchronousActivityFlow {
-        // TODO: styling an individual activity
+        // TODO: P2 styling an individual activity
         @Test
         void createOneActivity() {
             String flowchart = flowchart()
@@ -43,7 +43,7 @@ class ActivitiesTest {
     @Nested
     class Notes {
 
-        // TODO: styling a note
+        // TODO: P2 styling a note
         @Nested
         class Simple {
 

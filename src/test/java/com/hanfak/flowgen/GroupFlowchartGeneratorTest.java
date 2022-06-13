@@ -9,7 +9,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class GroupFlowchartGeneratorTest {
 
-    // TODO: styling - diamond, line, colour
+    // TODO: P2 styling - diamond, line, colour
 
     @Test
     void simpleGroup() {

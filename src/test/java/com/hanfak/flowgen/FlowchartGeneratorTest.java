@@ -351,7 +351,7 @@ class FlowchartGeneratorTest {
     class Footer {
         // TODO: styling
         @Test
-        void singleLineFooterAtTopOfFlowchart() {
+        void singleLineFooterAtBottomOfFlowchart() {
             String flowchart = flowchart()
                     .withFooter("footer")
                     .withStartNode()
@@ -370,7 +370,7 @@ class FlowchartGeneratorTest {
         }
 
         @Test
-        void multiLineHeaderAtTopOfFlowchart() {
+        void multiLineHeaderAtBottomOfFlowchart() {
             String flowchart = flowchart()
                     .withFooter("footer\nsecond line")
                     .withStartNode()
@@ -389,12 +389,91 @@ class FlowchartGeneratorTest {
                     @enduml""");
         }
     }
+
+    @Nested
+    class Legend {
+        // TODO: styling
+        @Test
+        void singleLineLegendAtBottomOfFlowchart() {
+            String flowchart = flowchart()
+                    .withLegend("legend")
+                    .withStartNode()
+                    .then(doActivity("action1"))
+                    .then(doActivity("action2"))
+                    .create();
+            assertThat(flowchart).isEqualToNormalizingNewlines("""
+                    @startuml
+                    legend
+                    legend
+                    end legend
+                    start
+                    :action1;
+                    :action2;
+                    @enduml""");
+        }
+
+        @Test
+        void multiLineLegendAtBottomOfFlowchart() {
+            String flowchart = flowchart()
+                    .withStartNode()
+                    .then(doActivity("action1"))
+                    .then(doActivity("action2"))
+                    .withLegend("legend\nsecond line")
+                    .create();
+            assertThat(flowchart).isEqualToNormalizingNewlines("""
+                    @startuml
+                    start
+                    :action1;
+                    :action2;
+                    legend
+                    legend
+                    second line
+                    end legend
+                    @enduml""");
+        }
+
+        @Test
+        void legendAtBottomRightFlowchart() {
+            String flowchart = flowchart()
+                    .withLegendRight("legend")
+                    .withStartNode()
+                    .then(doActivity("action1"))
+                    .then(doActivity("action2"))
+                    .create();
+            assertThat(flowchart).isEqualToNormalizingNewlines("""
+                    @startuml
+                    legend right
+                    legend
+                    end legend
+                    start
+                    :action1;
+                    :action2;
+                    @enduml""");
+        }
+    }
+
     // TODO: All todos throughout code base, incl failing tests
     // TODO: legend https://plantuml.com/commons#8413c683b4b27cc3
     // TODO: zoom https://plantuml.com/commons#8413c683b4b27cc3
     // TODO: detach on activity
+    // TODO: In all classes Instead of queue, use delegate to hide queue, with delegate using the queue underneath easier to change
+    // TODO: In Activity, do labels
+    // TODO: In Conditional, pass in factory builder
+    // TODO: In Conditional,  naming of ifIsTrue() and orElse()- branchWhen()?
+    // TODO: In Conditional,  and() method to chain on to then and/or orElse
+    // TODO: In multiConditional, pass in factory builder
+    // TODO: In multiConditional, better naming
+    // TODO: In Repeat, better naming: is? repeatAgainFor? for isTrueFor; repeatLoopAction? for labelRepeat; exitLoopFor?? for exitOn
+    // TODO: In while, better naming: withActivities, doesAction for execute; exitLoopFor? for exitLabel
 
     // NExt release
+    // TODO: in FlowchartGenerator for each setter Param should be builder, and create object (xxx) in line below for multi line
+    // TODO: in FlowchartGenerator for each setter duplicate and add config param
+    // TODO: in FlowchartGenerator constructor can pass in <style> to allow user to pass in custom style for all elements
+    // TODO: in FlowchartGenerator for setters and, then, last should pass in string param and create the activity in the method
+    // TODO: In multiConditional, combine with conditional ??
+    // TODO: in Activity Add a builder (Activities) implement Action ie Activities.activity("action2").thenDo("action2")
+    // TODO: in Nodes, Might move enums to individual classes, to allow for styling
     // TODO: General styling use of <style>...</style>
     // TODO: arrows, kill, hidden, dotted|dashed|bold|hidden|
     // TODO: STyling on text -> add to individual words or or substring
