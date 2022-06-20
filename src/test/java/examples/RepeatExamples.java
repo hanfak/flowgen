@@ -4,8 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.nio.file.Paths;
 
-import static com.hanfak.flowgen.Activity.doActivity;
-import static com.hanfak.flowgen.Activity.thenActivity;
+import static com.hanfak.flowgen.Activity.*;
 import static com.hanfak.flowgen.Break.leave;
 import static com.hanfak.flowgen.Conditional.ifIsTrue;
 import static com.hanfak.flowgen.FlowchartGenerator.flowchart;
@@ -19,7 +18,7 @@ class RepeatExamples {
         flowchart()
                 .withStartNode()
                 .then(repeat()
-                        .and(doActivity("action1"), thenActivity("action2"))
+                        .the(activity("action1"), thenActivity("action2"))
                         .and(doActivity("action3"))
                         .repeatWhen("is Big?")
                         .isTrueFor("yes")
