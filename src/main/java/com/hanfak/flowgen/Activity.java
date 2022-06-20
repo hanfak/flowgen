@@ -11,6 +11,7 @@ public class Activity implements Action {
     private String swimLane;
     private String note;
     private String style = ";";
+    private String arrowLabel;
 
     private Activity(String name) {
         this.name = name;
@@ -56,24 +57,41 @@ public class Activity implements Action {
         this.note = note.build();
         return this;
     }
+
     public Activity inSwimLane(String swimLane) {
         this.swimLane = swimLane;
         return this;
     }
 
-    // TODO: Labels
+    public Activity label(String label) {
+        arrowLabel = Label.label(label).build();
+        return this;
+    }
 
     @Override
     public String build() {
         String activityPopulated = SIMPLE_DEFAULT_ACTIVITY_TEMPLATE.formatted(":", name, style, lineSeparator());
         if (Objects.nonNull(swimLane)) {
+            if (Objects.nonNull(arrowLabel) && Objects.nonNull(note)) {
+                return "|%s|%n%s%n%s%n%s".formatted(swimLane, activityPopulated, arrowLabel, note);
+            }
+            if (Objects.nonNull(arrowLabel)) {
+                return "|%s|%n%s%n%s".formatted(swimLane, activityPopulated, arrowLabel);
+            }
             if (Objects.nonNull(note)) {
                 return "|%s|%n%s%n%s".formatted(swimLane, activityPopulated, note);
             }
             return "|%s|%n%s".formatted(swimLane, activityPopulated);
         }
+
+        if (Objects.nonNull(arrowLabel) && Objects.nonNull(note)) {
+           return "%s%n%s%s".formatted(activityPopulated, arrowLabel, note);
+        }
+        if (Objects.nonNull(arrowLabel)) {
+            return "%s%n%s".formatted(activityPopulated,  arrowLabel);
+        }
         if (Objects.nonNull(note)) {
-            return activityPopulated + lineSeparator() + note;
+            return "%s%n%s".formatted(activityPopulated, note);
         }
         return activityPopulated;
     }

@@ -3,7 +3,7 @@ package com.hanfak.flowgen;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import static com.hanfak.flowgen.Activity.doActivity;
+import static com.hanfak.flowgen.Activity.*;
 import static com.hanfak.flowgen.FlowchartGenerator.flowchart;
 import static com.hanfak.flowgen.Note.note;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -37,6 +37,25 @@ class ActivitiesTest {
                     :action2;
                     :action3;
                     @enduml""");
+        }
+    }
+
+    @Nested
+    class SwimLanes {
+        @Test
+        void createMultipleActivitiesInSwimLanes() {
+            String flowchart = flowchart()
+                    .then(activity("action").inSwimLane("S1"))
+                    .then(doActivity("action 1").inSwimLane("S2"))
+                    .create();
+            assertThat(flowchart).isEqualToNormalizingNewlines("""
+                        @startuml
+                        |S1|
+                        |S1|
+                        :action;
+                        |S2|
+                        :action 1;
+                        @enduml""");
         }
     }
 
@@ -217,6 +236,84 @@ class ActivitiesTest {
                         note right
                         A Note 1
                         end note
+                        @enduml""");
+            }
+
+            @Test
+            void createMultipleActivitiesWithSimpleDefaultNoteAndLabelsInSwimLanes() {
+                String flowchart = flowchart()
+                        .then(doActivity("action").with(note("A Note")).label("label 1").inSwimLane("S1"))
+                        .then(doActivity("action 1").with(note("A Note 1")).label("label 2").inSwimLane("S2"))
+                        .create();
+                assertThat(flowchart).isEqualToNormalizingNewlines("""
+                        @startuml
+                        |S1|
+                        |S1|
+                        :action;
+                        ->label 1;
+                        note right
+                        A Note
+                        end note
+                        |S2|
+                        :action 1;
+                        ->label 2;
+                        note right
+                        A Note 1
+                        end note
+                        @enduml""");
+            }
+        }
+
+        @Nested
+        class WithLabel {
+            @Test
+            void createOneActivityWithSimpleDefaultNoteAndLabel() {
+                String flowchart = flowchart()
+                        .then(doActivity("action").with(note("A Note")).label("label"))
+                        .create();
+                assertThat(flowchart).isEqualToNormalizingNewlines("""
+                        @startuml
+                        :action;
+                        ->label;
+                        note right
+                        A Note
+                        end note
+                        @enduml""");
+            }
+        }
+    }
+
+    @Nested
+    class WithLabel {
+        @Test
+        void createOneActivityWithLabel() {
+            String flowchart = flowchart()
+                    .then(doActivity("action").label("label"))
+                    .create();
+            assertThat(flowchart).isEqualToNormalizingNewlines("""
+                        @startuml
+                        :action;
+                        ->label;
+                        @enduml""");
+        }
+
+        @Nested
+        class SwimLanes {
+            @Test
+            void createMultipleActivitiesWithLabelsInSwimLanes() {
+                String flowchart = flowchart()
+                        .then(andActivity("action").label("label 1").inSwimLane("S1"))
+                        .then(thenActivity("action 1").label("label 2").inSwimLane("S2"))
+                        .create();
+                assertThat(flowchart).isEqualToNormalizingNewlines("""
+                        @startuml
+                        |S1|
+                        |S1|
+                        :action;
+                        ->label 1;
+                        |S2|
+                        :action 1;
+                        ->label 2;
                         @enduml""");
             }
         }

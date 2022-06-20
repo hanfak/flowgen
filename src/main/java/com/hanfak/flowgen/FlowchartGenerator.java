@@ -176,7 +176,7 @@ public class FlowchartGenerator {
         try {
             Files.write(path, svg.getBytes());
         } catch (IOException e) {
-           throw new IllegalStateException(); // TODO:  test
+           throw new IllegalStateException(); // TODO: P1 test
         }
     }
 
@@ -187,15 +187,15 @@ public class FlowchartGenerator {
             try (final ByteArrayOutputStream os = new ByteArrayOutputStream()) {
                 DiagramDescription diagramDescription = reader.outputImage(os, new FileFormatOption(PNG));
                 if (diagramDescription.getDescription().contains("Error")) {
-                    throw new IllegalStateException("There is something wrong with your syntax"); // TODO: test
+                    throw new IllegalStateException("There is something wrong with your syntax"); // TODO: P1 test
                 }
                 result = os.toByteArray();
             } catch (IOException e) {
-                throw new IllegalStateException(); // TODO: test
+                throw new IllegalStateException(); // TODO: P1 test
             }
             Files.write(path, result);
         } catch (IOException e) {
-            throw new IllegalStateException(); // TODO:  test
+            throw new IllegalStateException(); // TODO: P1 test
         }
     }
 }

@@ -12,9 +12,9 @@
 
 - Current release
   - TODO: All P1 todos throughout code base, incl failing tests
+    - TODO: Get jacoco to 100% in FlowchartGenerator class
   - TODO: detach on activity
   - TODO: In all classes Instead of queue, use delegate to hide queue, with delegate using the queue underneath easier to change
-  - TODO: In Activity, do labels
   - TODO: In Conditional, pass in factory builder
   - TODO: In Conditional,  naming of ifIsTrue() and orElse()- branchWhen()?
   - TODO: In Conditional,  and() method to chain on to then and/or orElse
@@ -25,6 +25,7 @@
 
 - NExt release https://plantuml.com/commons#8413c683b4b27cc3
   - TODO: All P2 todos
+  - TODO: Refactor build methods impl to be able to cope with adding config for each Action
   - TODO: zoom https://plantuml.com/commons#8413c683b4b27cc3 - TODO: Add examples in docs in prod code
   - TODO: in FlowchartGenerator for each setter Param should be builder, and create object (xxx) in line below for multi line
   - TODO: in FlowchartGenerator for each setter duplicate and add config param

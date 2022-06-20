@@ -1,5 +1,6 @@
 package com.hanfak.flowgen;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -472,18 +473,18 @@ class FlowchartGeneratorTest {
             assertThat(svg).containsSubsequence("@startuml", ":action1;", ":action2;", ":action3;", "@enduml");
         }
 
-        // TODO: Failed to generate
+        // TODO: P1 Failed to generate
     }
 
     @Nested
     class FileCreation {
 
         @Test
-
+        @Disabled
         void emptyFlowchart(@TempDir Path tempDir) throws IOException, InterruptedException {
             Path file = tempDir.resolve("flowchart.html");
             flowchart().createFile(file);
-            Thread.sleep(2000); // TODO: Fix, use awaitly to wait for file to be created
+            Thread.sleep(2000); // TODO: P1 Fix, use awaitly to wait for file to be created
             assertThat(Files.readAllLines(file)
                     .get(0)).contains("Welcome to PlantUML!", "You can start with a simple UML Diagram like:");
             assertThat(Files.readAllLines(file)).containsSequence(
