@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
+import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -36,15 +37,18 @@ public class FlowchartGenerator {
     private final StringBuilder flowchartString = new StringBuilder();
     private final Queue<String> actions = new LinkedList<>();
 
-    private FlowchartGenerator() {
+    private final Function<String, SourceStringReader> sourceStringReaderCreator;
+
+    FlowchartGenerator(Function<String, SourceStringReader> sourceStringReaderCreator) {
+        this.sourceStringReaderCreator = sourceStringReaderCreator;
     }
 
     public static FlowchartGenerator flowchart() {
-        return new FlowchartGenerator().with(NONE);
+        return new FlowchartGenerator(SourceStringReader::new).with(NONE);
     }
 
     public static FlowchartGenerator flowchartWith(Theme theme) {
-        return new FlowchartGenerator().with(theme);
+        return new FlowchartGenerator(SourceStringReader::new).with(theme);
     }
 
     private FlowchartGenerator with(Theme theme) {
@@ -159,15 +163,16 @@ public class FlowchartGenerator {
     }
 
     public String createSvg() {
-        SourceStringReader reader = new SourceStringReader(create());
+        SourceStringReader reader = sourceStringReaderCreator.apply(create());
+
         try (final ByteArrayOutputStream os = new ByteArrayOutputStream()) {
             DiagramDescription diagramDescription = reader.outputImage(os, new FileFormatOption(SVG));
             if (diagramDescription.getDescription().contains("Error")) {
-                throw new IllegalStateException("There is something wrong with your syntax"); // TODO: test
+                throw new IllegalStateException("There is something wrong with your syntax");
             }
             return os.toString(UTF_8);
         } catch (IOException e) {
-            throw new IllegalStateException(); // TODO: test
+            throw new IllegalStateException("Issue generating SVG", e);
         }
     }
 
@@ -176,26 +181,26 @@ public class FlowchartGenerator {
         try {
             Files.write(path, svg.getBytes());
         } catch (IOException e) {
-           throw new IllegalStateException(); // TODO: P1 test
+           throw new IllegalStateException("Issue creating file", e);
         }
     }
 
     public void createPngFile(Path path) {
         try {
             byte[] result;
-            SourceStringReader reader = new SourceStringReader(create());
+            SourceStringReader reader = sourceStringReaderCreator.apply(create());
             try (final ByteArrayOutputStream os = new ByteArrayOutputStream()) {
                 DiagramDescription diagramDescription = reader.outputImage(os, new FileFormatOption(PNG));
                 if (diagramDescription.getDescription().contains("Error")) {
-                    throw new IllegalStateException("There is something wrong with your syntax"); // TODO: P1 test
+                    throw new IllegalStateException("There is something wrong with your syntax");
                 }
                 result = os.toByteArray();
             } catch (IOException e) {
-                throw new IllegalStateException(); // TODO: P1 test
+                throw new IllegalStateException("Issue generating PNG", e);
             }
             Files.write(path, result);
         } catch (IOException e) {
-            throw new IllegalStateException(); // TODO: P1 test
+            throw new IllegalStateException("Issue creating file", e);
         }
     }
 }

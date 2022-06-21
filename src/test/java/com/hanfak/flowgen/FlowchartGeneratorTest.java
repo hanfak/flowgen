@@ -1,20 +1,27 @@
 package com.hanfak.flowgen;
 
+import net.sourceforge.plantuml.FileFormatOption;
+import net.sourceforge.plantuml.SourceStringReader;
+import net.sourceforge.plantuml.core.DiagramDescription;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.function.Function;
 
 import static com.hanfak.flowgen.Activity.doActivity;
+import static com.hanfak.flowgen.Exit.exit;
 import static com.hanfak.flowgen.FlowchartGenerator.flowchart;
 import static com.hanfak.flowgen.FlowchartGenerator.flowchartWith;
-import static com.hanfak.flowgen.Exit.exit;
 import static com.hanfak.flowgen.Theme.SPACELAB;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class FlowchartGeneratorTest {
 
@@ -455,6 +462,9 @@ class FlowchartGeneratorTest {
     @Nested
     class SvgCreation {
 
+        private final Function<String, SourceStringReader> sourceStringReaderFunction = SourceStringReaderStub::new;
+        private final FlowchartGenerator flowchartGenerator = new FlowchartGenerator(sourceStringReaderFunction);
+
         @Test
         void emptyFlowchart() {
             assertThat(flowchart().createSvg())
@@ -473,7 +483,21 @@ class FlowchartGeneratorTest {
             assertThat(svg).containsSubsequence("@startuml", ":action1;", ":action2;", ":action3;", "@enduml");
         }
 
-        // TODO: P1 Failed to generate
+        @Test
+        void shouldThrowExceptionIfCannotGenerateSvg() {
+            assertThatThrownBy(() -> flowchartGenerator.then(doActivity("action1")).createSvg())
+                    .isInstanceOf(IllegalStateException.class)
+                    .hasMessage("Issue generating SVG")
+                    .getCause().isInstanceOf(IOException.class);
+        }
+
+        @Test
+        void shouldThrowExceptionIfPlantUmlIsIncorrect() {
+            assertThatThrownBy(() -> flowchartGenerator.then(doActivity("action2")).createSvg())
+                    .isInstanceOf(IllegalStateException.class)
+                    .hasMessage("There is something wrong with your syntax");
+        }
+
     }
 
     @Nested
@@ -509,6 +533,72 @@ class FlowchartGeneratorTest {
                     "@enduml");
         }
 
-        // TODO: Failed to generate
+        @Test
+        void shouldThrowExceptionWhenProblemGeneratingFile() {
+            assertThatThrownBy(() -> flowchart().then(doActivity("action1")).createFile(Path.of("")))
+                    .isInstanceOf(IllegalStateException.class)
+                    .hasMessage("Issue creating file")
+                    .getCause().isInstanceOf(IOException.class);
+        }
+    }
+
+    @Nested
+    class PngFileCreation {
+
+        private final Function<String, SourceStringReader> sourceStringReaderFunction = SourceStringReaderStub::new;
+        private final FlowchartGenerator flowchartGenerator = new FlowchartGenerator(sourceStringReaderFunction);
+
+        @Test
+        void createsPng(@TempDir Path tempDir) {
+            Path file = tempDir.resolve("flowchart.png");
+
+            flowchart().then(doActivity("action3")).createPngFile(file);
+
+            assertThat(Files.exists(file)).isTrue();
+        }
+
+        @Test
+        void shouldThrowExceptionWhenProblemGeneratingFile() {
+            assertThatThrownBy(() -> flowchart().then(doActivity("action2")).createPngFile(Path.of("")))
+                    .isInstanceOf(IllegalStateException.class)
+                    .hasMessage("Issue creating file")
+                    .getCause().isInstanceOf(IOException.class);
+        }
+
+        @Test
+        void shouldThrowExceptionIfCannotGenerateSvg() {
+            assertThatThrownBy(() -> flowchartGenerator.then(doActivity("action1")).createPngFile(Paths.get("./test2.png")))
+                    .isInstanceOf(IllegalStateException.class)
+                    .hasMessage("Issue generating PNG")
+                    .getCause().isInstanceOf(IOException.class);
+        }
+
+        @Test
+        void shouldThrowExceptionIfPlantUmlIsIncorrect() {
+            assertThatThrownBy(() -> flowchartGenerator.then(doActivity("action2")).createPngFile(Paths.get("./test2.png")))
+                    .isInstanceOf(IllegalStateException.class)
+                    .hasMessage("There is something wrong with your syntax");
+        }
+    }
+
+    private static class SourceStringReaderStub extends SourceStringReader {
+
+        private final String plantuml;
+
+        public SourceStringReaderStub(String plantuml) {
+            super(plantuml);
+            this.plantuml = plantuml;
+        }
+
+        @Override
+        public DiagramDescription outputImage(OutputStream os, FileFormatOption fileFormatOption) throws IOException {
+            if (plantuml.contains(":action1;")) {
+                throw new IOException();
+            }
+            if (plantuml.contains(":action2;")) {
+                return new DiagramDescription("Error");
+            }
+            return this.outputImage(os,fileFormatOption);
+        }
     }
 }

@@ -3,7 +3,7 @@
 ## Devops
 
 - Github actions 
-- jacoco
+- pitest
 - sonarcloud
 - Add to jitpack
 - Add to maven repository
@@ -12,8 +12,7 @@
 
 - Current release
   - TODO: All P1 todos throughout code base, incl failing tests
-    - TODO: Get jacoco to 100% in FlowchartGenerator class
-  - TODO: detach on activity
+  - NEXT: detach on activity
   - TODO: In all classes Instead of queue, use delegate to hide queue, with delegate using the queue underneath easier to change
   - TODO: In Conditional, pass in factory builder
   - TODO: In Conditional,  naming of ifIsTrue() and orElse()- branchWhen()?
@@ -22,6 +21,7 @@
   - TODO: In multiConditional, better naming
   - TODO: In Repeat, better naming: is? repeatAgainFor? for isTrueFor; repeatLoopAction? for labelRepeat; exitLoopFor?? for exitOn
   - TODO: In while, better naming: withActivities, doesAction for execute; exitLoopFor? for exitLabel
+  - TODO: Move all leftover todos from test code to here
 
 - NExt release https://plantuml.com/commons#8413c683b4b27cc3
   - TODO: All P2 todos

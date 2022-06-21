@@ -64,7 +64,7 @@ public class Activity implements Action {
     }
 
     public Activity label(String label) {
-        arrowLabel = Label.label(label).build();
+        this.arrowLabel = Label.label(label).build();
         return this;
     }
 
