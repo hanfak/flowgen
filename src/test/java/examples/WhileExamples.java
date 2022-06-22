@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.nio.file.Paths;
 
 import static com.hanfak.flowgen.Activity.*;
+import static com.hanfak.flowgen.ActivityBuilder.an;
 import static com.hanfak.flowgen.Break.leave;
 import static com.hanfak.flowgen.Exit.exit;
 import static com.hanfak.flowgen.FlowchartGenerator.flowchart;
@@ -18,7 +19,9 @@ class WhileExamples {
         flowchart()
                 .withStartNode()
                 .then(loopWhen("is Big?")
-                        .execute(activity("action1").label("label").with(note("comment")), thenActivity("action2")))
+                        .execute(
+                                an(activity("action1").label("label").with(note("comment")))
+                                        .then(activity("action2"))))
                 .then(doActivity("action3"))
                 .withStopNode()
                 .createFile(Paths.get("./test1.html"));

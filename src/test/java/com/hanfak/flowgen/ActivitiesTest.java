@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import static com.hanfak.flowgen.Activity.*;
+import static com.hanfak.flowgen.ActivityBuilder.an;
 import static com.hanfak.flowgen.FlowchartGenerator.flowchart;
 import static com.hanfak.flowgen.Note.note;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -27,9 +28,24 @@ class ActivitiesTest {
         @Test
         void oneFlowBetweenMultipleActivities() {
             String flowchart = flowchart()
-                    .then(doActivity("action1"))
+                    .start(activity("action1"))
                     .and(doActivity("action2"))
                     .last(doActivity("action3"))
+                    .create();
+            assertThat(flowchart).isEqualToNormalizingNewlines("""
+                    @startuml
+                    :action1;
+                    :action2;
+                    :action3;
+                    @enduml""");
+        }
+
+        @Test
+        void oneFlowBetweenMultipleActivitiesInOneStep() {
+            String flowchart = flowchart()
+                    .start(an(activity("action1"))
+                            .then(activity("action2"))
+                            .and(activity("action3")))
                     .create();
             assertThat(flowchart).isEqualToNormalizingNewlines("""
                     @startuml

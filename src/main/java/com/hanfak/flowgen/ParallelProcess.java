@@ -15,12 +15,31 @@ public class ParallelProcess implements Action {
         return new ParallelProcess(new ActionGroup());
     }
 
+    public static ParallelProcess andDoInParallel() {
+        return new ParallelProcess(new ActionGroup());
+    }
+
     public ParallelProcess the(Action action) {
         this.actionGroup.add(action);
         return this;
     }
 
+    public ParallelProcess and(Action action) {
+        this.actionGroup.add(action);
+        return this;
+    }
+
     public ParallelProcess the(Action... actions) {
+        this.actionGroup.add(actions);
+        return this;
+    }
+
+    public ParallelProcess an(Action action) {
+        this.actionGroup.add(action);
+        return this;
+    }
+
+    public ParallelProcess an(Action... actions) {
         this.actionGroup.add(actions);
         return this;
     }

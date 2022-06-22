@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static com.hanfak.flowgen.Activity.*;
 import static com.hanfak.flowgen.Conditional.ifIsTrue;
+import static com.hanfak.flowgen.Exit.andExit;
 import static com.hanfak.flowgen.FlowchartGenerator.flowchart;
 import static com.hanfak.flowgen.Exit.exit;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -59,7 +60,7 @@ class ConditionalFlowChartGeneratorTest {
         String flowchart = flowchart()
                 .then(ifIsTrue("is big?")
                         .then("yes", doActivity("action1"), andActivity("action3"))
-                        .orElse("no", doActivity("action2"), exit()))
+                        .orElse("no", doActivity("action2"), andExit()))
                 .then(doActivity("action4"))
                 .create();
         assertThat(flowchart).isEqualToNormalizingNewlines("""

@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static com.hanfak.flowgen.Activity.activity;
 import static com.hanfak.flowgen.Activity.doActivity;
+import static com.hanfak.flowgen.ActivityBuilder.an;
 import static com.hanfak.flowgen.FlowchartGenerator.flowchart;
 import static com.hanfak.flowgen.Split.split;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -49,7 +50,7 @@ class SplitProcessingFlowchartGeneratorTest {
             String flowchart = flowchart()
                     .then(doActivity("action1"))
                     .then(split()
-                            .andDo(activity("action2aa"), activity("action2ab"))
+                            .andDo(an(activity("action2aa")).and(activity("action2ab")))
                             .andDo(activity("action2b"))
                             .andDo(activity("action2ca"), activity("action2cb"), activity("action2cc")))
                     .then(doActivity("action3"))

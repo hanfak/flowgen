@@ -4,8 +4,9 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import static com.hanfak.flowgen.Activity.activity;
-import static com.hanfak.flowgen.Activity.thenActivity;
+import static com.hanfak.flowgen.ActivityBuilder.*;
 import static com.hanfak.flowgen.FlowchartGenerator.flowchart;
+import static com.hanfak.flowgen.ParallelProcess.andDoInParallel;
 import static com.hanfak.flowgen.ParallelProcess.doInParallel;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -24,9 +25,9 @@ class ParallelProcessingFlowchartGeneratorTest {
         void multipleParallelActivities() {
             String flowchart = flowchart()
                     .then(doInParallel()
-                            .the(activity("action1"))
-                            .the(activity("action2"), thenActivity("action3"))
-                            .the(activity("action4")))
+                            .the(first(activity("action1")))
+                            .and(following(activity("action2")).and(activity("action3")))
+                            .and(activity("action4")))
                     .create();
             assertThat(flowchart).isEqualToNormalizingNewlines("""
                     @startuml 
@@ -37,6 +38,27 @@ class ParallelProcessingFlowchartGeneratorTest {
                     :action3;
                     fork again
                     :action4;
+                    end fork
+                    @enduml""");
+        }
+
+        @Test
+        void nestedParallelActivities() {
+            String flowchart = flowchart()
+                    .then(doInParallel()
+                            .an(activity("action1"))
+                            .an(andDoInParallel().the(activity("action2")).and(activity("action3"))))
+                    .create();
+            assertThat(flowchart).isEqualToNormalizingNewlines("""
+                    @startuml 
+                    fork
+                    :action1;
+                    fork again
+                    fork
+                    :action2;
+                    fork again
+                    :action3;
+                    end fork
                     end fork
                     @enduml""");
         }

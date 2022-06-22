@@ -8,6 +8,10 @@ public class Exit implements Action {
         return new Exit();
     }
 
+    public static Exit andExit() {
+        return new Exit();
+    }
+
     @Override
     public String build() {
         return "-[hidden]->" + lineSeparator() + "detach" + lineSeparator();

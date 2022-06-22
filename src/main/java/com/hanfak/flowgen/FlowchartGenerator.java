@@ -114,6 +114,11 @@ public class FlowchartGenerator {
         return this;
     }
 
+    public FlowchartGenerator start(Action action) {
+        this.actions.add(action);
+        return this;
+    }
+
     public FlowchartGenerator has(Group group) {
         this.actions.add(group);
         return this;

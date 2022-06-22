@@ -12,7 +12,6 @@
 
 - Current release
   - TODO: All P1 todos throughout code base, incl failing tests
-  - TODO: Acitivity should have builder, to create mulitple activities
   - TODO: In Conditional, pass in factory builder
   - TODO: In Conditional,  naming of ifIsTrue() and orElse()- branchWhen()?
   - TODO: In Conditional,  and() method to chain on to then and/or orElse
