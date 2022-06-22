@@ -1,7 +1,5 @@
 package com.hanfak.flowgen;
 
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
 
 import static java.lang.System.lineSeparator;
@@ -16,30 +14,31 @@ public class While implements Action {
 
     private final String predicate;
 
-    private final Queue<Action> actions = new LinkedList<>();
+    private final Actions actions;
     private String predicateTrueOutcome;
     private String predicateFalseOutcome;
 
-    private While(String predicate) {
+    private While(String predicate, Actions actions) {
         this.predicate = predicate;
+        this.actions = actions;
     }
 
     public static While loopWhen(String predicate) {
-        return new While(predicate);
+        return new While(predicate, new Actions());
     }
 
     public While execute(Action... actions) {
-        this.actions.addAll(List.of(actions));
+        this.actions.add(actions);
         return this;
     }
 
     public While and(Action... actions) {
-        this.actions.addAll(List.of(actions));
+        this.actions.add(actions);
         return this;
     }
 
     public While then(Action... actions) {
-        this.actions.addAll(List.of(actions));
+        this.actions.add(actions);
         return this;
     }
 
@@ -70,7 +69,7 @@ public class While implements Action {
 
     @Override
     public String build() {
-        String allActions = getActivitiesString(actions);
+        String allActions = actions.combineAllActions();
 
         if (predicateFalseOutcome != null && predicateTrueOutcome != null) {
             return WHILE_WITH_LOOP_AND_EXIT_LABELS_TEMPLATE.formatted(predicate, predicateTrueOutcome, allActions, predicateFalseOutcome);
@@ -85,11 +84,5 @@ public class While implements Action {
         }
 
         return WHILE_TEMPLATE.formatted(predicate, allActions);
-    }
-
-    private String getActivitiesString(Queue<Action> actions) {
-        return actions.stream()
-                .map(Action::build)
-                .collect(joining(lineSeparator()));
     }
 }

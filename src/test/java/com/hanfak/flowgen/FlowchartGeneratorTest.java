@@ -19,6 +19,7 @@ import static com.hanfak.flowgen.Activity.doActivity;
 import static com.hanfak.flowgen.Exit.exit;
 import static com.hanfak.flowgen.FlowchartGenerator.flowchart;
 import static com.hanfak.flowgen.FlowchartGenerator.flowchartWith;
+import static com.hanfak.flowgen.Label.label;
 import static com.hanfak.flowgen.Theme.SPACELAB;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -185,11 +186,11 @@ class FlowchartGeneratorTest {
         void labelConnectorsBetweenActions() {
             String flowchart = flowchart()
                     .then(doActivity("action1"))
-                    .withLabel("then")
+                    .with(label("then"))
                     .then(doActivity("action2"))
-                    .withLabel("then next")
+                    .with(label("then next"))
                     .then(doActivity("action3"))
-                    .withLabel("finally")
+                    .with(label("finally"))
                     .then(doActivity("action4"))
                     .create();
             assertThat(flowchart).isEqualToNormalizingNewlines("""
@@ -463,7 +464,7 @@ class FlowchartGeneratorTest {
     class SvgCreation {
 
         private final Function<String, SourceStringReader> sourceStringReaderFunction = SourceStringReaderStub::new;
-        private final FlowchartGenerator flowchartGenerator = new FlowchartGenerator(sourceStringReaderFunction);
+        private final FlowchartGenerator flowchartGenerator = new FlowchartGenerator(new Actions(), sourceStringReaderFunction);
 
         @Test
         void emptyFlowchart() {
@@ -546,7 +547,7 @@ class FlowchartGeneratorTest {
     class PngFileCreation {
 
         private final Function<String, SourceStringReader> sourceStringReaderFunction = SourceStringReaderStub::new;
-        private final FlowchartGenerator flowchartGenerator = new FlowchartGenerator(sourceStringReaderFunction);
+        private final FlowchartGenerator flowchartGenerator = new FlowchartGenerator(new Actions(), sourceStringReaderFunction);
 
         @Test
         void createsPng(@TempDir Path tempDir) {

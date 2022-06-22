@@ -1,27 +1,27 @@
 package com.hanfak.flowgen;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
-
 import static java.lang.System.lineSeparator;
 import static java.util.stream.Collectors.joining;
 
 public class Split implements Action {
 
-    private final Queue<List<Action>> actions = new LinkedList<>();
+    private final ActionGroup actionGroup;
+
+    public Split(ActionGroup actionGroup) {
+        this.actionGroup = actionGroup;
+    }
 
     public static Split split() {
-        return new Split();
+        return new Split(new ActionGroup());
     }
 
     public Split andDo(Action action) {
-        this.actions.add(List.of(action));
+        this.actionGroup.add(action);
         return this;
     }
 
     public Split andDo(Action... actions) {
-        this.actions.addAll(List.of(List.of(actions)));
+        this.actionGroup.add(actions);
         return this;
     }
 
@@ -32,10 +32,7 @@ public class Split implements Action {
     }
 
     private String getActivitiesString() {
-        return actions.stream()
-                .map(actions -> actions.stream()
-                        .map(Action::build)
-                        .collect(joining(lineSeparator())))
+        return actionGroup.combineGroupActions().stream()
                 .collect(joining("split again" + lineSeparator()));
     }
 }

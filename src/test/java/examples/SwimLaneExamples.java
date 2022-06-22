@@ -9,6 +9,7 @@ import static com.hanfak.flowgen.Activity.andActivity;
 import static com.hanfak.flowgen.Activity.doActivity;
 import static com.hanfak.flowgen.Conditional.ifIsTrue;
 import static com.hanfak.flowgen.FlowchartGenerator.flowchartWith;
+import static com.hanfak.flowgen.Label.label;
 import static com.hanfak.flowgen.Note.note;
 
 class SwimLaneExamples {
@@ -18,11 +19,11 @@ class SwimLaneExamples {
         flowchartWith(Theme.CLASSIC)
                 .withTitle("Hello")
                 .withStartNode()
-                .then(doActivity("action1").with(note("some info")).inSwimLane("S1")).withLabel("then")
-                .then(doActivity("action2").inSwimLane("S2")).withLabel("then next")
+                .then(doActivity("action1").with(note("some info")).inSwimLane("S1")).with(label("then"))
+                .then(doActivity("action2").inSwimLane("S2")).with(label("then next"))
                 .then(ifIsTrue("is big?")
                         .then("yes", doActivity("action1").inSwimLane("S1"), andActivity("action3").inSwimLane("S3"))
-                        .orElse("no", doActivity("action2").with(note("some info")).inSwimLane("S2"))).withLabel("finally")
+                        .orElse("no", doActivity("action2").with(note("some info")).inSwimLane("S2"))).with(label("finally"))
                 .then(doActivity("action4").with(note("some info")).inSwimLane("S4"))
                 .then(doActivity("action4").inSwimLane("S3"))
                 .withStopNode()

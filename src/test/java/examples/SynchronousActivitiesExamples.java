@@ -18,9 +18,9 @@ class SynchronousActivitiesExamples {
         flowchart()
                 .withTitle("Hello")
                 .withStartNode()
-                .then(doActivity("action1")).withLabel("then")
-                .then(doActivity("action2")).withLabel("then next")
-                .then(doActivity("action3")).withLabel("finally")
+                .then(doActivity("action1")).with(label("then"))
+                .then(doActivity("action2")).with(label("then next"))
+                .then(doActivity("action3")).with(label("finally"))
                 .then(doActivity("action4"))
                 .withStopNode()
                 .createFile(Paths.get("./test1.html"));
@@ -37,9 +37,9 @@ class SynchronousActivitiesExamples {
                 .withFooter("\n\nFooter") // Add extra space between footer and activity diagram
                 .withHeader("Header")
                 .withStartNode()
-                .then(doActivity("action1" + lineSeparator() + "more lines")).withLabel("then")
-                .then(doActivity("action2\nanother line\nhello")).withLabel("then next")
-                .then(doActivity(multilineActivity)).withLabel("finally")
+                .then(doActivity("action1" + lineSeparator() + "more lines")).with(label("then"))
+                .then(doActivity("action2\nanother line\nhello")).with(label("then next"))
+                .then(doActivity(multilineActivity)).with(label("finally"))
                 .then(doActivity(format("action4%nmore line%nsome more%n%s", "Hello")))
                 .withStopNode()
                 .createFile(Paths.get("./test1.html"));

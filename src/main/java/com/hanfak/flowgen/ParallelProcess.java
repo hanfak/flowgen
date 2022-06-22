@@ -1,27 +1,27 @@
 package com.hanfak.flowgen;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
-
 import static java.lang.System.lineSeparator;
 import static java.util.stream.Collectors.joining;
 
 public class ParallelProcess implements Action {
 
-    private final Queue<List<Action>> actions = new LinkedList<>();
+    private final ActionGroup actionGroup;
+
+    public ParallelProcess(ActionGroup actionGroup) {
+        this.actionGroup = actionGroup;
+    }
 
     public static ParallelProcess doInParallel() {
-        return new ParallelProcess();
+        return new ParallelProcess(new ActionGroup());
     }
 
     public ParallelProcess the(Action action) {
-        this.actions.add(List.of(action));
+        this.actionGroup.add(action);
         return this;
     }
 
     public ParallelProcess the(Action... actions) {
-        this.actions.add(List.of(actions));
+        this.actionGroup.add(actions);
         return this;
     }
 
@@ -32,10 +32,7 @@ public class ParallelProcess implements Action {
     }
 
     private String getActivitiesString() {
-        return actions.stream()
-                .map(actions -> actions.stream()
-                        .map(Action::build)
-                        .collect(joining(lineSeparator())))
+        return actionGroup.combineGroupActions().stream()
                 .collect(joining("fork again" + lineSeparator()));
     }
 }

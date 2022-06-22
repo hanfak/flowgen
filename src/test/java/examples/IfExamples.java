@@ -19,7 +19,7 @@ class IfExamples {
                 .withStartNode()
                 .then(ifIsTrue("is big?")
                         .then("yes", doActivity("action1"), doActivity("action2"), exit()))
-                .withLabel("no")
+                .with(label("no"))
                 .then(doActivity("action2"))
                 .withStopNode()
                 .createFile(Paths.get("./test1.html"));
@@ -33,7 +33,7 @@ class IfExamples {
                         .then("yes", doActivity("action1"), label("next"), doActivity("action2"))
                         .exitLabel("Carry On"))
                 .then(doActivity("action3"))
-                .withLabel("label")
+                .with(label("label"))
                 .withStopNode()
                 .createFile(Paths.get("./test1.html"));
     }

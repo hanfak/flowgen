@@ -35,131 +35,133 @@ public class FlowchartGenerator {
     // Or maybe just use
 
     private final StringBuilder flowchartString = new StringBuilder();
-    private final Queue<String> actions = new LinkedList<>();
+    private final Actions actions;
 
     private final Function<String, SourceStringReader> sourceStringReaderCreator;
 
-    FlowchartGenerator(Function<String, SourceStringReader> sourceStringReaderCreator) {
+    FlowchartGenerator(Actions actions, Function<String, SourceStringReader> sourceStringReaderCreator) {
+        this.actions = actions;
         this.sourceStringReaderCreator = sourceStringReaderCreator;
     }
 
     public static FlowchartGenerator flowchart() {
-        return new FlowchartGenerator(SourceStringReader::new).with(NONE);
+        return new FlowchartGenerator(new Actions(), SourceStringReader::new).with(NONE);
     }
 
     public static FlowchartGenerator flowchartWith(Theme theme) {
-        return new FlowchartGenerator(SourceStringReader::new).with(theme);
+        return new FlowchartGenerator(new Actions(), SourceStringReader::new).with(theme);
     }
 
     private FlowchartGenerator with(Theme theme) {
         if (!Objects.equals(theme, NONE)) {
-            this.actions.add("%s%s".formatted(theme.value(), lineSeparator()));
+            this.actions.add(() -> "%s%s".formatted(theme.value(), lineSeparator()));
         }
         return this;
     }
 
     public FlowchartGenerator withTitle(String title) {
-        actions.add("title%n%s%nend title%n".formatted(title));
+        actions.add(() -> "title%n%s%nend title%n".formatted(title));
         return this;
     }
 
     public FlowchartGenerator withHeader(String header) {
-        actions.add("header%n%s%nend header%n".formatted(header));
+        actions.add(() -> "header%n%s%nend header%n".formatted(header));
         return this;
     }
 
     public FlowchartGenerator withFooter(String footer) {
-        actions.add("footer%n%s%nend footer%n".formatted(footer));
+        actions.add(() -> "footer%n%s%nend footer%n".formatted(footer));
         return this;
     }
 
     public FlowchartGenerator withLegend(String legend) {
-        actions.add("legend%n%s%nend legend%n".formatted(legend));
+        actions.add(() -> "legend%n%s%nend legend%n".formatted(legend));
         return this;
     }
 
     public FlowchartGenerator withLegendRight(String legend) {
-        actions.add("legend right%n%s%nend legend%n".formatted(legend));
+        actions.add(() -> "legend right%n%s%nend legend%n".formatted(legend));
         return this;
     }
 
     public FlowchartGenerator withCaption(String caption) {
-        actions.add("caption%n%s%nend caption%n".formatted(caption));
+        actions.add(() -> "caption%n%s%nend caption%n".formatted(caption));
         return this;
     }
 
     public FlowchartGenerator withLabel(String label) {
-        actions.add(label(label).build());
+        actions.add(label(label));
+        return this;
+    }
+
+    public FlowchartGenerator with(Action action) {
+        actions.add(action);
         return this;
     }
 
     public FlowchartGenerator and(Action action) {
-        this.actions.add(action.build());
+        this.actions.add(action);
         return this;
     }
 
     public FlowchartGenerator last(Action action) {
-        this.actions.add(action.build());
+        this.actions.add(action);
         return this;
     }
 
     public FlowchartGenerator then(Action action) {
-        this.actions.add(action.build());
+        this.actions.add(action);
         return this;
     }
 
-    public FlowchartGenerator has(Action action) {
-        this.actions.add(action.build());
+    public FlowchartGenerator has(Group group) {
+        this.actions.add(group);
         return this;
     }
 
     public FlowchartGenerator hasGroupWith(Action... actions) {
-        this.actions.add(group().containing(actions).build());
+        this.actions.add(group().containing(actions));
         return this;
     }
 
     public FlowchartGenerator hasGroupWith(String name, Action... actions) {
-        this.actions.add(group(name).containing(actions).build());
+        this.actions.add(group(name).containing(actions));
         return this;
     }
 
     public FlowchartGenerator withStartNode() {
-        this.actions.add(START.build());
+        this.actions.add(START);
         return this;
     }
 
     public FlowchartGenerator withStopNode() {
-        this.actions.add(STOP.build());
+        this.actions.add(STOP);
         return this;
     }
 
     public FlowchartGenerator withEndNode() {
-        this.actions.add(END.build());
+        this.actions.add(END);
         return this;
     }
 
     public FlowchartGenerator withDetachedConnector(String value) {
-        this.actions.add("(%s)%ndetach%n(%s)%n".formatted(value, value));
+        this.actions.add(() -> "(%s)%ndetach%n(%s)%n".formatted(value, value));
         return this;
     }
 
-
     public FlowchartGenerator withConnector(String value) {
-        this.actions.add("(%s)%n".formatted(value));
+        this.actions.add(() -> "(%s)%n".formatted(value));
         return this;
     }
 
     public String create() {
-        String startUml = "@startuml" + lineSeparator();
-        String endUml = "@enduml";
-
-        String details = String.join("", this.actions).replaceAll("(?m)^[ \t]*\r?\n", "");
-        StringBuilder start = flowchartString.append(startUml);
+        String details = actions.combineAllActions();
+        StringBuilder start = flowchartString.append("@startuml").append(lineSeparator());
         Matcher matchFirstSwimLane = SWIM_LANE_REGEX.matcher(details);
         if (matchFirstSwimLane.find()) {
             start.append(matchFirstSwimLane.group(0)).append(lineSeparator());
         }
-        return start.append(details).append(endUml).toString();
+        return start.append(details).append("@enduml").toString();
     }
 
     public String createSvg() {

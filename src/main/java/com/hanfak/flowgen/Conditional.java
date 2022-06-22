@@ -1,7 +1,5 @@
 package com.hanfak.flowgen;
 
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Optional;
 import java.util.Queue;
 
@@ -17,34 +15,36 @@ public class Conditional implements Action {
 
     private final String predicate;
 
-    private final Queue<Action> thenActivity = new LinkedList<>();
-    private final Queue<Action> elseActivity = new LinkedList<>();
+    private final Actions thenActivity;
+    private final Actions elseActivity;
     private String predicatePassOutcome;
     private String predicateFailOutcome;
     private String exitLabel;
 
-    private Conditional(String predicate) {
+    private Conditional(String predicate, Actions thenActivity, Actions elseActivity) {
         this.predicate = predicate;
+        this.thenActivity = thenActivity;
+        this.elseActivity = elseActivity;
     }
 
     public static Conditional ifIsTrue(String predicate) {
-        return new Conditional(predicate);
+        return new Conditional(predicate, new Actions(), new Actions());
     }
 
     public Conditional then(String predicateOutcome, Action... actions) {
-        this.thenActivity.addAll(List.of(actions));
+        this.thenActivity.add(actions);
         this.predicatePassOutcome = predicateOutcome;
         return this;
     }
 
     public Conditional orElse(String predicateOutcome,  Action... actions) {
-        this.elseActivity.addAll(List.of(actions));
+        this.elseActivity.add(actions);
         this.predicateFailOutcome = predicateOutcome;
         return this;
     }
 
     public Conditional orElse(Action... actions) {
-        this.elseActivity.addAll(List.of(actions));
+        this.elseActivity.add(actions);
         return this;
     }
 
@@ -55,8 +55,8 @@ public class Conditional implements Action {
 
     @Override
     public String build() {
-        String thenActivitiesString = getActivitiesString(this.thenActivity);
-        String elseActivitiesString = getActivitiesString(this.elseActivity);
+        String thenActivitiesString = thenActivity.combineAllActions();
+        String elseActivitiesString = elseActivity.combineAllActions();
         if (elseActivitiesString.isEmpty()) {
             return createIfOnly(thenActivitiesString);
         }
@@ -77,11 +77,5 @@ public class Conditional implements Action {
 
     private String createIfWithNoElsePredicate(String thenActivitiesString, String elseActivitiesString) {
         return IF_ELSE_NO_ELSE_PREDICATE_TEMPLATE.formatted(predicate, predicatePassOutcome, thenActivitiesString, elseActivitiesString);
-    }
-
-    private String getActivitiesString(Queue<Action> actions) {
-        return actions.stream()
-                .map(Action::build)
-                .collect(joining(lineSeparator()));
     }
 }
