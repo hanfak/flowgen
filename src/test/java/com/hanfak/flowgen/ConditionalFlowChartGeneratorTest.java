@@ -3,10 +3,12 @@ package com.hanfak.flowgen;
 import org.junit.jupiter.api.Test;
 
 import static com.hanfak.flowgen.Activity.*;
+import static com.hanfak.flowgen.Conditional.ElseBuilder.then;
+import static com.hanfak.flowgen.Conditional.ThenBuilder.forValue;
 import static com.hanfak.flowgen.Conditional.ifIsTrue;
 import static com.hanfak.flowgen.Exit.andExit;
-import static com.hanfak.flowgen.FlowchartGenerator.flowchart;
 import static com.hanfak.flowgen.Exit.exit;
+import static com.hanfak.flowgen.FlowchartGenerator.flowchart;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ConditionalFlowChartGeneratorTest {
@@ -35,8 +37,13 @@ class ConditionalFlowChartGeneratorTest {
     void ifELseDetachesOnIfBranch() {
         String flowchart = flowchart()
                 .then(ifIsTrue("is big?")
-                        .then("yes", doActivity("action1"), andActivity("action3"), exit())
-                        .orElse("no", doActivity("action2")))
+                        .then(forValue("yes")
+                                .then( doActivity("action1"))
+                                .and(activity("action3"))
+                                .and(exit()))
+                        .orElse(then(doActivity("action2"))
+                                .and(doActivity("action5"))
+                                .forValue("no")))
                 .then(doActivity("action4"))
                 .create();
         assertThat(flowchart).isEqualToNormalizingNewlines("""
@@ -48,6 +55,7 @@ class ConditionalFlowChartGeneratorTest {
                 detach
                 else (no)
                 :action2;
+                :action5;
                 endif
                 :action4;
                 @enduml""");

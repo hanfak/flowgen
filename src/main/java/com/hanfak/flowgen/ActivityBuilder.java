@@ -1,7 +1,7 @@
 package com.hanfak.flowgen;
 
 public class ActivityBuilder implements Action {
-
+    // TODO: change to ActionBuilder
     private final Actions actions;
 
     private ActivityBuilder(Actions actions) {

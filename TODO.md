@@ -12,7 +12,8 @@
 
 - Current release
   - TODO: All P1 todos throughout code base, incl failing tests
-  - TODO: In Conditional, pass in factory builder
+  - TODO: REmove hidden from Exit class, new class Leave?ExitStop within Exit?
+    - For MultipleSeparateFlowchartsExamples class need to have hidden
   - TODO: In Conditional,  naming of ifIsTrue() and orElse()- branchWhen()?
   - TODO: In Conditional,  and() method to chain on to then and/or orElse
   - TODO: In multiConditional, pass in factory builder

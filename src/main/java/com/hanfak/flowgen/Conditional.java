@@ -1,9 +1,9 @@
 package com.hanfak.flowgen;
 
+import java.util.LinkedList;
 import java.util.Optional;
 import java.util.Queue;
 
-import static java.lang.System.lineSeparator;
 import static java.util.stream.Collectors.joining;
 
 public class Conditional implements Action {
@@ -32,9 +32,23 @@ public class Conditional implements Action {
         return new Conditional(predicate, new Actions(), new Actions());
     }
 
+    public Conditional then(ThenBuilder thenBuilder) {
+        Then then = thenBuilder.build();
+        this.thenActivity.add(then.actions().toArray(Action[]::new));
+        this.predicatePassOutcome = then.predicateOutcome();
+        return this;
+    }
+    // TODO: duplicate varags methods to use ActivityBuilder
     public Conditional then(String predicateOutcome, Action... actions) {
         this.thenActivity.add(actions);
         this.predicatePassOutcome = predicateOutcome;
+        return this;
+    }
+
+    public Conditional orElse(ElseBuilder elseBuilder) {
+        Else anElse = elseBuilder.build();
+        this.elseActivity.add(anElse.actions().toArray(Action[]::new));
+        this.predicateFailOutcome = anElse.predicateOutcome();
         return this;
     }
 
@@ -81,4 +95,63 @@ public class Conditional implements Action {
     private String createIfWithNoElsePredicate(String thenActivitiesString, String elseActivitiesString) {
         return IF_ELSE_NO_ELSE_PREDICATE_TEMPLATE.formatted(predicate, predicatePassOutcome, thenActivitiesString, elseActivitiesString);
     }
+
+    public static class ThenBuilder {
+
+        private final Queue<Action> actions = new LinkedList<>();
+        private final String predicateOutcome;
+
+        private ThenBuilder(String predicateOutcome) {
+            this.predicateOutcome = predicateOutcome;
+        }
+
+        public static ThenBuilder forValue(String predicateOutcome) {
+            return new ThenBuilder(predicateOutcome);
+        }
+
+        public ThenBuilder then(Action action) {
+            actions.add(action);
+            return this;
+        }
+
+        public ThenBuilder and(Action action) {
+            actions.add(action);
+            return this;
+        }
+
+        public Then build() {
+            return new Then(predicateOutcome, actions);
+        }
+    }
+
+    private static record Then(String predicateOutcome, Queue<Action> actions) { }
+
+    public static class ElseBuilder {
+        private final Queue<Action> actions = new LinkedList<>();
+        private String predicateOutcome;
+
+        private ElseBuilder(Action action) {
+            this.actions.add(action);
+        }
+
+        public static ElseBuilder then(Action action) {
+            return new ElseBuilder(action);
+        }
+
+        public ElseBuilder and(Action action) {
+            actions.add(action);
+            return this;
+        }
+
+        public ElseBuilder forValue(String predicateOutcome) {
+            this.predicateOutcome = predicateOutcome;
+            return this;
+        }
+
+        public Else build() {// TODO: P1 handle no predicateOutcome
+            return new Else(predicateOutcome, actions);
+        }
+    }
+
+    private static record Else(String predicateOutcome, Queue<Action> actions) { }
 }

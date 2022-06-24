@@ -4,7 +4,9 @@ import org.junit.jupiter.api.Test;
 
 import java.nio.file.Paths;
 
+import static com.hanfak.flowgen.Activity.activity;
 import static com.hanfak.flowgen.Activity.doActivity;
+import static com.hanfak.flowgen.Conditional.ThenBuilder.forValue;
 import static com.hanfak.flowgen.Conditional.ifIsTrue;
 import static com.hanfak.flowgen.FlowchartGenerator.flowchart;
 import static com.hanfak.flowgen.Label.label;
@@ -18,7 +20,10 @@ class IfExamples {
                 .withTitle("Hello\nbye")
                 .withStartNode()
                 .then(ifIsTrue("is big?")
-                        .then("yes", doActivity("action1"), doActivity("action2"), exit()))
+                        .then(forValue("yes")
+                                .then(doActivity("action1"))
+                                .and(activity("action3"))
+                                .and(exit())))
                 .with(label("no"))
                 .then(doActivity("action2"))
                 .withStopNode()
