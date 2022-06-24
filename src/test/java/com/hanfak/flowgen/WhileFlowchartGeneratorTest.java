@@ -6,7 +6,6 @@ import static com.hanfak.flowgen.Activity.andActivity;
 import static com.hanfak.flowgen.Activity.doActivity;
 import static com.hanfak.flowgen.Break.leave;
 import static com.hanfak.flowgen.Conditional.ifIsTrue;
-import static com.hanfak.flowgen.Exit.exit;
 import static com.hanfak.flowgen.FlowchartGenerator.flowchart;
 import static com.hanfak.flowgen.While.loopWhen;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -105,10 +104,10 @@ class WhileFlowchartGeneratorTest {
         String flowchart = flowchart()
                 .then(loopWhen("is Big?")
                         .execute(ifIsTrue("is big?")
-                                .then("yes", doActivity("action1"), doActivity("action2"), leave()))
+                                .thenFor("yes", doActivity("action1"), doActivity("action2"), leave()))
                         .and(doActivity("action6"), andActivity("action7"))
                         .and(ifIsTrue("is big?")
-                                .then("yes", doActivity("action10"), leave())))
+                                .thenFor("yes", doActivity("action10"), leave())))
                 .then(doActivity("action8"))
                 .create();
         assertThat(flowchart).isEqualToNormalizingNewlines("""

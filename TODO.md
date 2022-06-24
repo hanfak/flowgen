@@ -15,7 +15,6 @@
   - TODO: REmove hidden from Exit class, new class Leave?ExitStop within Exit?
     - For MultipleSeparateFlowchartsExamples class need to have hidden
   - TODO: In Conditional,  naming of ifIsTrue() and orElse()- branchWhen()?
-  - TODO: In Conditional,  and() method to chain on to then and/or orElse
   - TODO: In multiConditional, pass in factory builder
   - TODO: In multiConditional, better naming
   - TODO: In Repeat, better naming: is? repeatAgainFor? for isTrueFor; repeatLoopAction? for labelRepeat; exitLoopFor?? for exitOn

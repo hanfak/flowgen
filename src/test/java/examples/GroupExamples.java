@@ -6,7 +6,7 @@ import java.nio.file.Paths;
 
 import static com.hanfak.flowgen.Activity.activity;
 import static com.hanfak.flowgen.Activity.doActivity;
-import static com.hanfak.flowgen.ActivityBuilder.an;
+import static com.hanfak.flowgen.ActionBuilder.an;
 import static com.hanfak.flowgen.Exit.andExit;
 import static com.hanfak.flowgen.FlowchartGenerator.flowchart;
 import static com.hanfak.flowgen.Group.group;

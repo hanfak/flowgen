@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static com.hanfak.flowgen.Activity.activity;
 import static com.hanfak.flowgen.Activity.doActivity;
-import static com.hanfak.flowgen.ActivityBuilder.an;
+import static com.hanfak.flowgen.ActionBuilder.an;
 import static com.hanfak.flowgen.FlowchartGenerator.flowchart;
 import static com.hanfak.flowgen.Split.split;
 import static org.assertj.core.api.Assertions.assertThat;

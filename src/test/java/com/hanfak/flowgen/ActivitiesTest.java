@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import static com.hanfak.flowgen.Activity.*;
-import static com.hanfak.flowgen.ActivityBuilder.an;
+import static com.hanfak.flowgen.ActionBuilder.an;
 import static com.hanfak.flowgen.FlowchartGenerator.flowchart;
 import static com.hanfak.flowgen.Note.note;
 import static org.assertj.core.api.Assertions.assertThat;

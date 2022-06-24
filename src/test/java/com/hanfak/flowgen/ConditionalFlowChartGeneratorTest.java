@@ -2,9 +2,11 @@ package com.hanfak.flowgen;
 
 import org.junit.jupiter.api.Test;
 
+import static com.hanfak.flowgen.ActionBuilder.doAn;
 import static com.hanfak.flowgen.Activity.*;
 import static com.hanfak.flowgen.Conditional.ElseBuilder.then;
 import static com.hanfak.flowgen.Conditional.ThenBuilder.forValue;
+import static com.hanfak.flowgen.Conditional.branchWhen;
 import static com.hanfak.flowgen.Conditional.ifIsTrue;
 import static com.hanfak.flowgen.Exit.andExit;
 import static com.hanfak.flowgen.Exit.exit;
@@ -19,11 +21,11 @@ class ConditionalFlowChartGeneratorTest {
     void ifELseWithPredicatesOnBothPaths() {
         String flowchart = flowchart()
                 .then(ifIsTrue("is big?")
-                        .then("yes", doActivity("action1"), andActivity("action3"))
-                        .orElse("no", doActivity("action2")))
+                        .thenFor("yes", doActivity("action1"), andActivity("action3"))
+                        .orElseFor("no", doActivity("action2")))
                 .create();
         assertThat(flowchart).isEqualToNormalizingNewlines("""
-                @startuml 
+                @startuml
                 if (is big?) then (yes)
                 :action1;
                 :action3;
@@ -36,9 +38,9 @@ class ConditionalFlowChartGeneratorTest {
     @Test
     void ifELseDetachesOnIfBranch() {
         String flowchart = flowchart()
-                .then(ifIsTrue("is big?")
+                .then(branchWhen("is big?")
                         .then(forValue("yes")
-                                .then( doActivity("action1"))
+                                .then(doActivity("action1"))
                                 .and(activity("action3"))
                                 .and(exit()))
                         .orElse(then(doActivity("action2"))
@@ -65,8 +67,8 @@ class ConditionalFlowChartGeneratorTest {
     void ifELseDetachesOnElseBranch() {
         String flowchart = flowchart()
                 .then(ifIsTrue("is big?")
-                        .then("yes", doActivity("action1"), andActivity("action3"))
-                        .orElse("no", doActivity("action2"), andExit()))
+                        .thenFor("yes", doAn(activity("action1")).and(activity("action3")))
+                        .orElseFor("no", doActivity("action2"), andExit()))
                 .then(doActivity("action4"))
                 .create();
         assertThat(flowchart).isEqualToNormalizingNewlines("""
@@ -87,8 +89,8 @@ class ConditionalFlowChartGeneratorTest {
     void elsePathHasNoPredicateDefined() {
         String flowchart = flowchart()
                 .then(ifIsTrue("is big?")
-                        .then("yes", doActivity("action1"), thenActivity("action3"), andActivity("action4"))
-                        .orElse(doActivity("action2")))
+                        .thenFor("yes", doActivity("action1"), thenActivity("action3"), andActivity("action4"))
+                        .orElseFor(doActivity("action2")))
                 .create();
         assertThat(flowchart).isEqualToNormalizingNewlines("""
                 @startuml 
@@ -106,7 +108,7 @@ class ConditionalFlowChartGeneratorTest {
     void ifWithoutElse() {
         String flowchart = flowchart()
                 .then(ifIsTrue("is big?")
-                        .then("yes", doActivity("action1"), doActivity("action3")))
+                        .thenFor("yes", doActivity("action1"), doActivity("action3")))
                 .create();
         assertThat(flowchart).isEqualToNormalizingNewlines("""
                 @startuml 
@@ -121,7 +123,7 @@ class ConditionalFlowChartGeneratorTest {
     void ifWithoutElseLabelExitConnector() {
         String flowchart = flowchart()
                 .then(ifIsTrue("is big?")
-                        .then("yes", doActivity("action1"), doActivity("action3"))
+                        .thenFor("yes", doActivity("action1"), doActivity("action3"))
                         .exitLabel("NOK")
                 )
                 .then(doActivity("action4"))
@@ -141,8 +143,8 @@ class ConditionalFlowChartGeneratorTest {
     void ifElseLabelExitConnector() {
         String flowchart = flowchart()
                 .then(ifIsTrue("is big?")
-                        .then("yes", doActivity("action1"), doActivity("action3"))
-                        .orElse("no", doActivity("action2"))
+                        .thenFor("yes", doActivity("action1"), doActivity("action3"))
+                        .orElseFor("no", doAn(activity("action2")).and(activity("action5")))
                         .exitLabel("NOK"))
                 .then(doActivity("action4"))
                 .create();
@@ -153,6 +155,7 @@ class ConditionalFlowChartGeneratorTest {
                 :action3;
                 else (no)
                 :action2;
+                :action5;
                 endif
                 ->NOK;
                 :action4;
@@ -163,11 +166,11 @@ class ConditionalFlowChartGeneratorTest {
     void nestedIf() {
         String flowchart = flowchart()
                 .then(ifIsTrue("is big?")
-                        .then("yes", doActivity("action1"))
-                        .orElse("no",
+                        .thenFor("yes", doActivity("action1"))
+                        .orElseFor("no",
                                 ifIsTrue("is tiny?")
-                                        .then("yes", doActivity("action2"))
-                                        .orElse("no", doActivity("action3")),
+                                        .thenFor("yes", doActivity("action2"))
+                                        .orElseFor("no", doActivity("action3")),
                                 doActivity("action4")))
                 .create();
         assertThat(flowchart).isEqualToNormalizingNewlines("""

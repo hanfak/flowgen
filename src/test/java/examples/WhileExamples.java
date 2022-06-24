@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.nio.file.Paths;
 
 import static com.hanfak.flowgen.Activity.*;
-import static com.hanfak.flowgen.ActivityBuilder.an;
+import static com.hanfak.flowgen.ActionBuilder.an;
 import static com.hanfak.flowgen.Break.leave;
 import static com.hanfak.flowgen.Exit.exit;
 import static com.hanfak.flowgen.FlowchartGenerator.flowchart;

@@ -32,14 +32,18 @@ public class Conditional implements Action {
         return new Conditional(predicate, new Actions(), new Actions());
     }
 
+    public static Conditional branchWhen(String predicate) {
+        return new Conditional(predicate, new Actions(), new Actions());
+    }
+
     public Conditional then(ThenBuilder thenBuilder) {
         Then then = thenBuilder.build();
         this.thenActivity.add(then.actions().toArray(Action[]::new));
         this.predicatePassOutcome = then.predicateOutcome();
         return this;
     }
-    // TODO: duplicate varags methods to use ActivityBuilder
-    public Conditional then(String predicateOutcome, Action... actions) {
+
+    public Conditional thenFor(String predicateOutcome, Action... actions) {
         this.thenActivity.add(actions);
         this.predicatePassOutcome = predicateOutcome;
         return this;
@@ -52,13 +56,13 @@ public class Conditional implements Action {
         return this;
     }
 
-    public Conditional orElse(String predicateOutcome,  Action... actions) {
+    public Conditional orElseFor(String predicateOutcome, Action... actions) {
         this.elseActivity.add(actions);
         this.predicateFailOutcome = predicateOutcome;
         return this;
     }
 
-    public Conditional orElse(Action... actions) {
+    public Conditional orElseFor(Action... actions) {
         this.elseActivity.add(actions);
         return this;
     }

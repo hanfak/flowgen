@@ -243,7 +243,7 @@ class RepeatFlowchartGeneratorTest {
                     .then(repeat()
                             .the(activity("action1"))
                             .and(ifIsTrue("is big?")
-                                    .then("yes", doActivity("action55"), doActivity("action66"), leave()))
+                                    .thenFor("yes", doActivity("action55"), doActivity("action66"), leave()))
                             .the(activity("action2"))
                             .repeatWhen("is Big?"))
                     .create();

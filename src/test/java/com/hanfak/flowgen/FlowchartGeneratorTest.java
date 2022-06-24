@@ -181,7 +181,22 @@ class FlowchartGeneratorTest {
 
     @Nested
     class LabelOnConnectors {
-        // TODO: labels be part of Activity class?
+
+        @Test
+        void labelConnectorsBetweenActionsUsingName() {
+            String flowchart = flowchart()
+                    .then(doActivity("action1"))
+                    .withLabel("then")
+                    .then(doActivity("action2"))
+                    .create();
+            assertThat(flowchart).isEqualToNormalizingNewlines("""
+                    @startuml
+                    :action1;
+                    ->then;
+                    :action2;
+                    @enduml""");
+        }
+
         @Test
         void labelConnectorsBetweenActions() {
             String flowchart = flowchart()

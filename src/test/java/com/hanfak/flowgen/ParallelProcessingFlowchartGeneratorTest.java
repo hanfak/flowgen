@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import static com.hanfak.flowgen.Activity.activity;
-import static com.hanfak.flowgen.ActivityBuilder.*;
+import static com.hanfak.flowgen.ActionBuilder.*;
 import static com.hanfak.flowgen.FlowchartGenerator.flowchart;
 import static com.hanfak.flowgen.ParallelProcess.andDoInParallel;
 import static com.hanfak.flowgen.ParallelProcess.doInParallel;

@@ -35,7 +35,7 @@ class IfExamples {
         flowchart()
                 .withStartNode()
                 .then(ifIsTrue("is big?")
-                        .then("yes", doActivity("action1"), label("next"), doActivity("action2"))
+                        .thenFor("yes", doActivity("action1"), label("next"), doActivity("action2"))
                         .exitLabel("Carry On"))
                 .then(doActivity("action3"))
                 .with(label("label"))
