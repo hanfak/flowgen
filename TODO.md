@@ -19,6 +19,8 @@
   - TODO: In multiConditional, better naming
   - TODO: In Repeat, better naming: is? repeatAgainFor? for isTrueFor; repeatLoopAction? for labelRepeat; exitLoopFor?? for exitOn
   - TODO: In while, better naming: withActivities, doesAction for execute; exitLoopFor? for exitLabel
+  - TODO: Custom method for flowchartGenerator, to allow to put in actual plantuml syntax
+  - TODO: method to provide filename, which contains pure plantuml and produce png or svg
   - TODO: Move all leftover todos from test code to here
 
 - NExt release https://plantuml.com/commons#8413c683b4b27cc3

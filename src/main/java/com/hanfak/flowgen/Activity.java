@@ -7,7 +7,9 @@ import static java.lang.System.lineSeparator;
 public class Activity implements Action {
 
     private static final String SIMPLE_DEFAULT_ACTIVITY_TEMPLATE = "%s%s%s%s";
+
     private final String name;
+
     private String swimLane;
     private String note;
     private String style = ";";

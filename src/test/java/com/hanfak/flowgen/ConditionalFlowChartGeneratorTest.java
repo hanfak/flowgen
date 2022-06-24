@@ -11,8 +11,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class ConditionalFlowChartGeneratorTest {
 
-    // TODO: P1 No predicate outcome show for then branch
-    // TODO: P1 then without predicateOutcome
     // TODO: P2 arrow style after than, after endif
     // TODO: P2 styling - diamond, line, colour
     @Test
@@ -118,6 +116,7 @@ class ConditionalFlowChartGeneratorTest {
                         .then("yes", doActivity("action1"), doActivity("action3"))
                         .exitLabel("NOK")
                 )
+                .then(doActivity("action4"))
                 .create();
         assertThat(flowchart).isEqualToNormalizingNewlines("""
                 @startuml 
@@ -126,6 +125,29 @@ class ConditionalFlowChartGeneratorTest {
                 :action3;
                 endif
                 ->NOK;
+                :action4;
+                @enduml""");
+    }
+
+    @Test
+    void ifElseLabelExitConnector() {
+        String flowchart = flowchart()
+                .then(ifIsTrue("is big?")
+                        .then("yes", doActivity("action1"), doActivity("action3"))
+                        .orElse("no", doActivity("action2"))
+                        .exitLabel("NOK"))
+                .then(doActivity("action4"))
+                .create();
+        assertThat(flowchart).isEqualToNormalizingNewlines("""
+                @startuml 
+                if (is big?) then (yes)
+                :action1;
+                :action3;
+                else (no)
+                :action2;
+                endif
+                ->NOK;
+                :action4;
                 @enduml""");
     }
 
