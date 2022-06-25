@@ -2,6 +2,7 @@
 
 ## Devops
 
+- parallelt tests in build
 - Github actions 
 - pitest
 - sonarcloud
@@ -13,12 +14,12 @@
 - Current release
   - TODO: All P1 todos throughout code base, incl failing tests
   - TODO: REmove hidden from Exit class, new class Leave?ExitStop within Exit?
-    - For MultipleSeparateFlowchartsExamples class need to have hidden
-  - TODO: In Conditional,  naming of ifIsTrue() and orElse()- branchWhen()?
-  - TODO: In multiConditional, pass in factory builder
-  - TODO: In multiConditional, better naming
+    - For MultipleSeparateFlowchartsExamples class need to have hidden otherwise have danglign arrow/connector
+  - TODO: extract elsebuilder and thenbuilder
   - TODO: In Repeat, better naming: is? repeatAgainFor? for isTrueFor; repeatLoopAction? for labelRepeat; exitLoopFor?? for exitOn
   - TODO: In while, better naming: withActivities, doesAction for execute; exitLoopFor? for exitLabel
+
+- Next Release
   - TODO: Custom method for flowchartGenerator, to allow to put in actual plantuml syntax
   - TODO: method to provide filename, which contains pure plantuml and produce png or svg
   - TODO: Move all leftover todos from test code to here

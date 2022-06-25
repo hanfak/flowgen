@@ -2,32 +2,34 @@ package com.hanfak.flowgen;
 
 import org.junit.jupiter.api.Test;
 
-import static com.hanfak.flowgen.Activity.doActivity;
-import static com.hanfak.flowgen.Activity.andActivity;
+import static com.hanfak.flowgen.ActionBuilder.an;
+import static com.hanfak.flowgen.Activity.*;
+import static com.hanfak.flowgen.Activity.activity;
 import static com.hanfak.flowgen.FlowchartGenerator.flowchart;
-import static com.hanfak.flowgen.MultiConditional.multiIf;
+import static com.hanfak.flowgen.MultiConditional.ElseBuilder.then;
+import static com.hanfak.flowgen.MultiConditional.ElseIfBuilder.elseIf;
+import static com.hanfak.flowgen.MultiConditional.ThenBuilder.forValue;
+import static com.hanfak.flowgen.MultiConditional.ifTrueFor;
 import static org.assertj.core.api.Assertions.assertThat;
 
-// TODO: combine with conditional
 class MultipleConditionalFlowchartGeneratorTest {
-    // TODO: P1 better naming and implementation
-    // TODO: P1 No predicate outcome show for then branch
-    // TODO: P1 No predicate outcome show for multiple then branch
-    // TODO: P1 No predicate outcome show for multiple elseif branch
-    // TODO: P1 No predicate outcome show for orelse branch
-    // TODO: P1 guard clause
     // TODO: P2 arrow style after if, after elseif, after else, after endif
     // TODO: P2 inline styling
     @Test
-    void multipleIfELseWithPredicatesOnAllPaths() {
+    void multipleIfELseWithPredicateLabelsOnAllPaths() {
         String flowchart = flowchart()
-                .then(
-                        multiIf("big?")
-                                .then("yes", doActivity("action"))
-                                .elseIf("no", "condition 1?", "yes", doActivity("action1"), andActivity("action3"))
-                                .elseIf("no", "condition 2?", "yes", doActivity("action2"))
-                                .elseIf("no", "condition 3?", "yes", doActivity("action3"))
-                                .orElse("none", doActivity("action4")))
+                .then(ifTrueFor("big?")
+                                .then(forValue("yes").and(doActivity("action")))
+                                .then(elseIf("condition 1?")
+                                        .thenDo(an(activity("action1")).and(activity("action3")))
+                                        .elseLabel("no").elseIfLabel("yes"))
+                                .then(elseIf("condition 2?")
+                                        .then(an(activity("action2")))
+                                        .elseLabel("no").elseIfLabel("yes"))
+                                .then(elseIf("condition 3?")
+                                        .then(an(activity("action3")))
+                                        .elseLabel("no").elseIfLabel("yes"))
+                                .orElse(then(doActivity("action4")).and(doActivity("action4")).forValue("none")))
                 .create();
         assertThat(flowchart).isEqualToNormalizingNewlines("""
                 @startuml 
@@ -39,6 +41,98 @@ class MultipleConditionalFlowchartGeneratorTest {
                 (no) elseif (condition 2?) then (yes)
                 :action2;
                 (no) elseif (condition 3?) then (yes)
+                :action3;
+                else (none)
+                :action4;
+                :action4;
+                endif
+                @enduml""");
+    }
+
+    @Test
+    void multipleIfELseWithPredicatesOnAllPathsApartFromElseIf() {
+        String flowchart = flowchart()
+                .then(ifTrueFor("big?")
+                        .then("yes", doActivity("action"))
+                        .then(elseIf("condition 1?")
+                                .then(an(activity("action1")).and(activity("action3")))
+                                .elseIfLabel("yes"))
+                        .orElse(then(doActivity("action4")).forValue("none")))
+                .create();
+        assertThat(flowchart).isEqualToNormalizingNewlines("""
+                @startuml 
+                if (big?) then (yes)
+                :action;
+                elseif (condition 1?) then (yes)
+                :action1;
+                :action3;
+                else (none)
+                :action4;
+                endif
+                @enduml""");
+    }
+
+    @Test
+    void multipleIfELseWithPredicateLabelsOnAllPathsApartFromLastElse() {
+        String flowchart = flowchart()
+                .then(ifTrueFor("big?")
+                        .then("yes", doActivity("action"))
+                        .then(elseIf("condition 1?")
+                                .then(an(activity("action1")).and(activity("action3")))
+                                .elseLabel("no").elseIfLabel("yes"))
+                        .orElse(then(doActivity("action4"))))
+                .create();
+        assertThat(flowchart).isEqualToNormalizingNewlines("""
+                @startuml 
+                if (big?) then (yes)
+                :action;
+                (no) elseif (condition 1?) then (yes)
+                :action1;
+                :action3;
+                else
+                :action4;
+                endif
+                @enduml""");
+    }
+
+    @Test
+    void multipleIfELseWithPredicateLabelsOnAllPathsApartFromElseIfThen() {
+        String flowchart = flowchart()
+                .then(ifTrueFor("big?")
+                        .then(forValue("yes").then(doActivity("action")))
+                        .then(elseIf("condition 1?")
+                                .then(an(activity("action1")).and(activity("action3")))
+                                .elseLabel("no"))
+                        .orElse(then(doActivity("action4")).forValue("none")))
+                .create();
+        assertThat(flowchart).isEqualToNormalizingNewlines("""
+                @startuml 
+                if (big?) then (yes)
+                :action;
+                (no) elseif (condition 1?) then
+                :action1;
+                :action3;
+                else (none)
+                :action4;
+                endif
+                @enduml""");
+    }
+
+    @Test
+    void multipleIfELseWithPredicateLabelsOnAllPathsApartFromElseIfThenAndElseIfElse() {
+        String flowchart = flowchart()
+                .then(ifTrueFor("big?")
+                        .then(forValue("yes").then(doActivity("action")))
+                        .then(elseIf("condition 1?")
+                                .then(an(activity("action1")).and(activity("action3"))))
+                        .orElse(then(doActivity("action4")).forValue("none")))
+                .create();
+        assertThat(flowchart).isEqualToNormalizingNewlines("""
+                @startuml 
+                if (big?) then (yes)
+                :action;
+                elseif (condition 1?) then
+                :action1;
                 :action3;
                 else (none)
                 :action4;

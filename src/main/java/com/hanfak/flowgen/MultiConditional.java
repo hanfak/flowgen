@@ -1,15 +1,15 @@
 package com.hanfak.flowgen;
 
-import java.util.List;
+import java.util.*;
 
 import static java.lang.System.lineSeparator;
+import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
 import static java.util.stream.Collectors.joining;
 
 public class MultiConditional implements Action {
 
-    /// NOTE: Storing the elseIf contents in queue<String> which is the
     private final String predicate;
-
     private final Actions actions;
 
     private MultiConditional(String predicate, Actions actions) {
@@ -17,7 +17,7 @@ public class MultiConditional implements Action {
         this.actions = actions;
     }
 
-    public static MultiConditional multiIf(String predicate) {
+    public static MultiConditional ifTrueFor(String predicate) {
         return new MultiConditional(predicate, new Actions());
     }
 
@@ -28,30 +28,46 @@ public class MultiConditional implements Action {
         return this;
     }
 
-    public MultiConditional elseIf(String elsePredicateOutcome, String predicate, String thenPredicateOutcome, Action... actions) {
+    public MultiConditional then(ThenBuilder thenBuilder) {
+        Then then = thenBuilder.build();
+        String thenTemplate = "then (%s)%n%s%n";
+        String activitiesString = then.actions().stream().map(Action::build).collect(joining(lineSeparator()));
+        this.actions.add(() -> thenTemplate.formatted(then.predicateOutcome(), activitiesString));
+        return this;
+    }
+
+    public MultiConditional then(ElseIfBuilder elseIfBuilder) {
+        ElseIf elseIf = elseIfBuilder.build();
         String elseIfTemplate = "(%s) elseif (%s) then (%s)%n%s%n";
-        String activitiesString = getActivitiesString(List.of(actions));
-        this.actions.add(() -> elseIfTemplate.formatted(elsePredicateOutcome, predicate, thenPredicateOutcome, activitiesString));
+        String elseIfNoElseIfLabelTemplate = "(%s) elseif (%s) then%n%s%n";
+        String elseIfNoElseLabelTemplate = "elseif (%s) then (%s)%n%s%n";
+        String elseIfNoLabelTemplate = "elseif (%s) then%n%s%n";
+        String activitiesString = elseIf.actions().stream().map(Action::build).collect(joining(lineSeparator()));
+        if (nonNull(elseIf.elsePredicateOutcome()) && nonNull(elseIf.thenPredicateOutcome())) {
+            this.actions.add(() -> elseIfTemplate.formatted(elseIf.elsePredicateOutcome(), elseIf.predicate(), elseIf.thenPredicateOutcome(), activitiesString));
+        }
+        if (nonNull(elseIf.elsePredicateOutcome()) && isNull(elseIf.thenPredicateOutcome())) {
+            this.actions.add(() -> elseIfNoElseIfLabelTemplate.formatted(elseIf.elsePredicateOutcome(), elseIf.predicate(), activitiesString));
+        }
+        if (isNull(elseIf.elsePredicateOutcome()) && nonNull(elseIf.thenPredicateOutcome())) {
+            this.actions.add(() -> elseIfNoElseLabelTemplate.formatted(elseIf.predicate(), elseIf.thenPredicateOutcome(), activitiesString));
+        }
+        if (isNull(elseIf.elsePredicateOutcome()) && isNull(elseIf.thenPredicateOutcome())){
+            this.actions.add(() -> elseIfNoLabelTemplate.formatted(elseIf.predicate(), activitiesString));
+        }
         return this;
     }
 
-    public MultiConditional elseIf(String predicate, String thenPredicateOutcome, Action... actions) {
-        return this;
-    }
-
-    public MultiConditional orElse(String predicateOutcome, Action... actions) {
+    public MultiConditional orElse(ElseBuilder elseBuilder) {
+        Else anElse = elseBuilder.build();
         String elseWithPredicateOutcomeTemplate = "else (%s)%n%s%n";
-        String activitiesString = getActivitiesString(List.of(actions));
-        this.actions.add(() -> elseWithPredicateOutcomeTemplate.formatted(predicateOutcome, activitiesString));
+        String elseWithNoPredicateOutcomeTemplate = "else%n%s%n";
+        String activitiesString = anElse.actions().stream().map(Action::build).collect(joining(lineSeparator()));
+        this.actions.add(() -> Optional.ofNullable(anElse.predicateOutcome())
+                .map(outcome-> elseWithPredicateOutcomeTemplate.formatted(outcome, activitiesString))
+                .orElse(elseWithNoPredicateOutcomeTemplate.formatted(activitiesString)));
         return this;
     }
-
-//    public MultiConditional orElse(Action... actions) {
-//        String elseWithoutPredicateOutcomeTemplate = "else%n%s%n";
-//        String activitiesString = getActivitiesString(List.of(actions));
-//        this.actions.add(() -> elseWithoutPredicateOutcomeTemplate.formatted(activitiesString));
-//        return this;
-//    }
 
     @Override
     public String build() {
@@ -63,4 +79,105 @@ public class MultiConditional implements Action {
                 .map(Action::build)
                 .collect(joining(lineSeparator()));
     }
+
+    public static class ElseIfBuilder {
+
+        private final Queue<Action> actions = new LinkedList<>();
+        private final String predicate;
+
+        private String elsePredicateOutcome;
+        private String thenPredicateOutcome;
+
+        private ElseIfBuilder(String predicate) {
+            this.predicate = predicate;
+        }
+
+        public static ElseIfBuilder elseIf(String predicate) {
+            return new ElseIfBuilder(predicate);
+        }
+
+        public ElseIfBuilder elseLabel(String elsePredicateOutcome) {
+            this.elsePredicateOutcome = elsePredicateOutcome;
+            return this;
+        }
+
+        public ElseIfBuilder elseIfLabel(String thenPredicateOutcome) {
+            this.thenPredicateOutcome = thenPredicateOutcome;
+            return this;
+        }
+
+        public ElseIfBuilder then(Action action) {
+            actions.add(action);
+            return this;
+        }
+
+        public ElseIfBuilder thenDo(Action action) {
+            actions.add(action);
+            return this;
+        }
+
+        public ElseIf build() {
+            return new ElseIf(predicate,thenPredicateOutcome, elsePredicateOutcome, actions);
+        }
+    }
+
+    private static record ElseIf(String predicate, String thenPredicateOutcome, String elsePredicateOutcome, Queue<Action> actions) { }
+
+    public static class ThenBuilder {
+
+        private final Queue<Action> actions = new LinkedList<>();
+        private final String predicateOutcome;
+
+        private ThenBuilder(String predicateOutcome) {
+            this.predicateOutcome = predicateOutcome;
+        }
+
+        public static ThenBuilder forValue(String predicateOutcome) {return new ThenBuilder(predicateOutcome);}
+
+        public ThenBuilder then(Action action) {
+            actions.add(action);
+            return this;
+        }
+
+        public ThenBuilder and(Action action) {
+            actions.add(action);
+            return this;
+        }
+
+        public Then build() {
+            return new Then(predicateOutcome, actions);
+        }
+    }
+
+    private static record Then(String predicateOutcome, Queue<Action> actions) { }
+
+    public static class ElseBuilder {
+
+        private final Queue<Action> actions = new LinkedList<>();
+        private String predicateOutcome;
+
+        private ElseBuilder(Action action) {
+            this.actions.add(action);
+        }
+
+        public static ElseBuilder then(Action action) {
+            return new ElseBuilder(action);
+        }
+
+        public ElseBuilder and(Action action) {
+            actions.add(action);
+            return this;
+        }
+
+        public ElseBuilder forValue(String predicateOutcome) {
+            this.predicateOutcome = predicateOutcome;
+            return this;
+        }
+
+        public Else build() {// TODO: P1 handle no predicateOutcome
+            return new Else(predicateOutcome, actions);
+        }
+    }
+
+    private static record Else(String predicateOutcome, Queue<Action> actions) { }
 }

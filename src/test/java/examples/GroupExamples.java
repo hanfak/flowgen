@@ -10,7 +10,9 @@ import static com.hanfak.flowgen.ActionBuilder.an;
 import static com.hanfak.flowgen.Exit.andExit;
 import static com.hanfak.flowgen.FlowchartGenerator.flowchart;
 import static com.hanfak.flowgen.Group.group;
-import static com.hanfak.flowgen.MultiConditional.multiIf;
+import static com.hanfak.flowgen.MultiConditional.ElseBuilder.then;
+import static com.hanfak.flowgen.MultiConditional.ElseIfBuilder.elseIf;
+import static com.hanfak.flowgen.MultiConditional.ifTrueFor;
 import static com.hanfak.flowgen.Note.note;
 import static com.hanfak.flowgen.ParallelProcess.andDoInParallel;
 import static com.hanfak.flowgen.ParallelProcess.doInParallel;
@@ -63,11 +65,18 @@ class GroupExamples {
                                 .and(group().containing(loopWhen("is Big?")
                                         .execute(an(activity("action1").angled()).and(activity("action2").with(note("note"))))))
                                 .containing(
-                                        multiIf("big?")
+                                        ifTrueFor("big?")
                                                 .then("yes", doActivity("action"))
-                                                .elseIf("no", "condition 1?", "yes", an(activity("action1")).and(activity("action3")).and(activity("action4")))
-                                                .elseIf("no", "condition 2?", "yes", doActivity("action2"))
-                                                .orElse("none", doActivity("action4")),
+                                                .then(elseIf("condition 1")
+                                                        .then(an(activity("action1")).and(activity("action3")))
+                                                        .elseLabel("no").elseIfLabel("yes"))
+                                                .then(elseIf("condition 2")
+                                                        .then(an(activity("action2")))
+                                                        .elseLabel("no").elseIfLabel("yes"))
+                                                .then(elseIf("condition 3")
+                                                        .then(an(activity("action3")))
+                                                        .elseLabel("no").elseIfLabel("yes"))
+                                                .orElse(then(doActivity("action4")).forValue("none")),
                                         group().with(repeat()
                                                         .and(an(activity("action1")).and(activity("action2")))
                                                         .and(doActivity("action3"))

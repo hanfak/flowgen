@@ -5,9 +5,13 @@ import org.junit.jupiter.api.Test;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import static com.hanfak.flowgen.ActionBuilder.an;
+import static com.hanfak.flowgen.Activity.activity;
 import static com.hanfak.flowgen.Activity.doActivity;
 import static com.hanfak.flowgen.FlowchartGenerator.flowchart;
-import static com.hanfak.flowgen.MultiConditional.multiIf;
+import static com.hanfak.flowgen.MultiConditional.ElseBuilder.then;
+import static com.hanfak.flowgen.MultiConditional.ElseIfBuilder.elseIf;
+import static com.hanfak.flowgen.MultiConditional.ifTrueFor;
 
 class FileCheckerTest {
     @Test
@@ -15,13 +19,18 @@ class FileCheckerTest {
         Path path = Paths.get("./test1.html");
         flowchart()
                 .withStartNode()
-                .then(
-                        multiIf("size?")
+                .then(ifTrueFor("size?")
                                 .then("yes", doActivity("action") )
-                                .elseIf("no", "condition 1", "yes", doActivity("action1"), doActivity("action3"))
-                                .elseIf("no", "condition 2", "yes", doActivity("action2"))
-                                .elseIf("no", "condition 3", "yes", doActivity("action3"))
-                                .orElse("no", doActivity("action4")))
+                                .then(elseIf("condition 1")
+                                        .then(an(activity("action1")).and(activity("action3")))
+                                        .elseLabel("no").elseIfLabel("yes"))
+                                .then(elseIf("condition 2")
+                                        .then(an(activity("action2")))
+                                        .elseLabel("no").elseIfLabel("yes"))
+                                .then(elseIf("condition 3")
+                                        .then(an(activity("action3")))
+                                        .elseLabel("no").elseIfLabel("yes"))
+                                .orElse(then(doActivity("action4")).forValue("no")))
                 .withStopNode()
                 .createFile(path);
     }
