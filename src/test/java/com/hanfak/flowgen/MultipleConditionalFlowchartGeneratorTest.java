@@ -5,11 +5,11 @@ import org.junit.jupiter.api.Test;
 import static com.hanfak.flowgen.ActionBuilder.an;
 import static com.hanfak.flowgen.Activity.*;
 import static com.hanfak.flowgen.Activity.activity;
+import static com.hanfak.flowgen.ElseBuilder.then;
 import static com.hanfak.flowgen.FlowchartGenerator.flowchart;
-import static com.hanfak.flowgen.MultiConditional.ElseBuilder.then;
-import static com.hanfak.flowgen.MultiConditional.ElseIfBuilder.elseIf;
-import static com.hanfak.flowgen.MultiConditional.ThenBuilder.forValue;
+import static com.hanfak.flowgen.ElseIfBuilder.elseIf;
 import static com.hanfak.flowgen.MultiConditional.ifTrueFor;
+import static com.hanfak.flowgen.ThenBuilder.forValue;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class MultipleConditionalFlowchartGeneratorTest {
@@ -32,7 +32,7 @@ class MultipleConditionalFlowchartGeneratorTest {
                                 .orElse(then(doActivity("action4")).and(doActivity("action4")).forValue("none")))
                 .create();
         assertThat(flowchart).isEqualToNormalizingNewlines("""
-                @startuml 
+                @startuml
                 if (big?) then (yes)
                 :action;
                 (no) elseif (condition 1?) then (yes)
@@ -60,7 +60,7 @@ class MultipleConditionalFlowchartGeneratorTest {
                         .orElse(then(doActivity("action4")).forValue("none")))
                 .create();
         assertThat(flowchart).isEqualToNormalizingNewlines("""
-                @startuml 
+                @startuml
                 if (big?) then (yes)
                 :action;
                 elseif (condition 1?) then (yes)
@@ -83,7 +83,7 @@ class MultipleConditionalFlowchartGeneratorTest {
                         .orElse(then(doActivity("action4"))))
                 .create();
         assertThat(flowchart).isEqualToNormalizingNewlines("""
-                @startuml 
+                @startuml
                 if (big?) then (yes)
                 :action;
                 (no) elseif (condition 1?) then (yes)
@@ -106,7 +106,7 @@ class MultipleConditionalFlowchartGeneratorTest {
                         .orElse(then(doActivity("action4")).forValue("none")))
                 .create();
         assertThat(flowchart).isEqualToNormalizingNewlines("""
-                @startuml 
+                @startuml
                 if (big?) then (yes)
                 :action;
                 (no) elseif (condition 1?) then
@@ -128,7 +128,7 @@ class MultipleConditionalFlowchartGeneratorTest {
                         .orElse(then(doActivity("action4")).forValue("none")))
                 .create();
         assertThat(flowchart).isEqualToNormalizingNewlines("""
-                @startuml 
+                @startuml
                 if (big?) then (yes)
                 :action;
                 elseif (condition 1?) then

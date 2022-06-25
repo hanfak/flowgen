@@ -4,8 +4,8 @@ import org.junit.jupiter.api.Test;
 
 import static com.hanfak.flowgen.ActionBuilder.doAn;
 import static com.hanfak.flowgen.Activity.*;
-import static com.hanfak.flowgen.Conditional.ElseBuilder.then;
-import static com.hanfak.flowgen.Conditional.ThenBuilder.forValue;
+import static com.hanfak.flowgen.ElseBuilder.then;
+import static com.hanfak.flowgen.ThenBuilder.forValue;
 import static com.hanfak.flowgen.Conditional.branchWhen;
 import static com.hanfak.flowgen.Conditional.ifIsTrue;
 import static com.hanfak.flowgen.Exit.andExit;
@@ -49,7 +49,7 @@ class ConditionalFlowChartGeneratorTest {
                 .then(doActivity("action4"))
                 .create();
         assertThat(flowchart).isEqualToNormalizingNewlines("""
-                @startuml 
+                @startuml
                 if (is big?) then (yes)
                 :action1;
                 :action3;
@@ -72,7 +72,7 @@ class ConditionalFlowChartGeneratorTest {
                 .then(doActivity("action4"))
                 .create();
         assertThat(flowchart).isEqualToNormalizingNewlines("""
-                @startuml 
+                @startuml
                 if (is big?) then (yes)
                 :action1;
                 :action3;
@@ -93,7 +93,7 @@ class ConditionalFlowChartGeneratorTest {
                         .orElseFor(doActivity("action2")))
                 .create();
         assertThat(flowchart).isEqualToNormalizingNewlines("""
-                @startuml 
+                @startuml
                 if (is big?) then (yes)
                 :action1;
                 :action3;
@@ -111,7 +111,7 @@ class ConditionalFlowChartGeneratorTest {
                         .thenFor("yes", doActivity("action1"), doActivity("action3")))
                 .create();
         assertThat(flowchart).isEqualToNormalizingNewlines("""
-                @startuml 
+                @startuml
                 if (is big?) then (yes)
                 :action1;
                 :action3;
@@ -129,7 +129,7 @@ class ConditionalFlowChartGeneratorTest {
                 .then(doActivity("action4"))
                 .create();
         assertThat(flowchart).isEqualToNormalizingNewlines("""
-                @startuml 
+                @startuml
                 if (is big?) then (yes)
                 :action1;
                 :action3;
@@ -149,7 +149,7 @@ class ConditionalFlowChartGeneratorTest {
                 .then(doActivity("action4"))
                 .create();
         assertThat(flowchart).isEqualToNormalizingNewlines("""
-                @startuml 
+                @startuml
                 if (is big?) then (yes)
                 :action1;
                 :action3;
@@ -174,7 +174,7 @@ class ConditionalFlowChartGeneratorTest {
                                 doActivity("action4")))
                 .create();
         assertThat(flowchart).isEqualToNormalizingNewlines("""
-                @startuml 
+                @startuml
                 if (is big?) then (yes)
                 :action1;
                 else (no)

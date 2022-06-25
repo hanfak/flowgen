@@ -15,7 +15,6 @@
   - TODO: All P1 todos throughout code base, incl failing tests
   - TODO: REmove hidden from Exit class, new class Leave?ExitStop within Exit?
     - For MultipleSeparateFlowchartsExamples class need to have hidden otherwise have danglign arrow/connector
-  - TODO: extract elsebuilder and thenbuilder
   - TODO: In Repeat, better naming: is? repeatAgainFor? for isTrueFor; repeatLoopAction? for labelRepeat; exitLoopFor?? for exitOn
   - TODO: In while, better naming: withActivities, doesAction for execute; exitLoopFor? for exitLabel
 

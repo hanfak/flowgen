@@ -8,9 +8,9 @@ import java.nio.file.Paths;
 import static com.hanfak.flowgen.ActionBuilder.an;
 import static com.hanfak.flowgen.Activity.activity;
 import static com.hanfak.flowgen.Activity.doActivity;
+import static com.hanfak.flowgen.ElseBuilder.then;
 import static com.hanfak.flowgen.FlowchartGenerator.flowchart;
-import static com.hanfak.flowgen.MultiConditional.ElseBuilder.then;
-import static com.hanfak.flowgen.MultiConditional.ElseIfBuilder.elseIf;
+import static com.hanfak.flowgen.ElseIfBuilder.elseIf;
 import static com.hanfak.flowgen.MultiConditional.ifTrueFor;
 
 class FileCheckerTest {

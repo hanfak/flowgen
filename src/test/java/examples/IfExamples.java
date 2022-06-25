@@ -6,7 +6,7 @@ import java.nio.file.Paths;
 
 import static com.hanfak.flowgen.Activity.activity;
 import static com.hanfak.flowgen.Activity.doActivity;
-import static com.hanfak.flowgen.Conditional.ThenBuilder.forValue;
+import static com.hanfak.flowgen.ThenBuilder.forValue;
 import static com.hanfak.flowgen.Conditional.ifIsTrue;
 import static com.hanfak.flowgen.FlowchartGenerator.flowchart;
 import static com.hanfak.flowgen.Label.label;
