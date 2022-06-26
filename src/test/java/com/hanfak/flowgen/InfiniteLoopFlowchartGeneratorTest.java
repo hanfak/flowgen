@@ -1,6 +1,8 @@
 package com.hanfak.flowgen;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 
 import static com.hanfak.flowgen.Activity.andActivity;
 import static com.hanfak.flowgen.Activity.doActivity;
@@ -8,6 +10,7 @@ import static com.hanfak.flowgen.FlowchartGenerator.flowchart;
 import static com.hanfak.flowgen.InfiniteLoop.infiniteLoopWhen;
 import static org.assertj.core.api.Assertions.assertThat;
 
+@Execution(ExecutionMode.CONCURRENT)
 class InfiniteLoopFlowchartGeneratorTest {
 
     // TODO: P1 add label on loop connector  backward:This is repeated;

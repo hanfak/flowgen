@@ -1,6 +1,8 @@
 package com.hanfak.flowgen;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 
 import static com.hanfak.flowgen.ActionBuilder.an;
 import static com.hanfak.flowgen.Activity.*;
@@ -12,6 +14,7 @@ import static com.hanfak.flowgen.MultiConditional.ifTrueFor;
 import static com.hanfak.flowgen.ThenBuilder.forValue;
 import static org.assertj.core.api.Assertions.assertThat;
 
+@Execution(ExecutionMode.CONCURRENT)
 class MultipleConditionalFlowchartGeneratorTest {
     // TODO: P2 arrow style after if, after elseif, after else, after endif
     // TODO: P2 inline styling

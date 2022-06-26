@@ -2,6 +2,8 @@ package com.hanfak.flowgen;
 
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 
 import static com.hanfak.flowgen.Activity.activity;
 import static com.hanfak.flowgen.Activity.doActivity;
@@ -10,6 +12,7 @@ import static com.hanfak.flowgen.FlowchartGenerator.flowchart;
 import static com.hanfak.flowgen.Split.split;
 import static org.assertj.core.api.Assertions.assertThat;
 
+@Execution(ExecutionMode.CONCURRENT)
 class SplitProcessingFlowchartGeneratorTest {
     // TODO: P1 add end/stop node in one split
     // TODO: P1 Labels on each split, use -> balh; (issues of overlap)

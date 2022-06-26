@@ -2,6 +2,8 @@ package com.hanfak.flowgen;
 
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 
 import static com.hanfak.flowgen.Activity.*;
 import static com.hanfak.flowgen.ActionBuilder.an;
@@ -9,6 +11,7 @@ import static com.hanfak.flowgen.FlowchartGenerator.flowchart;
 import static com.hanfak.flowgen.Note.note;
 import static org.assertj.core.api.Assertions.assertThat;
 
+@Execution(ExecutionMode.CONCURRENT)
 class ActivitiesTest {
 
     @Nested

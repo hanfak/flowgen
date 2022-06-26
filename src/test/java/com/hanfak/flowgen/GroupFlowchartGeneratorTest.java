@@ -1,12 +1,15 @@
 package com.hanfak.flowgen;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 
 import static com.hanfak.flowgen.Activity.*;
 import static com.hanfak.flowgen.FlowchartGenerator.flowchart;
 import static com.hanfak.flowgen.Group.group;
 import static org.assertj.core.api.Assertions.assertThat;
 
+@Execution(ExecutionMode.CONCURRENT)
 class GroupFlowchartGeneratorTest {
 
     // TODO: P2 styling - diamond, line, colour

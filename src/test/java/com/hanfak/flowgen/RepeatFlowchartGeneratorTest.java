@@ -2,6 +2,8 @@ package com.hanfak.flowgen;
 
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 
 import static com.hanfak.flowgen.Activity.*;
 import static com.hanfak.flowgen.Break.leave;
@@ -10,6 +12,7 @@ import static com.hanfak.flowgen.FlowchartGenerator.flowchart;
 import static com.hanfak.flowgen.Repeat.repeat;
 import static org.assertj.core.api.Assertions.assertThat;
 
+@Execution(ExecutionMode.CONCURRENT)
 class RepeatFlowchartGeneratorTest {
 
     // TODO: P1 Label at start of repeat action ie http://www.plantuml.com/plantuml/uml/DOux3iCm34DtdK9ZUmLxQ0xH2p2LwXZr9v1LvFfj30JWGBw1v38SvjzQYAOZCjqLpk7TEsFmfBabBbYrH68EfX0ME6PAsjJWofAH37L4Ml7w7309poqF_ki2yMe_jboKRxMRpgR7_TplEz6YJSuxFm00
