@@ -5,11 +5,11 @@ import org.junit.jupiter.api.Test;
 import java.nio.file.Paths;
 
 import static com.hanfak.flowgen.Activity.*;
-import static com.hanfak.flowgen.Activity.doActivity;
-import static com.hanfak.flowgen.FlowchartGenerator.flowchart;
-import static com.hanfak.flowgen.Repeat.repeat;
 import static com.hanfak.flowgen.Exit.exit;
-import static com.hanfak.flowgen.While.loopWhen;
+import static com.hanfak.flowgen.FlowchartGenerator.flowchart;
+import static com.hanfak.flowgen.InfiniteLoop.infiniteLoopWhen;
+import static com.hanfak.flowgen.ParallelProcess.doInParallel;
+import static com.hanfak.flowgen.Repeat.repeat;
 
 // Using same builder can create as separate flowcharts in same diagram
 class MultipleSeparateFlowchartsExamples {
@@ -19,9 +19,10 @@ class MultipleSeparateFlowchartsExamples {
         flowchart()
                 .withTitle("First")
                 .withStartNode()
-                .then(loopWhen("is Big?").isTrueFor("yes")
+                .then(infiniteLoopWhen("is true?").isTrueFor("yes")
                         .execute(activity("action1"), thenActivity("action2")))
-                .then(exit())
+                .then(doActivity("action22"))
+                .withStopNode()
                 .withStartNode()
                 .then(repeat()
                         .and(doActivity("action1"), thenActivity("action2"))
@@ -30,6 +31,14 @@ class MultipleSeparateFlowchartsExamples {
                         .isTrueFor("yes")
                         .labelRepeat(doActivity("Repeat"))
                         .exitOn("no"))
+                .then(doActivity("action3"))
+                .withStopNode()
+                .withStartNode()
+                .then(doInParallel()
+                        .the(activity("action1"))
+                        .the(activity("action2"), doInParallel()
+                                .the(activity("action4"), exit())
+                                .the(activity("action5"), activity("action3"))))
                 .then(doActivity("action3"))
                 .withStopNode()
                 .createFile(Paths.get("./test1.html"));

@@ -13,10 +13,9 @@
 
 - Current release
   - TODO: All P1 todos throughout code base, incl failing tests
-  - TODO: REmove hidden from Exit class, new class Leave?ExitStop within Exit?
-    - For MultipleSeparateFlowchartsExamples class need to have hidden otherwise have danglign arrow/connector
   - TODO: In Repeat, better naming: is? repeatAgainFor? for isTrueFor; repeatLoopAction? for labelRepeat; exitLoopFor?? for exitOn
   - TODO: In while, better naming: withActivities, doesAction for execute; exitLoopFor? for exitLabel
+  - TODO: Conditional, guard clause, if no actions on else branch but want to label branch. add "else (no)" before endif
 
 - Next Release
   - TODO: Custom method for flowchartGenerator, to allow to put in actual plantuml syntax

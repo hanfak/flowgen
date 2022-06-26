@@ -12,11 +12,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class WhileFlowchartGeneratorTest {
 
-    // TODO: P1 add label on loop connector  backward:This is repeated;
+    // TODO: P1 add label on loop connector  "backward:This is repeated;"
     // TODO: P1 Label at start of while action
-    // TODO: P1 isTrue not set,
     // TODO: P1 backward as last action
-    // TODO: P1 exitLabel not set,
     // TODO: P2 arrow style after while statement, after end while
     // TODO: P2 step builder to force correct usage
     // TODO: P2 styling - diamond, line, colour
@@ -33,7 +31,7 @@ class WhileFlowchartGeneratorTest {
                 .then(doActivity("action8"))
                 .create();
         assertThat(flowchart).isEqualToNormalizingNewlines("""
-                @startuml 
+                @startuml
                 while (is Big?)
                 :action1;
                 :action2;
@@ -55,7 +53,7 @@ class WhileFlowchartGeneratorTest {
                 .then(doActivity("action3"))
                 .create();
         assertThat(flowchart).isEqualToNormalizingNewlines("""
-                @startuml 
+                @startuml
                 while (is Big?) is (yes)
                 :action1;
                 :action2;
@@ -72,7 +70,7 @@ class WhileFlowchartGeneratorTest {
                 .then(doActivity("action3"))
                 .create();
         assertThat(flowchart).isEqualToNormalizingNewlines("""
-                @startuml 
+                @startuml
                 while (is Big?)
                 :action1;
                 :action2;
@@ -90,7 +88,7 @@ class WhileFlowchartGeneratorTest {
                 .then(doActivity("action3"))
                 .create();
         assertThat(flowchart).isEqualToNormalizingNewlines("""
-                @startuml 
+                @startuml
                 while (is Big?) is (yes)
                 :action1;
                 :action2;
@@ -111,7 +109,7 @@ class WhileFlowchartGeneratorTest {
                 .then(doActivity("action8"))
                 .create();
         assertThat(flowchart).isEqualToNormalizingNewlines("""
-                @startuml 
+                @startuml
                 while (is Big?)
                 if (is big?) then (yes)
                 :action1;

@@ -14,6 +14,6 @@ public class Exit implements Action {
 
     @Override
     public String build() {
-        return "-[hidden]->" + lineSeparator() + "detach" + lineSeparator();
+        return "detach" + lineSeparator();
     }
 }

@@ -53,7 +53,6 @@ class ConditionalFlowChartGeneratorTest {
                 if (is big?) then (yes)
                 :action1;
                 :action3;
-                -[hidden]->
                 detach
                 else (no)
                 :action2;
@@ -78,7 +77,6 @@ class ConditionalFlowChartGeneratorTest {
                 :action3;
                 else (no)
                 :action2;
-                -[hidden]->
                 detach
                 endif
                 :action4;

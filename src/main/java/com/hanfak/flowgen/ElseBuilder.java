@@ -26,7 +26,7 @@ public class ElseBuilder {
         return this;
     }
 
-    public Else build() {// TODO: P1 handle no predicateOutcome
+    public Else build() {
         return new Else(predicateOutcome, actions);
     }
 }

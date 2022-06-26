@@ -321,7 +321,6 @@ class FlowchartGeneratorTest {
                     @startuml
                     start
                     :action;
-                    -[hidden]->
                     detach
                     @enduml""");
         }
