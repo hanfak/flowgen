@@ -80,8 +80,8 @@ class GroupExamples {
                                         group().with(repeat()
                                                         .and(an(activity("action1")).and(activity("action2")))
                                                         .and(doActivity("action3"))
-                                                        .repeatWhen("is Big?").isTrueFor("yes").labelRepeat(doActivity("Repeat"))
-                                                        .exitOn("no"))
+                                                        .repeatWhen("is Big?").is("yes").repeateLabel(doActivity("Repeat"))
+                                                        .leaveWhen("no"))
                                                 .and(doActivity("action4")))))
                 .withStopNode()
                 .createPngFile(Paths.get("./test3.png"));

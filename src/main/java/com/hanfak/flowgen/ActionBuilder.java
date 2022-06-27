@@ -26,6 +26,12 @@ public class ActionBuilder implements Action {
         return new ActionBuilder(actions);
     }
 
+    public static ActionBuilder next(Action action) {
+        Actions actions = new Actions();
+        actions.add(action);
+        return new ActionBuilder(actions);
+    }
+
     public static ActionBuilder first(Action action) {
         Actions actions = new Actions();
         actions.add(action);

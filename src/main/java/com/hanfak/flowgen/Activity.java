@@ -35,6 +35,14 @@ public class Activity implements Action {
         return new Activity(name);
     }
 
+    public static Activity withActivity(String name) {
+        return new Activity(name);
+    }
+
+    public static Activity with(String name) {
+        return new Activity(name);
+    }
+
     public Activity send() {
         this.style = ">";
         return this;

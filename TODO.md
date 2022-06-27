@@ -13,9 +13,10 @@
 
 - Current release
   - TODO: All P1 todos throughout code base, incl failing tests
-  - TODO: In Repeat, better naming: is? repeatAgainFor? for isTrueFor; repeatLoopAction? for labelRepeat; exitLoopFor?? for exitOn
   - TODO: In while, better naming: withActivities, doesAction for execute; exitLoopFor? for exitLabel
   - TODO: Conditional, guard clause, if no actions on else branch but want to label branch. add "else (no)" before endif
+  - TODO: split processing 
+  - TODO: parallel processing
   - TODO: Look to refactor use of string templates, to using replace() and Optionals to reduce complex branching
 
 - Next Release
