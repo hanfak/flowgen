@@ -16,6 +16,7 @@
   - TODO: In Repeat, better naming: is? repeatAgainFor? for isTrueFor; repeatLoopAction? for labelRepeat; exitLoopFor?? for exitOn
   - TODO: In while, better naming: withActivities, doesAction for execute; exitLoopFor? for exitLabel
   - TODO: Conditional, guard clause, if no actions on else branch but want to label branch. add "else (no)" before endif
+  - TODO: Look to refactor use of string templates, to using replace() and Optionals to reduce complex branching
 
 - Next Release
   - TODO: Custom method for flowchartGenerator, to allow to put in actual plantuml syntax
@@ -33,6 +34,7 @@
   - TODO: in FlowchartGenerator for setters and, then, last should pass in string param and create the activity in the method
   - TODO: In multiConditional, combine with conditional ??
   - TODO: In RepeatWhen param should be builder, and can remove isTrueFor()/exitOn()/
+  - TODO: In Repeat & While use step builder, to force the backward label to always be the last step
   - TODO: in Activity Add a builder (Activities) implement Action ie Activities.activity("action2").thenDo("action2")
   - TODO: in Nodes, Might move enums to individual classes, to allow for styling
   - TODO: General styling use of <style>...</style>

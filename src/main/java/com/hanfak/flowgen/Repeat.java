@@ -2,32 +2,35 @@ package com.hanfak.flowgen;
 
 import java.util.*;
 
-import static java.lang.System.lineSeparator;
-import static java.util.stream.Collectors.joining;
-
 /**
  * Represents the doWhile Structure
  * See https://plantuml.com/activity-diagram-beta#219cebcef334f265
  */
 public class Repeat implements Action {
 
-    private static final String REPEAT_TEMPLATE = "repeat%n%s%nrepeat while (%s) is (%s)%n";
-    private static final String REPEAT_NO_ARROW_LABELS_TEMPLATE = "repeat%n%s%nrepeat while (%s)%n";
-    private static final String REPEAT_WITH_LOOP_AND_EXIT_LABEL_TEMPLATE = "repeat%n%s%nrepeat while (%s) is (%s)%n->%s%n";
-    private static final String REPEAT_WITH_EXIT_ARROW_LABEL_ONLY_TEMPLATE = "repeat%n%s%nrepeat while (%s)%n->%s%n";
+    private static final String REPEAT_TEMPLATE = "repeat$FIRST_ACTION%n%s%nrepeat while (%s) is (%s)%n";
+    private static final String REPEAT_NO_ARROW_LABELS_TEMPLATE = "repeat$FIRST_ACTION%n%s%nrepeat while (%s)%n";
+    private static final String REPEAT_WITH_LOOP_AND_EXIT_LABEL_TEMPLATE = "repeat$FIRST_ACTION%n%s%nrepeat while (%s) is (%s)%n->%s%n";
+    private static final String REPEAT_WITH_EXIT_ARROW_LABEL_ONLY_TEMPLATE = "repeat$FIRST_ACTION%n%s%nrepeat while (%s)%n->%s%n";
 
     private final Actions actions;
+    private final Action firstAction;
 
     private String predicate;
     private String predicateTrueOutcome;
     private String predicateFalseOutcome;
 
-    private Repeat(Actions actions) {
+    private Repeat(Actions actions, Action firstAction) {
         this.actions = actions;
+        this.firstAction = firstAction;
     }
 
     public static Repeat repeat() {
-        return new Repeat(new Actions());
+        return new Repeat(new Actions(), null);
+    }
+
+    public static Repeat repeat(Action firstAction) {
+        return new Repeat(new Actions(), firstAction);
     }
 
     public Repeat the(Action... actions) {
@@ -83,6 +86,7 @@ public class Repeat implements Action {
         return this;
     }
 
+    // Should be last action in a repeat loop
     public Repeat labelRepeat(Action repeatLoopActivity) {
         this.actions.add(() -> "backward" + repeatLoopActivity.build());
         return this;
@@ -96,9 +100,13 @@ public class Repeat implements Action {
     @Override
     public String build() {
         String allActions = actions.combineAllActions();
-        return Optional.ofNullable(predicateFalseOutcome)
+
+        String result = Optional.ofNullable(predicateFalseOutcome)
                 .map(label -> bothOrExitArrowLabelOnly(allActions, label))
                 .orElse(defaultOrTrueArrowOnly(allActions));
+        return Optional.ofNullable(firstAction)
+                .map(a -> result.replace("$FIRST_ACTION"," " + a.build()))
+                .orElse(result.replace("$FIRST_ACTION",""));
     }
 
     private String bothOrExitArrowLabelOnly(String allActions, String label) {
