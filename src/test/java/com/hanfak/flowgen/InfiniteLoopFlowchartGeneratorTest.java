@@ -4,18 +4,15 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.parallel.Execution;
 import org.junit.jupiter.api.parallel.ExecutionMode;
 
-import static com.hanfak.flowgen.Activity.andActivity;
-import static com.hanfak.flowgen.Activity.doActivity;
+import static com.hanfak.flowgen.Activity.*;
 import static com.hanfak.flowgen.FlowchartGenerator.flowchart;
 import static com.hanfak.flowgen.InfiniteLoop.infiniteLoopWhen;
+import static com.hanfak.flowgen.Note.note;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Execution(ExecutionMode.CONCURRENT)
 class InfiniteLoopFlowchartGeneratorTest {
 
-    // TODO: P1 add label on loop connector  backward:This is repeated;
-    // TODO: P1 Label at start of while action
-    // TODO: P1 backward as last action
     // TODO: P2 arrow style after while statement, after end while
     // TODO: P2 step builder to force correct usage
     // TODO: P2 styling - diamond, line, colour
@@ -60,6 +57,49 @@ class InfiniteLoopFlowchartGeneratorTest {
                 while (is Big?) is (yes)
                 :action1;
                 :action2;
+                end while
+                -[hidden]->
+                detach
+                :action3;
+                @enduml""");
+    }
+
+    @Test
+    void simpleWhileWithBothLabelsAndRepeatLabelLoop() {
+        String flowchart = flowchart()
+                .then(infiniteLoopWhen("is Big?").is("yes")
+                        .perform(activity("action1"), andActivity("action2"))
+                        .repeatLabel(activity("Repeated")))
+                .create();
+        assertThat(flowchart).isEqualToNormalizingNewlines("""
+                @startuml
+                while (is Big?) is (yes)
+                :action1;
+                :action2;
+                backward:Repeated;
+                end while
+                -[hidden]->
+                detach
+                @enduml""");
+    }
+
+    @Test
+    void simpleWhileWithNoteLoop() {
+        String flowchart = flowchart()
+                .then(infiniteLoopWhen("is Big?").is("yes").with(note("A Note"))
+                        .execute(doActivity("action1"), doActivity("action2"))
+                        .repeatLabel(activity("Repeated")))
+                .then(doActivity("action3"))
+                .create();
+        assertThat(flowchart).isEqualToNormalizingNewlines("""
+                @startuml
+                while (is Big?) is (yes)
+                note right
+                A Note
+                end note
+                :action1;
+                :action2;
+                backward:Repeated;
                 end while
                 -[hidden]->
                 detach

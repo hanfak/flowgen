@@ -11,6 +11,7 @@ public class InfiniteLoop implements Action {
 
     private final Actions actions;
     private String predicateTrueOutcome;
+    private Note note;
 
     private InfiniteLoop(String predicate, Actions actions) {
         this.predicate = predicate;
@@ -21,7 +22,17 @@ public class InfiniteLoop implements Action {
         return new InfiniteLoop(predicate, new Actions());
     }
 
+    public InfiniteLoop with(Note note) {
+        this.note = note;
+        return this;
+    }
+
     public InfiniteLoop execute(Action... actions) {
+        this.actions.add(actions);
+        return this;
+    }
+
+    public InfiniteLoop perform(Action... actions) {
         this.actions.add(actions);
         return this;
     }
@@ -41,9 +52,17 @@ public class InfiniteLoop implements Action {
         return this;
     }
 
+    public InfiniteLoop repeatLabel(Activity repeatLoopActivity) {
+        this.actions.add(() -> "backward" + repeatLoopActivity.build());
+        return this;
+    }
+
     @Override
     public String build() {
-        String allActions = actions.combineAllActions();
+        String allActionsCombined = actions.combineAllActions();
+        String allActions = Optional.ofNullable(note)
+                .map(aNote -> note.build() + allActionsCombined)
+                .orElse(allActionsCombined);
         return Optional.ofNullable(predicateTrueOutcome)
                 .map(label -> WHILE_WITH_LOOP_LABELS_TEMPLATE.formatted(predicate, label,  allActions))
                 .orElse(WHILE_TEMPLATE.formatted(predicate, allActions));
