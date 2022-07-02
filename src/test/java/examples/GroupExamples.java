@@ -80,7 +80,7 @@ class GroupExamples {
                                         group().with(repeat()
                                                         .and(an(activity("action1")).and(activity("action2")))
                                                         .and(doActivity("action3"))
-                                                        .repeatWhen("is Big?").is("yes").repeateLabel(doActivity("Repeat"))
+                                                        .repeatWhen("is Big?").is("yes").repeatLabel(doActivity("Repeat"))
                                                         .leaveWhen("no"))
                                                 .and(doActivity("action4")))))
                 .withStopNode()

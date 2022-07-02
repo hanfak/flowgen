@@ -1,10 +1,5 @@
 package com.hanfak.flowgen;
 
-import java.util.Queue;
-
-import static java.lang.System.lineSeparator;
-import static java.util.stream.Collectors.joining;
-
 public class While implements Action {
 
     private static final String WHILE_TEMPLATE = "while (%s)%n%s%nend while%n";

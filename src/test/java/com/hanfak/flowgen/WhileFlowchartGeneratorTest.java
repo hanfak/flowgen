@@ -18,6 +18,7 @@ class WhileFlowchartGeneratorTest {
     // TODO: P1 add label on loop connector  "backward:This is repeated;"
     // TODO: P1 Label at start of while action
     // TODO: P1 backward as last action
+
     // TODO: P2 arrow style after while statement, after end while
     // TODO: P2 step builder to force correct usage
     // TODO: P2 styling - diamond, line, colour

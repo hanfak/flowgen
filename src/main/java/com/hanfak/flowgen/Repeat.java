@@ -87,7 +87,7 @@ public class Repeat implements Action {
     }
 
     // Should be last action in a repeat loop
-    public Repeat repeateLabel(Activity repeatLoopActivity) {
+    public Repeat repeatLabel(Activity repeatLoopActivity) {
         this.actions.add(() -> "backward" + repeatLoopActivity.build());
         return this;
     }

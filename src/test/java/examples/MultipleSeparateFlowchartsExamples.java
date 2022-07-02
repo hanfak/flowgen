@@ -29,7 +29,7 @@ class MultipleSeparateFlowchartsExamples {
                         .and(doActivity("action3"))
                         .repeatWhen("is Big?")
                         .is("yes")
-                        .repeateLabel(doActivity("Repeat"))
+                        .repeatLabel(doActivity("Repeat"))
                         .leaveWhen("no"))
                 .then(doActivity("action3"))
                 .withStopNode()

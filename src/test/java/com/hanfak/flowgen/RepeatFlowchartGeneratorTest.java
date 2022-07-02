@@ -156,7 +156,7 @@ class RepeatFlowchartGeneratorTest {
                             .the(doActivity("action1"), thenActivity("action2"))
                             .and(doActivity("action3"))
                             .repeatWhen("is Big?")
-                            .repeateLabel(doActivity("This is repeated")))
+                            .repeatLabel(doActivity("This is repeated")))
                     .create();
             assertThat(flowchart).isEqualToNormalizingNewlines("""
                     @startuml
@@ -177,7 +177,7 @@ class RepeatFlowchartGeneratorTest {
                             .and(doActivity("action3"))
                             .repeatWhen("is Big?")
                             .is("yes")
-                            .repeateLabel(doActivity("This is repeated")))
+                            .repeatLabel(doActivity("This is repeated")))
                     .create();
             assertThat(flowchart).isEqualToNormalizingNewlines("""
                     @startuml
@@ -197,7 +197,7 @@ class RepeatFlowchartGeneratorTest {
                             .the(doActivity("action1"), thenActivity("action2"))
                             .and(doActivity("action3"))
                             .repeatWhen("is Big?")
-                            .repeateLabel(withActivity("This is repeated"))
+                            .repeatLabel(withActivity("This is repeated"))
                             .leaveWhen("no"))
                     .create();
             assertThat(flowchart).isEqualToNormalizingNewlines("""
@@ -219,7 +219,7 @@ class RepeatFlowchartGeneratorTest {
                             .the(doActivity("action1"), thenActivity("action2"))
                             .and(doActivity("action3"))
                             .repeatWhen("is Big?").is("yes")
-                            .repeateLabel(with("Repeat"))
+                            .repeatLabel(with("Repeat"))
                             .leaveWhen("no"))
                     .create();
             assertThat(flowchart).isEqualToNormalizingNewlines("""
@@ -401,7 +401,7 @@ class RepeatFlowchartGeneratorTest {
                                 .the(doActivity("action1"), thenActivity("action2"))
                                 .and(doActivity("action3"))
                                 .repeatWhen("is Big?")
-                                .repeateLabel(doActivity("This is repeated")))
+                                .repeatLabel(doActivity("This is repeated")))
                         .create();
                 assertThat(flowchart).isEqualToNormalizingNewlines("""
                     @startuml
@@ -422,7 +422,7 @@ class RepeatFlowchartGeneratorTest {
                                 .and(doActivity("action3"))
                                 .repeatWhen("is Big?")
                                 .is("yes")
-                                .repeateLabel(doActivity("This is repeated")))
+                                .repeatLabel(doActivity("This is repeated")))
                         .create();
                 assertThat(flowchart).isEqualToNormalizingNewlines("""
                     @startuml
@@ -443,7 +443,7 @@ class RepeatFlowchartGeneratorTest {
                                 .and(doActivity("action3"))
                                 .repeatWhen("is Big?")
                                 .leaveWhen("no")
-                                .repeateLabel(doActivity("This is repeated")))
+                                .repeatLabel(doActivity("This is repeated")))
                         .create();
                 assertThat(flowchart).isEqualToNormalizingNewlines("""
                     @startuml
@@ -465,7 +465,7 @@ class RepeatFlowchartGeneratorTest {
                                 .and(doActivity("action3"))
                                 .repeatWhen("is Big?")
                                 .is("yes")
-                                .repeateLabel(doActivity("Repeat"))
+                                .repeatLabel(doActivity("Repeat"))
                                 .leaveWhen("no"))
                         .create();
                 assertThat(flowchart).isEqualToNormalizingNewlines("""
