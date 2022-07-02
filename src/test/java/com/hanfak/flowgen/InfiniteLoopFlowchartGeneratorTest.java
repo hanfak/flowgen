@@ -51,7 +51,7 @@ class InfiniteLoopFlowchartGeneratorTest {
     @Test
     void simpleWhileWithLabelForPredicateIsTrueLoop() {
         String flowchart = flowchart()
-                .then(infiniteLoopWhen("is Big?").isTrueFor("yes")
+                .then(infiniteLoopWhen("is Big?").is("yes")
                         .execute(doActivity("action1"), doActivity("action2")))
                 .then(doActivity("action3"))
                 .create();

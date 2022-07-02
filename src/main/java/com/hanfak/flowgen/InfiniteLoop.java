@@ -36,22 +36,7 @@ public class InfiniteLoop implements Action {
         return this;
     }
 
-    public InfiniteLoop execute(Action action) {
-        this.actions.add(action);
-        return this;
-    }
-
-    public InfiniteLoop and(Action action) {
-        this.actions.add(action);
-        return this;
-    }
-
-    public InfiniteLoop then(Action action) {
-        this.actions.add(action);
-        return this;
-    }
-
-    public InfiniteLoop isTrueFor(String predicateTrueOutcome) {
+    public InfiniteLoop is(String predicateTrueOutcome) {
         this.predicateTrueOutcome = predicateTrueOutcome;
         return this;
     }

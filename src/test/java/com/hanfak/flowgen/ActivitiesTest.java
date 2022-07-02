@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.parallel.Execution;
 import org.junit.jupiter.api.parallel.ExecutionMode;
 
+import java.util.Arrays;
+
 import static com.hanfak.flowgen.Activity.*;
 import static com.hanfak.flowgen.ActionBuilder.an;
 import static com.hanfak.flowgen.FlowchartGenerator.flowchart;
@@ -26,6 +28,77 @@ class ActivitiesTest {
                     @startuml
                     :action;
                     @enduml""");
+        }
+
+        @Test
+        void doActivities() {
+            String flowchart = flowchart()
+                    .then(doActivity("action"))
+                    .then(activity("action"))
+                    .then(andActivity("action"))
+                    .then(and("action"))
+                    .and(thenActivity("action"))
+                    .and(then("action"))
+                    .then(withActivity("action"))
+                    .then(with("action"))
+                    .then(executeActivity("action"))
+                    .then(execute("action"))
+                    .then(performActivity("action"))
+                    .then(perform("action"))
+                    .then(completeActivity("action"))
+                    .then(complete("action"))
+                    .then(finishActivity("action"))
+                    .then(finish("action"))
+                    .then(implementActivity("action"))
+                    .then(implement("action"))
+                    .then(prepareActivity("action"))
+                    .then(prepare("action"))
+                    .then(makeActivity("action"))
+                    .then(make("action"))
+                    .then(fixActivity("action"))
+                    .then(fix("action"))
+                    .then(produceActivity("action"))
+                    .then(produce("action"))
+                    .then(arrangeActivity("action"))
+                    .then(arrange("action"))
+                    .then(createActivity("action"))
+                    .then(create("action"))
+                    .then(designActivity("action"))
+                    .then(design("action"))
+                    .then(workOutActivity("action"))
+                    .then(workOut("action"))
+                    .then(calculateActivity("action"))
+                    .then(calculate("action"))
+                    .then(solveActivity("action"))
+                    .then(solve("action"))
+                    .then(resolveActivity("action"))
+                    .then(resolve("action"))
+                    .then(sendActivity("action"))
+                    .then(send("action"))
+                    .then(listenActivity("action"))
+                    .then(listen("action"))
+                    .then(listenForActivity("action"))
+                    .then(listenFor("action"))
+                    .then(writeActivity("action"))
+                    .then(write("action"))
+                    .then(updateActivity("action"))
+                    .then(update("action"))
+                    .then(deleteActivity("action"))
+                    .then(delete("action"))
+                    .then(readActivity("action"))
+                    .then(read("action"))
+                    .then(fetchActivity("action"))
+                    .then(fetch("action"))
+                    .then(retrieveActivity("action"))
+                    .then(retrieve("action"))
+                    .then(useActivity("action"))
+                    .then(use("action"))
+                    .create();
+
+            long numberOfActionsCreated = Arrays.stream(flowchart.split("\n"))
+                    .filter(line -> line.contains(":action;"))
+                    .count();
+            assertThat(numberOfActionsCreated).isEqualTo(60L);
         }
 
         @Test
@@ -322,7 +395,7 @@ class ActivitiesTest {
             void createMultipleActivitiesWithLabelsInSwimLanes() {
                 String flowchart = flowchart()
                         .then(andActivity("action").label("label 1").inSwimLane("S1"))
-                        .then(thenActivity("action 1").label("label 2").inSwimLane("S2"))
+                        .then(then("action 1").label("label 2").inSwimLane("S2"))
                         .create();
                 assertThat(flowchart).isEqualToNormalizingNewlines("""
                         @startuml
@@ -344,7 +417,7 @@ class ActivitiesTest {
         void sendActivity() {
             String flowchart = flowchart()
                     .then(doActivity("action1"))
-                    .and(doActivity("action2").send())
+                    .and(doActivity("action2").sendStyle())
                     .last(doActivity("action3"))
                     .create();
             assertThat(flowchart).isEqualToNormalizingNewlines("""
@@ -359,7 +432,7 @@ class ActivitiesTest {
         void receiveActivity() {
             String flowchart = flowchart()
                     .then(doActivity("action1"))
-                    .and(doActivity("action2").receive())
+                    .and(doActivity("action2").receiveStyle())
                     .last(doActivity("action3"))
                     .create();
             assertThat(flowchart).isEqualToNormalizingNewlines("""

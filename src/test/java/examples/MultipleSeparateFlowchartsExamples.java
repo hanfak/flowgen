@@ -19,7 +19,7 @@ class MultipleSeparateFlowchartsExamples {
         flowchart()
                 .withTitle("First")
                 .withStartNode()
-                .then(infiniteLoopWhen("is true?").isTrueFor("yes")
+                .then(infiniteLoopWhen("is true?").is("yes")
                         .execute(activity("action1"), thenActivity("action2")))
                 .then(doActivity("action22"))
                 .withStopNode()

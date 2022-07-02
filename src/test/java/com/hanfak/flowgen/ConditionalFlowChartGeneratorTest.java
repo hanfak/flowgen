@@ -90,7 +90,7 @@ class ConditionalFlowChartGeneratorTest {
     void elsePathHasNoPredicateDefined() {
         String flowchart = flowchart()
                 .then(ifIsTrue("is big?")
-                        .thenFor("yes", doActivity("action1"), thenActivity("action3"), andActivity("action4"))
+                        .thenFor("yes", doActivity("action1"), thenActivity("action3"), and("action4"))
                         .orElseFor(doActivity("action2")))
                 .create();
         assertThat(flowchart).isEqualToNormalizingNewlines("""
