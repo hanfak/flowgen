@@ -31,7 +31,7 @@ class WhileExamples {
     void breakInWhileLoop() {
         flowchart()
                 .withStartNode()
-                .then(loopWhen("is Big?").isTrueFor("yes")
+                .then(loopWhen("is Big?").is("yes")
                         .execute(
                                 doActivity("action1"),
                                 ifIsTrue("is too big?")
