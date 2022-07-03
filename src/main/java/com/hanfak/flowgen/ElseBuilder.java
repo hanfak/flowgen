@@ -12,7 +12,7 @@ public class ElseBuilder {
         this.actions.add(action);
     }
 
-    public static ElseBuilder then(Action action) {
+    public static ElseBuilder elseDo(Action action) {
         return new ElseBuilder(action);
     }
 

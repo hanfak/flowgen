@@ -63,7 +63,7 @@ class SynchronousActivitiesExamples {
                 .withStartNode()
                 .then(ifIsTrue("is big?")
                         .thenFor("yes", doActivity("action1"), label("next"), doActivity("action2"))
-                        .exitLabel("Carry On"))
+                        .existLabel("Carry On"))
                 .then(doActivity("action3"))
                 .withLabel("label")
                 .withStopNode()

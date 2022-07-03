@@ -7,7 +7,7 @@ import java.nio.file.Paths;
 import static com.hanfak.flowgen.Activity.activity;
 import static com.hanfak.flowgen.Activity.doActivity;
 import static com.hanfak.flowgen.ActionBuilder.an;
-import static com.hanfak.flowgen.ElseBuilder.then;
+import static com.hanfak.flowgen.ElseBuilder.elseDo;
 import static com.hanfak.flowgen.Exit.andExit;
 import static com.hanfak.flowgen.FlowchartGenerator.flowchart;
 import static com.hanfak.flowgen.Group.group;
@@ -76,7 +76,7 @@ class GroupExamples {
                                                 .then(elseIf("condition 3")
                                                         .then(an(activity("action3")))
                                                         .elseLabel("no").elseIfLabel("yes"))
-                                                .orElse(then(doActivity("action4")).forValue("none")),
+                                                .orElse(elseDo(doActivity("action4")).forValue("none")),
                                         group().with(repeat()
                                                         .and(an(activity("action1")).and(activity("action2")))
                                                         .and(doActivity("action3"))

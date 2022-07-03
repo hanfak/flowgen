@@ -6,10 +6,9 @@ import org.junit.jupiter.api.parallel.ExecutionMode;
 
 import static com.hanfak.flowgen.ActionBuilder.doAn;
 import static com.hanfak.flowgen.Activity.*;
-import static com.hanfak.flowgen.ElseBuilder.then;
+import static com.hanfak.flowgen.Conditional.*;
+import static com.hanfak.flowgen.ElseBuilder.elseDo;
 import static com.hanfak.flowgen.ThenBuilder.forValue;
-import static com.hanfak.flowgen.Conditional.branchWhen;
-import static com.hanfak.flowgen.Conditional.ifIsTrue;
 import static com.hanfak.flowgen.Exit.andExit;
 import static com.hanfak.flowgen.Exit.exit;
 import static com.hanfak.flowgen.FlowchartGenerator.flowchart;
@@ -39,6 +38,23 @@ class ConditionalFlowChartGeneratorTest {
     }
 
     @Test
+    void ifELseWithNoPredicatesDefinedOnBothPaths() {
+        String flowchart = flowchart()
+                .then(ifThe("house is big?")
+                        .then(doActivity("action1"))
+                        .or(elseDo(activity("action2"))))
+                .create();
+        assertThat(flowchart).isEqualToNormalizingNewlines("""
+                @startuml
+                if (house is big?) then
+                :action1;
+                else
+                :action2;
+                endif
+                @enduml""");
+    }
+
+    @Test
     void ifELseDetachesOnIfBranch() {
         String flowchart = flowchart()
                 .then(branchWhen("is big?")
@@ -46,7 +62,7 @@ class ConditionalFlowChartGeneratorTest {
                                 .then(doActivity("action1"))
                                 .and(activity("action3"))
                                 .and(exit()))
-                        .orElse(then(doActivity("action2"))
+                        .or(elseDo(activity("action2"))
                                 .and(doActivity("action5"))
                                 .forValue("no")))
                 .then(doActivity("action4"))
@@ -123,10 +139,9 @@ class ConditionalFlowChartGeneratorTest {
     @Test
     void ifWithoutElseLabelExitConnector() {
         String flowchart = flowchart()
-                .then(ifIsTrue("is big?")
+                .then(ifIt("is big?")
                         .thenFor("yes", doActivity("action1"), doActivity("action3"))
-                        .exitLabel("NOK")
-                )
+                        .existLabel("NOK"))
                 .then(doActivity("action4"))
                 .create();
         assertThat(flowchart).isEqualToNormalizingNewlines("""
@@ -143,15 +158,15 @@ class ConditionalFlowChartGeneratorTest {
     @Test
     void ifElseLabelExitConnector() {
         String flowchart = flowchart()
-                .then(ifIsTrue("is big?")
+                .then(ifWhen("200?")
                         .thenFor("yes", doActivity("action1"), doActivity("action3"))
                         .orElseFor("no", doAn(activity("action2")).and(activity("action5")))
-                        .exitLabel("NOK"))
+                        .existLabel("NOK"))
                 .then(doActivity("action4"))
                 .create();
         assertThat(flowchart).isEqualToNormalizingNewlines("""
                 @startuml
-                if (is big?) then (yes)
+                if (200?) then (yes)
                 :action1;
                 :action3;
                 else (no)
@@ -167,25 +182,105 @@ class ConditionalFlowChartGeneratorTest {
     void nestedIf() {
         String flowchart = flowchart()
                 .then(ifIsTrue("is big?")
-                        .thenFor("yes", doActivity("action1"))
+                        .then(forValue("yes").then(doActivity("action1")))
                         .orElseFor("no",
-                                ifIsTrue("is tiny?")
-                                        .thenFor("yes", doActivity("action2"))
-                                        .orElseFor("no", doActivity("action3")),
-                                doActivity("action4")))
+                                ifIs("tiny?")
+                                        .thenFor("yes", ifIs("tiny?")
+                                                .thenFor("yes", doActivity("action2"))
+                                                .orElseFor("no", doActivity("action3"))
+                                                .existLabel("Next 0"))
+                                        .orElseFor("no", doActivity("action3"))
+                                        .existLabel("Next 1"),
+                                doActivity("action4"))
+                        .existLabel("Next 2"))
+                .then(doActivity("action5"))
                 .create();
         assertThat(flowchart).isEqualToNormalizingNewlines("""
                 @startuml
                 if (is big?) then (yes)
                 :action1;
                 else (no)
-                if (is tiny?) then (yes)
+                if (tiny?) then (yes)
+                if (tiny?) then (yes)
                 :action2;
                 else (no)
                 :action3;
                 endif
+                ->Next 0;
+                else (no)
+                :action3;
+                endif
+                ->Next 1;
                 :action4;
                 endif
+                ->Next 2;
+                :action5;
+                @enduml""");
+    }
+
+    @Test
+    void ifWithGuardClauseNoReturnEarlyWithLabelElseBranch() {
+        String flowchart = flowchart()
+                .then(ifIs("big?")
+                        .then(forValue("yes")
+                                .then(doActivity("action1"))
+                                .and(activity("action3")))
+                        .elseLabel("no"))
+                .then(doActivity("action2")).create();
+
+        assertThat(flowchart).isEqualToNormalizingNewlines("""
+                @startuml
+                if (big?) then (yes)
+                :action1;
+                :action3;
+                else (no)
+                endif
+                :action2;
+                @enduml""");
+    }
+
+    @Test
+    void ifWithGuardClauseNoReturnEarlyWithLabelElseBranchAndExitLabel() {
+        String flowchart = flowchart()
+                .then(ifIs("big?")
+                        .then(forValue("yes")
+                                .then(doActivity("action1"))
+                                .and(activity("action3")))
+                        .elseLabel("no")
+                        .existLabel("next"))
+                .then(doActivity("action2")).create();
+
+        assertThat(flowchart).isEqualToNormalizingNewlines("""
+                @startuml
+                if (big?) then (yes)
+                :action1;
+                :action3;
+                else (no)
+                endif
+                ->next;
+                :action2;
+                @enduml""");
+    }
+
+    @Test
+    void ifWithGuardClauseNoReturnEarlyWithNoThenLabelAndLabelElseBranchAndExitLabel() {
+        String flowchart = flowchart()
+                .then(ifIs("big?")
+                        .then(doAn(doActivity("action1"))
+                                .and(activity("action3")))
+                        .elseLabel("no")
+                        .existLabel("next"))
+                .then(doActivity("action2")).create();
+
+        assertThat(flowchart).isEqualToNormalizingNewlines("""
+                @startuml
+                if (big?) then
+                :action1;
+                :action3;
+                else (no)
+                endif
+                ->next;
+                :action2;
                 @enduml""");
     }
 }

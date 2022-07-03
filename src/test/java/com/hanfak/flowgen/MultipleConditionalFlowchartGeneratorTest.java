@@ -7,7 +7,7 @@ import org.junit.jupiter.api.parallel.ExecutionMode;
 import static com.hanfak.flowgen.ActionBuilder.an;
 import static com.hanfak.flowgen.Activity.*;
 import static com.hanfak.flowgen.Activity.activity;
-import static com.hanfak.flowgen.ElseBuilder.then;
+import static com.hanfak.flowgen.ElseBuilder.elseDo;
 import static com.hanfak.flowgen.FlowchartGenerator.flowchart;
 import static com.hanfak.flowgen.ElseIfBuilder.elseIf;
 import static com.hanfak.flowgen.MultiConditional.ifTrueFor;
@@ -32,7 +32,7 @@ class MultipleConditionalFlowchartGeneratorTest {
                                 .then(elseIf("condition 3?")
                                         .then(an(activity("action3")))
                                         .elseLabel("no").elseIfLabel("yes"))
-                                .orElse(then(doActivity("action4")).and(doActivity("action4")).forValue("none")))
+                                .orElse(elseDo(doActivity("action4")).and(doActivity("action4")).forValue("none")))
                 .create();
         assertThat(flowchart).isEqualToNormalizingNewlines("""
                 @startuml
@@ -60,7 +60,7 @@ class MultipleConditionalFlowchartGeneratorTest {
                         .then(elseIf("condition 1?")
                                 .then(an(activity("action1")).and(activity("action3")))
                                 .elseIfLabel("yes"))
-                        .orElse(then(doActivity("action4")).forValue("none")))
+                        .orElse(elseDo(doActivity("action4")).forValue("none")))
                 .create();
         assertThat(flowchart).isEqualToNormalizingNewlines("""
                 @startuml
@@ -83,7 +83,7 @@ class MultipleConditionalFlowchartGeneratorTest {
                         .then(elseIf("condition 1?")
                                 .then(an(activity("action1")).and(activity("action3")))
                                 .elseLabel("no").elseIfLabel("yes"))
-                        .orElse(then(doActivity("action4"))))
+                        .orElse(elseDo(doActivity("action4"))))
                 .create();
         assertThat(flowchart).isEqualToNormalizingNewlines("""
                 @startuml
@@ -106,7 +106,7 @@ class MultipleConditionalFlowchartGeneratorTest {
                         .then(elseIf("condition 1?")
                                 .then(an(activity("action1")).and(activity("action3")))
                                 .elseLabel("no"))
-                        .orElse(then(doActivity("action4")).forValue("none")))
+                        .orElse(elseDo(doActivity("action4")).forValue("none")))
                 .create();
         assertThat(flowchart).isEqualToNormalizingNewlines("""
                 @startuml
@@ -128,7 +128,7 @@ class MultipleConditionalFlowchartGeneratorTest {
                         .then(forValue("yes").then(doActivity("action")))
                         .then(elseIf("condition 1?")
                                 .then(an(activity("action1")).and(activity("action3"))))
-                        .orElse(then(doActivity("action4")).forValue("none")))
+                        .orElse(elseDo(doActivity("action4")).forValue("none")))
                 .create();
         assertThat(flowchart).isEqualToNormalizingNewlines("""
                 @startuml

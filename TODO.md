@@ -13,11 +13,13 @@
 
 - Current release
   - TODO: All P1 todos throughout code base, incl failing tests
-  - TODO: Conditional, guard clause, if no actions on else branch but want to label branch. add "else (no)" before endif
   - TODO: split processing 
   - TODO: parallel processing
   - TODO: Look to refactor use of string templates, to using replace() and Optionals to reduce complex branching
   - TODO: Combine inifinite and while loop (??)
+
+- Point release 
+  - Static methods for conditional, activities
 
 - Next Release
   - TODO: Custom method for flowchartGenerator, to allow to put in actual plantuml syntax
