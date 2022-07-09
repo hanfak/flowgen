@@ -2,7 +2,6 @@
 
 ## Devops
 
-- parallelt tests in build
 - Github actions 
 - pitest
 - sonarcloud
@@ -13,10 +12,11 @@
 
 - Current release
   - TODO: All P1 todos throughout code base, incl failing tests
-  - TODO: split processing 
+  - TODO: split processing - naming, extra static methods
   - TODO: parallel processing
   - TODO: Look to refactor use of string templates, to using replace() and Optionals to reduce complex branching
   - TODO: Combine inifinite and while loop (??)
+  - TODO: More examples
 
 - Point release 
   - Static methods for conditional, activities

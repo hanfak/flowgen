@@ -1,5 +1,6 @@
 package com.hanfak.flowgen;
 
+import static com.hanfak.flowgen.HiddenActivity.hiddenActivity;
 import static java.lang.System.lineSeparator;
 import static java.util.stream.Collectors.joining;
 
@@ -22,6 +23,21 @@ public class Split implements Action {
 
     public Split andDo(Action... actions) {
         this.actionGroup.add(actions);
+        return this;
+    }
+
+    public Split andDoWith(Label label, Action action) {
+        this.actionGroup.add(label, action);
+        return this;
+    }
+
+    public Split andDoWith(Action... actions) {
+        this.actionGroup.add(actions);
+        return this;
+    }
+
+    public Split andDoStart(Action action) {
+        this.actionGroup.add(hiddenActivity(action.build()));
         return this;
     }
 
