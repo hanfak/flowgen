@@ -6,22 +6,21 @@
 - pitest
 - sonarcloud
 - Add to jitpack
-- Add to maven repository
+- Add to maven repository https://jenkov.com/tutorials/maven/publish-to-central-maven-repository.html
 
 ## Features
 
 - Current release
   - TODO: All P1 todos throughout code base, incl failing tests
   - TODO: split processing - naming, extra static methods
-  - TODO: parallel processing
-  - TODO: Look to refactor use of string templates, to using replace() and Optionals to reduce complex branching
-  - TODO: Combine inifinite and while loop (??)
+  - TODO: Readme - instructions, examples with pic
   - TODO: More examples
 
 - Point release 
   - Static methods for conditional, activities
 
 - Next Release
+  - TODO: Look to refactor use of string templates, to using replace() and Optionals to reduce complex branching
   - TODO: Custom method for flowchartGenerator, to allow to put in actual plantuml syntax
   - TODO: method to provide filename, which contains pure plantuml and produce png or svg
   - TODO: Move all leftover todos from test code to here
