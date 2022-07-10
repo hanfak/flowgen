@@ -16,18 +16,8 @@ public class Split implements Action {
         return new Split(new ActionGroup());
     }
 
-    public Split andDo(Action action) {
-        this.actionGroup.add(action);
-        return this;
-    }
-
     public Split andDo(Action... actions) {
         this.actionGroup.add(actions);
-        return this;
-    }
-
-    public Split andDoWith(Label label, Action action) {
-        this.actionGroup.add(label, action);
         return this;
     }
 
