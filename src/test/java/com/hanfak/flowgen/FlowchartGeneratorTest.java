@@ -3,6 +3,7 @@ package com.hanfak.flowgen;
 import net.sourceforge.plantuml.FileFormatOption;
 import net.sourceforge.plantuml.SourceStringReader;
 import net.sourceforge.plantuml.core.DiagramDescription;
+import org.awaitility.Awaitility;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -25,6 +26,7 @@ import static com.hanfak.flowgen.Label.label;
 import static com.hanfak.flowgen.Theme.SPACELAB;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.awaitility.Awaitility.await;
 
 @Execution(ExecutionMode.CONCURRENT)
 class FlowchartGeneratorTest {
@@ -520,19 +522,6 @@ class FlowchartGeneratorTest {
 
     @Nested
     class FileCreation {
-
-        @Test
-        @Disabled
-        void emptyFlowchart(@TempDir Path tempDir) throws IOException, InterruptedException {
-            Path file = tempDir.resolve("flowchart.html");
-            flowchart().createFile(file);
-            Thread.sleep(2000); // TODO: P1 Fix, use awaitly to wait for file to be created
-            assertThat(Files.readAllLines(file)
-                    .get(0)).contains("Welcome to PlantUML!", "You can start with a simple UML Diagram like:");
-            assertThat(Files.readAllLines(file)).containsSequence(
-                    "@startuml",
-                    "@enduml");
-        }
 
         @Test
         void oneFlowBetweenMultipleActivitiesReturnsFileWithDiagram(@TempDir Path tempDir) throws IOException {

@@ -11,8 +11,6 @@
 ## Features
 
 - Current release
-  - TODO: All P1 todos throughout code base, incl failing tests
-  - TODO: split processing - naming, extra static methods
   - TODO: Readme - instructions, examples with pic
   - TODO: More examples
 
