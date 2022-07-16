@@ -1,6 +1,7 @@
 package com.hanfak.flowgen;
 
 import static com.hanfak.flowgen.HiddenActivity.hiddenActivity;
+import static java.lang.String.format;
 import static java.lang.System.lineSeparator;
 import static java.util.stream.Collectors.joining;
 
@@ -34,7 +35,7 @@ public class Split implements Action {
     @Override
     public String build() {
         String SPLIT_TEMPLATE = "split%n%s%nend split%n";
-        return SPLIT_TEMPLATE.formatted(getActivitiesString());
+        return format(SPLIT_TEMPLATE, getActivitiesString());
     }
 
     private String getActivitiesString() {

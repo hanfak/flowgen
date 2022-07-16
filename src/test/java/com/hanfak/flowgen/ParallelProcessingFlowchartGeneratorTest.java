@@ -29,17 +29,16 @@ class ParallelProcessingFlowchartGeneratorTest {
                             .and(following(activity("action2")).then(activity("action3")))
                             .and(activity("action4")))
                     .create();
-            assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml 
-                    fork
-                    :action1;
-                    fork again
-                    :action2;
-                    :action3;
-                    fork again
-                    :action4;
-                    end fork
-                    @enduml""");
+            assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                               "fork\n" +
+                                                               ":action1;\n" +
+                                                               "fork again\n" +
+                                                               ":action2;\n" +
+                                                               ":action3;\n" +
+                                                               "fork again\n" +
+                                                               ":action4;\n" +
+                                                               "end fork\n" +
+                                                               "@enduml");
         }
 
         @Test
@@ -51,17 +50,16 @@ class ParallelProcessingFlowchartGeneratorTest {
                             .and(activity("action4"))
                             .joinLabel("and"))
                     .create();
-            assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml 
-                    fork
-                    :action1;
-                    fork again
-                    :action2;
-                    :action3;
-                    fork again
-                    :action4;
-                    end fork (and)
-                    @enduml""");
+            assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                               "fork\n" +
+                                                               ":action1;\n" +
+                                                               "fork again\n" +
+                                                               ":action2;\n" +
+                                                               ":action3;\n" +
+                                                               "fork again\n" +
+                                                               ":action4;\n" +
+                                                               "end fork (and)\n" +
+                                                               "@enduml");
         }
 
         @Test
@@ -72,17 +70,16 @@ class ParallelProcessingFlowchartGeneratorTest {
                             .and(following(activity("action2")).then(activity("action3")))
                             .and(activity("action4")).merge())
                     .create();
-            assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml 
-                    fork
-                    :action1;
-                    fork again
-                    :action2;
-                    :action3;
-                    fork again
-                    :action4;
-                    end merge
-                    @enduml""");
+            assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                               "fork\n" +
+                                                               ":action1;\n" +
+                                                               "fork again\n" +
+                                                               ":action2;\n" +
+                                                               ":action3;\n" +
+                                                               "fork again\n" +
+                                                               ":action4;\n" +
+                                                               "end merge\n" +
+                                                               "@enduml");
         }
 
         @Test
@@ -93,20 +90,19 @@ class ParallelProcessingFlowchartGeneratorTest {
                             .an(label("label 2"),following(activity("action2")).then(activity("action3")))
                             .and(label("label 3"), activity("action4")))
                     .create();
-            assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml 
-                    fork
-                    ->label 1;
-                    :action1;
-                    fork again
-                    ->label 2;
-                    :action2;
-                    :action3;
-                    fork again
-                    ->label 3;
-                    :action4;
-                    end fork
-                    @enduml""");
+            assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                               "fork\n" +
+                                                               "->label 1;\n" +
+                                                               ":action1;\n" +
+                                                               "fork again\n" +
+                                                               "->label 2;\n" +
+                                                               ":action2;\n" +
+                                                               ":action3;\n" +
+                                                               "fork again\n" +
+                                                               "->label 3;\n" +
+                                                               ":action4;\n" +
+                                                               "end fork\n" +
+                                                               "@enduml");
         }
 
         @Test
@@ -116,18 +112,17 @@ class ParallelProcessingFlowchartGeneratorTest {
                             .an(activity("action1"))
                             .an(andDoInParallel().the(activity("action2")).and(activity("action3"))))
                     .create();
-            assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml 
-                    fork
-                    :action1;
-                    fork again
-                    fork
-                    :action2;
-                    fork again
-                    :action3;
-                    end fork
-                    end fork
-                    @enduml""");
+            assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                               "fork\n" +
+                                                               ":action1;\n" +
+                                                               "fork again\n" +
+                                                               "fork\n" +
+                                                               ":action2;\n" +
+                                                               "fork again\n" +
+                                                               ":action3;\n" +
+                                                               "end fork\n" +
+                                                               "end fork\n" +
+                                                               "@enduml");
         }
     }
 }

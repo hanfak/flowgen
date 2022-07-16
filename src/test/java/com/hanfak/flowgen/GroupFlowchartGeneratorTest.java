@@ -19,13 +19,12 @@ class GroupFlowchartGeneratorTest {
         String flowchart = flowchart()
                 .has(group().with(doActivity("action1")).with(doActivity("action2")))
                 .create();
-        assertThat(flowchart).isEqualToNormalizingNewlines("""
-                @startuml 
-                group
-                :action1;
-                :action2;
-                end group
-                @enduml""");
+        assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                           "group\n" +
+                                                           ":action1;\n" +
+                                                           ":action2;\n" +
+                                                           "end group\n" +
+                                                           "@enduml");
     }
 
     @Test
@@ -35,13 +34,12 @@ class GroupFlowchartGeneratorTest {
                         doActivity("action1"),
                         doActivity("action2")))
                 .create();
-        assertThat(flowchart).isEqualToNormalizingNewlines("""
-                @startuml 
-                group
-                :action1;
-                :action2;
-                end group
-                @enduml""");
+        assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                           "group\n" +
+                                                           ":action1;\n" +
+                                                           ":action2;\n" +
+                                                           "end group\n" +
+                                                           "@enduml");
     }
 
     @Test
@@ -53,16 +51,15 @@ class GroupFlowchartGeneratorTest {
                 .hasGroupWith(
                         activity("action3"))
                 .create();
-        assertThat(flowchart).isEqualToNormalizingNewlines("""
-                @startuml 
-                group
-                :action1;
-                :action2;
-                end group
-                group
-                :action3;
-                end group
-                @enduml""");
+        assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                           "group\n" +
+                                                           ":action1;\n" +
+                                                           ":action2;\n" +
+                                                           "end group\n" +
+                                                           "group\n" +
+                                                           ":action3;\n" +
+                                                           "end group\n" +
+                                                           "@enduml");
     }
 
     @Test
@@ -70,14 +67,13 @@ class GroupFlowchartGeneratorTest {
         String flowchart = flowchart()
                 .then(group("Name").with(doActivity("action1")).and(doActivity("action2")).last(doActivity("action3")))
                 .create();
-        assertThat(flowchart).isEqualToNormalizingNewlines("""
-                @startuml 
-                group Name
-                :action1;
-                :action2;
-                :action3;
-                end group
-                @enduml""");
+        assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                           "group Name\n" +
+                                                           ":action1;\n" +
+                                                           ":action2;\n" +
+                                                           ":action3;\n" +
+                                                           "end group\n" +
+                                                           "@enduml");
     }
 
     @Test
@@ -92,19 +88,18 @@ class GroupFlowchartGeneratorTest {
                                 .with(doActivity("action1"))
                                 .with(doActivity("action2")))
                 .create();
-        assertThat(flowchart).isEqualToNormalizingNewlines("""
-                @startuml 
-                group Name\nNew lines
-                :action1;
-                :action2;
-                end group
-                group
-                :action3;
-                group Name With Spaces
-                :action1;
-                :action2;
-                end group
-                end group
-                @enduml""");
+        assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                           "group Name\nNew lines\n" +
+                                                           ":action1;\n" +
+                                                           ":action2;\n" +
+                                                           "end group\n" +
+                                                           "group\n" +
+                                                           ":action3;\n" +
+                                                           "group Name With Spaces\n" +
+                                                           ":action1;\n" +
+                                                           ":action2;\n" +
+                                                           "end group\n" +
+                                                           "end group\n" +
+                                                           "@enduml");
     }
 }

@@ -28,10 +28,9 @@ class SynchronousActivitiesExamples {
 
     @Test
     void multilineActivitiesWithLabelsOnArrows() {
-        String multilineActivity = """
-                action3
-                Another line
-                another line""";
+        String multilineActivity = "action3\n" +
+                                   "Another line\n" +
+                                   "another line";
         flowchart()
                 .withTitle("Hello")
                 .withFooter("\n\nFooter") // Add extra space between footer and activity diagram

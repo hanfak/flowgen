@@ -16,97 +16,93 @@ public class Example01 {
 
     public static void main(String... args) throws IOException {
 //
-        String source = """
-                @startuml
-                skin rose
-                """;
-        source += """
-                legend right
-                  Short
-                  legend
-                endlegend
-                title PlantUML workflow
-                caption figure 1
-                start
-                -> You can put text on arrows;
-                group
-                    repeat:
-                        -[dotted]->
-                        :action1\nhello]
-                        floating note left: This is a note
-                        :action2;
-                        -[dashed]-> then;
-                        backward :This is repeated;
-                    repeat while (is big?) is (yes) -[dotted]->
-                    -> then;
-                    :action3>
-                    -[dashed]->
-                end group
-                group nextStep
-                    fork
-                        -[dashed]->
-                        group section1
-                        :action4<
-                        while (is Big?) is (yes)
-                            -[dotted]->
-                            :action13;
-                            :action23;
-                            -[dashed]->
-                        end while (no)
-                        -[dotted]->
-                        :action33;
-                        end group
-                    fork again
-                        group section2
-                        :action5;
-                        if (color?) is (<color:red>red) then
-                            -[dotted]->
-                            :action5<
-                            -[dashed]->
-                            :print red;
-                        else
-                            -[dashed]->
-                            :print not red;
-                            -[dotted]->
-                        endif
-                        -[dashed]->
-                        end group
-                    fork again
-                        split
-                            -[dotted]->
-                            :action2a;
-                        split again
-                            -[dotted]->
-                            :action2b;
-                        split again
-                            if (big?) then (yes)
-                                -[dashed]->
-                                :action;
-                            (no) elseif (condition 1?) then (yes)
-                                -[dashed]->
-                                :action1;
-                                :action3;
-                            (no) elseif (condition 2?) then (yes)
-                                :action2;
-                            (no) elseif (condition 3?) then (yes)
-                                :action3;
-                            else (none)
-                                -[dotted]->
-                                :action4;
-                            endif
-                            -[dotted]->
-                        end split
-                        -[dashed]->
-                    end fork
-                    if (color?) is (<color:red>red) then
-                        :print red;
-                        detach
-                    else
-                        :print not red;
-                        detach
-                    en
-                end group
-                """;
+        String source = "@startuml\n" +
+                        "skin rose\n";
+        source += "legend right\n" +
+                  "  Short\n" +
+                  "  legend\n" +
+                  "endlegend\n" +
+                  "title PlantUML workflow\n" +
+                  "caption figure 1\n" +
+                  "start\n" +
+                  "-> You can put text on arrows;\n" +
+                  "group\n" +
+                  "    repeat:\n" +
+                  "        -[dotted]->\n" +
+                  "        :action1\nhello]\n" +
+                  "        floating note left: This is a note\n" +
+                  "        :action2;\n" +
+                  "        -[dashed]-> then;\n" +
+                  "        backward :This is repeated;\n" +
+                  "    repeat while (is big?) is (yes) -[dotted]->\n" +
+                  "    -> then;\n" +
+                  "    :action3>\n" +
+                  "    -[dashed]->\n" +
+                  "end group\n" +
+                  "group nextStep\n" +
+                  "    fork\n" +
+                  "        -[dashed]->\n" +
+                  "        group section1\n" +
+                  "        :action4<\n" +
+                  "        while (is Big?) is (yes)\n" +
+                  "            -[dotted]->\n" +
+                  "            :action13;\n" +
+                  "            :action23;\n" +
+                  "            -[dashed]->\n" +
+                  "        end while (no)\n" +
+                  "        -[dotted]->\n" +
+                  "        :action33;\n" +
+                  "        end group\n" +
+                  "    fork again\n" +
+                  "        group section2\n" +
+                  "        :action5;\n" +
+                  "        if (color?) is (<color:red>red) then\n" +
+                  "            -[dotted]->\n" +
+                  "            :action5<\n" +
+                  "            -[dashed]->\n" +
+                  "            :print red;\n" +
+                  "        else\n" +
+                  "            -[dashed]->\n" +
+                  "            :print not red;\n" +
+                  "            -[dotted]->\n" +
+                  "        endif\n" +
+                  "        -[dashed]->\n" +
+                  "        end group\n" +
+                  "    fork again\n" +
+                  "        split\n" +
+                  "            -[dotted]->\n" +
+                  "            :action2a;\n" +
+                  "        split again\n" +
+                  "            -[dotted]->\n" +
+                  "            :action2b;\n" +
+                  "        split again\n" +
+                  "            if (big?) then (yes)\n" +
+                  "                -[dashed]->\n" +
+                  "                :action;\n" +
+                  "            (no) elseif (condition 1?) then (yes)\n" +
+                  "                -[dashed]->\n" +
+                  "                :action1;\n" +
+                  "                :action3;\n" +
+                  "            (no) elseif (condition 2?) then (yes)\n" +
+                  "                :action2;\n" +
+                  "            (no) elseif (condition 3?) then (yes)\n" +
+                  "                :action3;\n" +
+                  "            else (none)\n" +
+                  "                -[dotted]->\n" +
+                  "                :action4;\n" +
+                  "            endif\n" +
+                  "            -[dotted]->\n" +
+                  "        end split\n" +
+                  "        -[dashed]->\n" +
+                  "    end fork\n" +
+                  "    if (color?) is (<color:red>red) then\n" +
+                  "        :print red;\n" +
+                  "        detach\n" +
+                  "    else\n" +
+                  "        :print not red;\n" +
+                  "        detach\n" +
+                  "    en\n" +
+                  "end group\n";
         source += "@enduml\n";
 
         SourceStringReader reader = new SourceStringReader(source);

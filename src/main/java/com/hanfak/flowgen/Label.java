@@ -1,5 +1,7 @@
 package com.hanfak.flowgen;
 
+import static java.lang.String.format;
+
 public class Label implements Action {
 
     private final String label;
@@ -14,6 +16,6 @@ public class Label implements Action {
 
     @Override
     public String build() {
-        return "->%s;%n".formatted(label);
+        return format("->%s;%n", label);
     }
 }

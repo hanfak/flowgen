@@ -3,8 +3,6 @@ package com.hanfak.flowgen;
 import net.sourceforge.plantuml.FileFormatOption;
 import net.sourceforge.plantuml.SourceStringReader;
 import net.sourceforge.plantuml.core.DiagramDescription;
-import org.awaitility.Awaitility;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -26,7 +24,6 @@ import static com.hanfak.flowgen.Label.label;
 import static com.hanfak.flowgen.Theme.SPACELAB;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.awaitility.Awaitility.await;
 
 @Execution(ExecutionMode.CONCURRENT)
 class FlowchartGeneratorTest {
@@ -52,15 +49,14 @@ class FlowchartGeneratorTest {
                     .then(doActivity("action1"))
                     .then(doActivity("action2"))
                     .create();
-            assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml
-                    title
-                    Title
-                    end title
-                    start
-                    :action1;
-                    :action2;
-                    @enduml""");
+            assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                               "title\n" +
+                                                               "Title\n" +
+                                                               "end title\n" +
+                                                               "start\n" +
+                                                               ":action1;\n" +
+                                                               ":action2;\n" +
+                                                               "@enduml");
         }
     }
 
@@ -76,17 +72,16 @@ class FlowchartGeneratorTest {
                     .withStartNode()
                     .then(doActivity("action1"))
                     .create();
-            assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml
-                    caption
-                    Figure 1
-                    end caption
-                    title
-                    Title
-                    end title
-                    start
-                    :action1;
-                    @enduml""");
+            assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                               "caption\n" +
+                                                               "Figure 1\n" +
+                                                               "end caption\n" +
+                                                               "title\n" +
+                                                               "Title\n" +
+                                                               "end title\n" +
+                                                               "start\n" +
+                                                               ":action1;\n" +
+                                                               "@enduml");
         }
 
         @Test
@@ -96,15 +91,14 @@ class FlowchartGeneratorTest {
                     .withStartNode()
                     .then(doActivity("action1"))
                     .create();
-            assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml
-                    caption
-                    Figure 1
-                    Another line
-                    end caption
-                    start
-                    :action1;
-                    @enduml""");
+            assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                               "caption\n" +
+                                                               "Figure 1\n" +
+                                                               "Another line\n" +
+                                                               "end caption\n" +
+                                                               "start\n" +
+                                                               ":action1;\n" +
+                                                               "@enduml");
         }
     }
 
@@ -119,12 +113,11 @@ class FlowchartGeneratorTest {
                     .then(doActivity("action"))
                     .withStopNode()
                     .create();
-            assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml
-                    start
-                    :action;
-                    stop
-                    @enduml""");
+            assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                               "start\n" +
+                                                               ":action;\n" +
+                                                               "stop\n" +
+                                                               "@enduml");
         }
 
         @Test
@@ -132,14 +125,13 @@ class FlowchartGeneratorTest {
             String flowchart = flowchart()
                     .withStartNode()
                     .then(doActivity("action"))
-                    .withEndNode()
+                    .thenEnd()
                     .create();
-            assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml
-                    start
-                    :action;
-                    end
-                    @enduml""");
+            assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                               "start\n" +
+                                                               ":action;\n" +
+                                                               "end\n" +
+                                                               "@enduml");
         }
 
         @Test
@@ -148,11 +140,10 @@ class FlowchartGeneratorTest {
                     .withStartNode()
                     .then(doActivity("action"))
                     .create();
-            assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml
-                    start
-                    :action;
-                    @enduml""");
+            assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                               "start\n" +
+                                                               ":action;\n" +
+                                                               "@enduml");
         }
 
         @Test
@@ -161,11 +152,10 @@ class FlowchartGeneratorTest {
                     .then(doActivity("action"))
                     .withStopNode()
                     .create();
-            assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml
-                    :action;
-                    stop
-                    @enduml""");
+            assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                               ":action;\n" +
+                                                               "stop\n" +
+                                                               "@enduml");
         }
 
         @Test
@@ -174,11 +164,10 @@ class FlowchartGeneratorTest {
                     .then(doActivity("action"))
                     .withEndNode()
                     .create();
-            assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml
-                    :action;
-                    end
-                    @enduml""");
+            assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                               ":action;\n" +
+                                                               "end\n" +
+                                                               "@enduml");
         }
 
         // TODO: Mulitple stops at different points
@@ -194,12 +183,11 @@ class FlowchartGeneratorTest {
                     .withLabel("then")
                     .then(doActivity("action2"))
                     .create();
-            assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml
-                    :action1;
-                    ->then;
-                    :action2;
-                    @enduml""");
+            assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                               ":action1;\n" +
+                                                               "->then;\n" +
+                                                               ":action2;\n" +
+                                                               "@enduml");
         }
 
         @Test
@@ -213,16 +201,15 @@ class FlowchartGeneratorTest {
                     .with(label("finally"))
                     .then(doActivity("action4"))
                     .create();
-            assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml
-                    :action1;
-                    ->then;
-                    :action2;
-                    ->then next;
-                    :action3;
-                    ->finally;
-                    :action4;
-                    @enduml""");
+            assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                               ":action1;\n" +
+                                                               "->then;\n" +
+                                                               ":action2;\n" +
+                                                               "->then next;\n" +
+                                                               ":action3;\n" +
+                                                               "->finally;\n" +
+                                                               ":action4;\n" +
+                                                               "@enduml");
         }
     }
 
@@ -237,15 +224,14 @@ class FlowchartGeneratorTest {
                     .then(doActivity("action1"))
                     .then(doActivity("action2"))
                     .create();
-            assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml
-                    title
-                    Title
-                    end title
-                    start
-                    :action1;
-                    :action2;
-                    @enduml""");
+            assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                               "title\n" +
+                                                               "Title\n" +
+                                                               "end title\n" +
+                                                               "start\n" +
+                                                               ":action1;\n" +
+                                                               ":action2;\n" +
+                                                               "@enduml");
         }
 
         @Test
@@ -256,16 +242,15 @@ class FlowchartGeneratorTest {
                     .then(doActivity("action1"))
                     .then(doActivity("action2"))
                     .create();
-            assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml
-                    !theme spacelab
-                    title
-                    Title
-                    end title
-                    start
-                    :action1;
-                    :action2;
-                    @enduml""");
+            assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                               "!theme spacelab\n" +
+                                                               "title\n" +
+                                                               "Title\n" +
+                                                               "end title\n" +
+                                                               "start\n" +
+                                                               ":action1;\n" +
+                                                               ":action2;\n" +
+                                                               "@enduml");
         }
     }
 
@@ -281,16 +266,15 @@ class FlowchartGeneratorTest {
                     .then(doActivity("action"))
                     .withStopNode()
                     .create();
-            assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml
-                    start
-                    :action;
-                    (A)
-                    detach
-                    (A)
-                    :action;
-                    stop
-                    @enduml""");
+            assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                               "start\n" +
+                                                               ":action;\n" +
+                                                               "(A)\n" +
+                                                               "detach\n" +
+                                                               "(A)\n" +
+                                                               ":action;\n" +
+                                                               "stop\n" +
+                                                               "@enduml");
         }
 
         @Test
@@ -302,14 +286,13 @@ class FlowchartGeneratorTest {
                     .then(doActivity("action"))
                     .withStopNode()
                     .create();
-            assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml
-                    start
-                    :action;
-                    (A)
-                    :action;
-                    stop
-                    @enduml""");
+            assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                               "start\n" +
+                                                               ":action;\n" +
+                                                               "(A)\n" +
+                                                               ":action;\n" +
+                                                               "stop\n" +
+                                                               "@enduml");
         }
     }
 
@@ -322,12 +305,11 @@ class FlowchartGeneratorTest {
                     .then(doActivity("action"))
                     .then(exit())
                     .create();
-            assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml
-                    start
-                    :action;
-                    detach
-                    @enduml""");
+            assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                               "start\n" +
+                                                               ":action;\n" +
+                                                               "detach\n" +
+                                                               "@enduml");
         }
     }
 
@@ -342,15 +324,14 @@ class FlowchartGeneratorTest {
                     .then(doActivity("action1"))
                     .then(doActivity("action2"))
                     .create();
-            assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml
-                    header
-                    header
-                    end header
-                    start
-                    :action1;
-                    :action2;
-                    @enduml""");
+            assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                               "header\n" +
+                                                               "header\n" +
+                                                               "end header\n" +
+                                                               "start\n" +
+                                                               ":action1;\n" +
+                                                               ":action2;\n" +
+                                                               "@enduml");
         }
 
         @Test
@@ -361,16 +342,15 @@ class FlowchartGeneratorTest {
                     .then(doActivity("action1"))
                     .then(doActivity("action2"))
                     .create();
-            assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml
-                    header
-                    header
-                    second line
-                    end header
-                    start
-                    :action1;
-                    :action2;
-                    @enduml""");
+            assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                               "header\n" +
+                                                               "header\n" +
+                                                               "second line\n" +
+                                                               "end header\n" +
+                                                               "start\n" +
+                                                               ":action1;\n" +
+                                                               ":action2;\n" +
+                                                               "@enduml");
         }
     }
 
@@ -385,15 +365,14 @@ class FlowchartGeneratorTest {
                     .then(doActivity("action1"))
                     .then(doActivity("action2"))
                     .create();
-            assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml
-                    footer
-                    footer
-                    end footer
-                    start
-                    :action1;
-                    :action2;
-                    @enduml""");
+            assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                               "footer\n" +
+                                                               "footer\n" +
+                                                               "end footer\n" +
+                                                               "start\n" +
+                                                               ":action1;\n" +
+                                                               ":action2;\n" +
+                                                               "@enduml");
         }
 
         @Test
@@ -404,16 +383,15 @@ class FlowchartGeneratorTest {
                     .then(doActivity("action1"))
                     .then(doActivity("action2"))
                     .create();
-            assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml
-                    footer
-                    footer
-                    second line
-                    end footer
-                    start
-                    :action1;
-                    :action2;
-                    @enduml""");
+            assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                               "footer\n" +
+                                                               "footer\n" +
+                                                               "second line\n" +
+                                                               "end footer\n" +
+                                                               "start\n" +
+                                                               ":action1;\n" +
+                                                               ":action2;\n" +
+                                                               "@enduml");
         }
     }
 
@@ -428,15 +406,14 @@ class FlowchartGeneratorTest {
                     .then(doActivity("action1"))
                     .then(doActivity("action2"))
                     .create();
-            assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml
-                    legend
-                    legend
-                    end legend
-                    start
-                    :action1;
-                    :action2;
-                    @enduml""");
+            assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                               "legend\n" +
+                                                               "legend\n" +
+                                                               "end legend\n" +
+                                                               "start\n" +
+                                                               ":action1;\n" +
+                                                               ":action2;\n" +
+                                                               "@enduml");
         }
 
         @Test
@@ -447,16 +424,15 @@ class FlowchartGeneratorTest {
                     .then(doActivity("action2"))
                     .withLegend("legend\nsecond line")
                     .create();
-            assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml
-                    start
-                    :action1;
-                    :action2;
-                    legend
-                    legend
-                    second line
-                    end legend
-                    @enduml""");
+            assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                               "start\n" +
+                                                               ":action1;\n" +
+                                                               ":action2;\n" +
+                                                               "legend\n" +
+                                                               "legend\n" +
+                                                               "second line\n" +
+                                                               "end legend\n" +
+                                                               "@enduml");
         }
 
         @Test
@@ -467,15 +443,14 @@ class FlowchartGeneratorTest {
                     .then(doActivity("action1"))
                     .then(doActivity("action2"))
                     .create();
-            assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml
-                    legend right
-                    legend
-                    end legend
-                    start
-                    :action1;
-                    :action2;
-                    @enduml""");
+            assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                               "legend right\n" +
+                                                               "legend\n" +
+                                                               "end legend\n" +
+                                                               "start\n" +
+                                                               ":action1;\n" +
+                                                               ":action2;\n" +
+                                                               "@enduml");
         }
     }
 

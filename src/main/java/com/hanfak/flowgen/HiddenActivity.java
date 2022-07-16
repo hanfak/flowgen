@@ -1,5 +1,7 @@
 package com.hanfak.flowgen;
 
+import static java.lang.String.format;
+
 public class HiddenActivity implements Action {
 
     private final String activity;
@@ -14,6 +16,6 @@ public class HiddenActivity implements Action {
 
     @Override
     public String build() {
-        return "%s%n%s".formatted("-[hidden]->", activity);
+        return format("-[hidden]->%n%s", activity);
     }
 }

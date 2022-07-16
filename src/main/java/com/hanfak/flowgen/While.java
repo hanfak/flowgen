@@ -2,6 +2,8 @@ package com.hanfak.flowgen;
 
 import java.util.Optional;
 
+import static java.lang.String.format;
+
 public class While implements Action {
 
     private static final String WHILE_TEMPLATE = "while (%s)%n%s%nend while%n";
@@ -20,8 +22,12 @@ public class While implements Action {
         this.predicate = predicate;
         this.actions = actions;
     }
-
+    // TODO: P1 new name: check
     public static While loopWhen(String predicate) {
+        return new While(predicate, new Actions());
+    }
+
+    public static While check(String predicate) {
         return new While(predicate, new Actions());
     }
 
@@ -74,17 +80,17 @@ public class While implements Action {
                 .orElse(allActionsCombined);
 
         if (predicateFalseOutcome != null && predicateTrueOutcome != null) {
-            return WHILE_WITH_LOOP_AND_EXIT_LABELS_TEMPLATE.formatted(predicate, predicateTrueOutcome, allActions, predicateFalseOutcome);
+            return format(WHILE_WITH_LOOP_AND_EXIT_LABELS_TEMPLATE, predicate, predicateTrueOutcome, allActions, predicateFalseOutcome);
         }
 
         if (predicateTrueOutcome != null) {
-            return WHILE_WITH_LOOP_LABELS_TEMPLATE.formatted(predicate, predicateTrueOutcome,  allActions);
+            return format(WHILE_WITH_LOOP_LABELS_TEMPLATE, predicate, predicateTrueOutcome,  allActions);
         }
 
         if (predicateFalseOutcome != null) {
-            return WHILE_WITH_EXIT_LABELS_TEMPLATE.formatted(predicate, allActions, predicateFalseOutcome);
+            return format(WHILE_WITH_EXIT_LABELS_TEMPLATE, predicate, allActions, predicateFalseOutcome);
         }
 
-        return WHILE_TEMPLATE.formatted(predicate, allActions);
+        return format(WHILE_TEMPLATE, predicate, allActions);
     }
 }

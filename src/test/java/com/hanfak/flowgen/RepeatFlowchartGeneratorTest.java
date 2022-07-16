@@ -35,20 +35,19 @@ class RepeatFlowchartGeneratorTest {
                             .then(doActivity("action6"), andActivity("action7"))
                             .repeatWhen("is Big?"))
                     .create();
-            assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml
-                    repeat
-                    :action1;
-                    :action2;
-                    :action4;
-                    :action3;
-                    :action3a;
-                    :action3b;
-                    :action5;
-                    :action6;
-                    :action7;
-                    repeat while (is Big?)
-                    @enduml""");
+            assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                               "repeat\n" +
+                                                               ":action1;\n" +
+                                                               ":action2;\n" +
+                                                               ":action4;\n" +
+                                                               ":action3;\n" +
+                                                               ":action3a;\n" +
+                                                               ":action3b;\n" +
+                                                               ":action5;\n" +
+                                                               ":action6;\n" +
+                                                               ":action7;\n" +
+                                                               "repeat while (is Big?)\n" +
+                                                               "@enduml");
         }
 
         @Test
@@ -59,14 +58,13 @@ class RepeatFlowchartGeneratorTest {
                             .and(doActivity("action2"), andActivity("action3"))
                             .repeatWhen("is Big?").is("yes"))
                     .create();
-            assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml
-                    repeat
-                    :action1;
-                    :action2;
-                    :action3;
-                    repeat while (is Big?) is (yes)
-                    @enduml""");
+            assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                               "repeat\n" +
+                                                               ":action1;\n" +
+                                                               ":action2;\n" +
+                                                               ":action3;\n" +
+                                                               "repeat while (is Big?) is (yes)\n" +
+                                                               "@enduml");
         }
 
         @Test
@@ -77,14 +75,13 @@ class RepeatFlowchartGeneratorTest {
                             .and(doActivity("action2"), andActivity("action3"))
                             .repeatWhen("is Big?", "yes"))
                     .create();
-            assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml
-                    repeat
-                    :action1;
-                    :action2;
-                    :action3;
-                    repeat while (is Big?) is (yes)
-                    @enduml""");
+            assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                               "repeat\n" +
+                                                               ":action1;\n" +
+                                                               ":action2;\n" +
+                                                               ":action3;\n" +
+                                                               "repeat while (is Big?) is (yes)\n" +
+                                                               "@enduml");
         }
 
         @Test
@@ -95,15 +92,14 @@ class RepeatFlowchartGeneratorTest {
                             .then(doActivity("action3"))
                             .repeatWhen("is Big?").leaveWhen("no"))
                     .create();
-            assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml
-                    repeat
-                    :action1;
-                    :action2;
-                    :action3;
-                    repeat while (is Big?)
-                    ->no;
-                    @enduml""");
+            assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                               "repeat\n" +
+                                                               ":action1;\n" +
+                                                               ":action2;\n" +
+                                                               ":action3;\n" +
+                                                               "repeat while (is Big?)\n" +
+                                                               "->no;\n" +
+                                                               "@enduml");
         }
 
         @Test
@@ -115,15 +111,14 @@ class RepeatFlowchartGeneratorTest {
                             .repeatWhen("is Big?").is("yes")
                             .leaveWhen("no"))
                     .create();
-            assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml
-                    repeat
-                    :action1;
-                    :action2;
-                    :action3;
-                    repeat while (is Big?) is (yes)
-                    ->no;
-                    @enduml""");
+            assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                               "repeat\n" +
+                                                               ":action1;\n" +
+                                                               ":action2;\n" +
+                                                               ":action3;\n" +
+                                                               "repeat while (is Big?) is (yes)\n" +
+                                                               "->no;\n" +
+                                                               "@enduml");
         }
 
         @Test
@@ -134,15 +129,14 @@ class RepeatFlowchartGeneratorTest {
                             .and(doActivity("action3"))
                             .repeatWhen("is Big?", "yes", "no"))
                     .create();
-            assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml
-                    repeat
-                    :action1;
-                    :action2;
-                    :action3;
-                    repeat while (is Big?) is (yes)
-                    ->no;
-                    @enduml""");
+            assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                               "repeat\n" +
+                                                               ":action1;\n" +
+                                                               ":action2;\n" +
+                                                               ":action3;\n" +
+                                                               "repeat while (is Big?) is (yes)\n" +
+                                                               "->no;\n" +
+                                                               "@enduml");
         }
     }
 
@@ -158,15 +152,14 @@ class RepeatFlowchartGeneratorTest {
                             .repeatWhen("is Big?")
                             .repeatLabel(doActivity("This is repeated")))
                     .create();
-            assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml
-                    repeat
-                    :action1;
-                    :action2;
-                    :action3;
-                    backward:This is repeated;
-                    repeat while (is Big?)
-                    @enduml""");
+            assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                               "repeat\n" +
+                                                               ":action1;\n" +
+                                                               ":action2;\n" +
+                                                               ":action3;\n" +
+                                                               "backward:This is repeated;\n" +
+                                                               "repeat while (is Big?)\n" +
+                                                               "@enduml");
         }
 
         @Test
@@ -179,15 +172,14 @@ class RepeatFlowchartGeneratorTest {
                             .is("yes")
                             .repeatLabel(doActivity("This is repeated")))
                     .create();
-            assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml
-                    repeat
-                    :action1;
-                    :action2;
-                    :action3;
-                    backward:This is repeated;
-                    repeat while (is Big?) is (yes)
-                    @enduml""");
+            assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                               "repeat\n" +
+                                                               ":action1;\n" +
+                                                               ":action2;\n" +
+                                                               ":action3;\n" +
+                                                               "backward:This is repeated;\n" +
+                                                               "repeat while (is Big?) is (yes)\n" +
+                                                               "@enduml");
         }
 
         @Test
@@ -200,16 +192,15 @@ class RepeatFlowchartGeneratorTest {
                             .repeatLabel(withActivity("This is repeated"))
                             .leaveWhen("no"))
                     .create();
-            assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml
-                    repeat
-                    :action1;
-                    :action2;
-                    :action3;
-                    backward:This is repeated;
-                    repeat while (is Big?)
-                    ->no;
-                    @enduml""");
+            assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                               "repeat\n" +
+                                                               ":action1;\n" +
+                                                               ":action2;\n" +
+                                                               ":action3;\n" +
+                                                               "backward:This is repeated;\n" +
+                                                               "repeat while (is Big?)\n" +
+                                                               "->no;\n" +
+                                                               "@enduml");
         }
 
         @Test
@@ -222,16 +213,15 @@ class RepeatFlowchartGeneratorTest {
                             .repeatLabel(with("Repeat"))
                             .leaveWhen("no"))
                     .create();
-            assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml
-                    repeat
-                    :action1;
-                    :action2;
-                    :action3;
-                    backward:Repeat;
-                    repeat while (is Big?) is (yes)
-                    ->no;
-                    @enduml""");
+            assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                               "repeat\n" +
+                                                               ":action1;\n" +
+                                                               ":action2;\n" +
+                                                               ":action3;\n" +
+                                                               "backward:Repeat;\n" +
+                                                               "repeat while (is Big?) is (yes)\n" +
+                                                               "->no;\n" +
+                                                               "@enduml");
         }
     }
 
@@ -247,18 +237,17 @@ class RepeatFlowchartGeneratorTest {
                             .the(activity("action2"))
                             .repeatWhen("is Big?"))
                     .create();
-            assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml
-                    repeat
-                    :action1;
-                    if (is big?) then (yes)
-                    :action55;
-                    :action66;
-                    break
-                    endif
-                    :action2;
-                    repeat while (is Big?)
-                    @enduml""");
+            assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                               "repeat\n" +
+                                                               ":action1;\n" +
+                                                               "if (is big?) then (yes)\n" +
+                                                               ":action55;\n" +
+                                                               ":action66;\n" +
+                                                               "break\n" +
+                                                               "endif\n" +
+                                                               ":action2;\n" +
+                                                               "repeat while (is Big?)\n" +
+                                                               "@enduml");
         }
     }
 
@@ -278,20 +267,19 @@ class RepeatFlowchartGeneratorTest {
                                 .then(doActivity("action6"), andActivity("action7"))
                                 .repeatWhen("is Big?"))
                         .create();
-                assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml
-                    repeat :First Action;
-                    :action1;
-                    :action2;
-                    :action4;
-                    :action3;
-                    :action3a;
-                    :action3b;
-                    :action5;
-                    :action6;
-                    :action7;
-                    repeat while (is Big?)
-                    @enduml""");
+                assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                                   "repeat :First Action;\n" +
+                                                                   ":action1;\n" +
+                                                                   ":action2;\n" +
+                                                                   ":action4;\n" +
+                                                                   ":action3;\n" +
+                                                                   ":action3a;\n" +
+                                                                   ":action3b;\n" +
+                                                                   ":action5;\n" +
+                                                                   ":action6;\n" +
+                                                                   ":action7;\n" +
+                                                                   "repeat while (is Big?)\n" +
+                                                                   "@enduml");
             }
 
             @Test
@@ -303,14 +291,13 @@ class RepeatFlowchartGeneratorTest {
                                 .repeatWhen("is Big?")
                                 .is("yes"))
                         .create();
-                assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml
-                    repeat :First Action;
-                    :action1;
-                    :action2;
-                    :action3;
-                    repeat while (is Big?) is (yes)
-                    @enduml""");
+                assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                                   "repeat :First Action;\n" +
+                                                                   ":action1;\n" +
+                                                                   ":action2;\n" +
+                                                                   ":action3;\n" +
+                                                                   "repeat while (is Big?) is (yes)\n" +
+                                                                   "@enduml");
             }
 
             @Test
@@ -321,14 +308,13 @@ class RepeatFlowchartGeneratorTest {
                                 .and(doActivity("action2"), andActivity("action3"))
                                 .repeatWhen("is Big?", "yes"))
                         .create();
-                assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml
-                    repeat :First Action;
-                    :action1;
-                    :action2;
-                    :action3;
-                    repeat while (is Big?) is (yes)
-                    @enduml""");
+                assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                                   "repeat :First Action;\n" +
+                                                                   ":action1;\n" +
+                                                                   ":action2;\n" +
+                                                                   ":action3;\n" +
+                                                                   "repeat while (is Big?) is (yes)\n" +
+                                                                   "@enduml");
             }
 
             @Test
@@ -339,15 +325,14 @@ class RepeatFlowchartGeneratorTest {
                                 .then(doActivity("action3"))
                                 .repeatWhen("is Big?").leaveWhen("no"))
                         .create();
-                assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml
-                    repeat :First Action;
-                    :action1;
-                    :action2;
-                    :action3;
-                    repeat while (is Big?)
-                    ->no;
-                    @enduml""");
+                assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                                   "repeat :First Action;\n" +
+                                                                   ":action1;\n" +
+                                                                   ":action2;\n" +
+                                                                   ":action3;\n" +
+                                                                   "repeat while (is Big?)\n" +
+                                                                   "->no;\n" +
+                                                                   "@enduml");
             }
 
             @Test
@@ -360,15 +345,14 @@ class RepeatFlowchartGeneratorTest {
                                 .is("yes")
                                 .leaveWhen("no"))
                         .create();
-                assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml
-                    repeat :First Action;
-                    :action1;
-                    :action2;
-                    :action3;
-                    repeat while (is Big?) is (yes)
-                    ->no;
-                    @enduml""");
+                assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                                   "repeat :First Action;\n" +
+                                                                   ":action1;\n" +
+                                                                   ":action2;\n" +
+                                                                   ":action3;\n" +
+                                                                   "repeat while (is Big?) is (yes)\n" +
+                                                                   "->no;\n" +
+                                                                   "@enduml");
             }
 
             @Test
@@ -379,15 +363,14 @@ class RepeatFlowchartGeneratorTest {
                                 .and(doActivity("action3"))
                                 .repeatWhen("is Big?", "yes", "no"))
                         .create();
-                assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml
-                    repeat :First Action;
-                    :action1;
-                    :action2;
-                    :action3;
-                    repeat while (is Big?) is (yes)
-                    ->no;
-                    @enduml""");
+                assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                                   "repeat :First Action;\n" +
+                                                                   ":action1;\n" +
+                                                                   ":action2;\n" +
+                                                                   ":action3;\n" +
+                                                                   "repeat while (is Big?) is (yes)\n" +
+                                                                   "->no;\n" +
+                                                                   "@enduml");
             }
         }
 
@@ -403,15 +386,14 @@ class RepeatFlowchartGeneratorTest {
                                 .repeatWhen("is Big?")
                                 .repeatLabel(doActivity("This is repeated")))
                         .create();
-                assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml
-                    repeat :First Action;
-                    :action1;
-                    :action2;
-                    :action3;
-                    backward:This is repeated;
-                    repeat while (is Big?)
-                    @enduml""");
+                assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                                   "repeat :First Action;\n" +
+                                                                   ":action1;\n" +
+                                                                   ":action2;\n" +
+                                                                   ":action3;\n" +
+                                                                   "backward:This is repeated;\n" +
+                                                                   "repeat while (is Big?)\n" +
+                                                                   "@enduml");
             }
 
             @Test
@@ -424,15 +406,14 @@ class RepeatFlowchartGeneratorTest {
                                 .is("yes")
                                 .repeatLabel(doActivity("This is repeated")))
                         .create();
-                assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml
-                    repeat :First Action;
-                    :action1;
-                    :action2;
-                    :action3;
-                    backward:This is repeated;
-                    repeat while (is Big?) is (yes)
-                    @enduml""");
+                assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                                   "repeat :First Action;\n" +
+                                                                   ":action1;\n" +
+                                                                   ":action2;\n" +
+                                                                   ":action3;\n" +
+                                                                   "backward:This is repeated;\n" +
+                                                                   "repeat while (is Big?) is (yes)\n" +
+                                                                   "@enduml");
             }
 
             @Test
@@ -445,16 +426,15 @@ class RepeatFlowchartGeneratorTest {
                                 .leaveWhen("no")
                                 .repeatLabel(doActivity("This is repeated")))
                         .create();
-                assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml
-                    repeat :First Action;
-                    :action1;
-                    :action2;
-                    :action3;
-                    backward:This is repeated;
-                    repeat while (is Big?)
-                    ->no;
-                    @enduml""");
+                assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                                   "repeat :First Action;\n" +
+                                                                   ":action1;\n" +
+                                                                   ":action2;\n" +
+                                                                   ":action3;\n" +
+                                                                   "backward:This is repeated;\n" +
+                                                                   "repeat while (is Big?)\n" +
+                                                                   "->no;\n" +
+                                                                   "@enduml");
             }
 
             @Test
@@ -468,16 +448,15 @@ class RepeatFlowchartGeneratorTest {
                                 .repeatLabel(doActivity("Repeat"))
                                 .leaveWhen("no"))
                         .create();
-                assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml
-                    repeat :First Action;
-                    :action1;
-                    :action2;
-                    :action3;
-                    backward:Repeat;
-                    repeat while (is Big?) is (yes)
-                    ->no;
-                    @enduml""");
+                assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                                   "repeat :First Action;\n" +
+                                                                   ":action1;\n" +
+                                                                   ":action2;\n" +
+                                                                   ":action3;\n" +
+                                                                   "backward:Repeat;\n" +
+                                                                   "repeat while (is Big?) is (yes)\n" +
+                                                                   "->no;\n" +
+                                                                   "@enduml");
             }
         }
 
@@ -493,18 +472,17 @@ class RepeatFlowchartGeneratorTest {
                                 .the(activity("action2"))
                                 .repeatWhen("is Big?"))
                         .create();
-                assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml
-                    repeat :First Action;
-                    :action1;
-                    if (is big?) then (yes)
-                    :action55;
-                    :action66;
-                    break
-                    endif
-                    :action2;
-                    repeat while (is Big?)
-                    @enduml""");
+                assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                                   "repeat :First Action;\n" +
+                                                                   ":action1;\n" +
+                                                                   "if (is big?) then (yes)\n" +
+                                                                   ":action55;\n" +
+                                                                   ":action66;\n" +
+                                                                   "break\n" +
+                                                                   "endif\n" +
+                                                                   ":action2;\n" +
+                                                                   "repeat while (is Big?)\n" +
+                                                                   "@enduml");
             }
         }
     }

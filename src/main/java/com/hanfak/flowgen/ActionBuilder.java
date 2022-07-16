@@ -7,7 +7,7 @@ public class ActionBuilder implements Action {
     private ActionBuilder(Actions actions) {
         this.actions = actions;
     }
-
+    // TODO: P1 add string only input
     public static ActionBuilder an(Action action) {
         Actions actions = new Actions();
         actions.add(action);

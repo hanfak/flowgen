@@ -2,6 +2,8 @@ package com.hanfak.flowgen;
 
 import java.util.Optional;
 
+import static java.lang.String.format;
+
 public class InfiniteLoop implements Action {
 
     private static final String WHILE_TEMPLATE = "while (%s)%n%s%nend while%n-[hidden]->%ndetach%n";
@@ -64,7 +66,7 @@ public class InfiniteLoop implements Action {
                 .map(aNote -> note.build() + allActionsCombined)
                 .orElse(allActionsCombined);
         return Optional.ofNullable(predicateTrueOutcome)
-                .map(label -> WHILE_WITH_LOOP_LABELS_TEMPLATE.formatted(predicate, label,  allActions))
-                .orElse(WHILE_TEMPLATE.formatted(predicate, allActions));
+                .map(label -> format(WHILE_WITH_LOOP_LABELS_TEMPLATE, predicate, label,  allActions))
+                .orElse(format(WHILE_TEMPLATE, predicate, allActions));
     }
 }

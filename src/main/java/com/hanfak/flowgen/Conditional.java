@@ -1,5 +1,6 @@
 package com.hanfak.flowgen;
 
+import static java.lang.String.format;
 import static java.lang.System.lineSeparator;
 import static java.util.Optional.ofNullable;
 
@@ -96,10 +97,10 @@ public class Conditional implements Action {
     public String build() {
         String thenActivitiesString = thenActivity.combineAllActions();
         String elseActivitiesString = elseActivity.combineAllActions();
-        String predicatePassString = ofNullable(predicatePassOutcome).map(" (%s)%n"::formatted).orElse(lineSeparator());
-        String exitLabelString = ofNullable(exitLabel).map("%n->%s"::formatted).orElse("");
+        String predicatePassString = ofNullable(predicatePassOutcome).map(args -> format(" (%s)%n", args)).orElse(lineSeparator());
+        String exitLabelString = ofNullable(exitLabel).map(args -> format("%n->%s", args)).orElse("");
         if (!elseActivitiesString.isEmpty()) {
-            String predicateFailString = ofNullable(predicateFailOutcome).map(" (%s)%n"::formatted).orElse("");
+            String predicateFailString = ofNullable(predicateFailOutcome).map(args -> format(" (%s)%n", args)).orElse("");
             return IF_ELSE_GENERAL_TEMPLATE
                     .replace("$PREDICATE_LOGIC", predicate)
                     .replace("$PREDICATE_PASS", predicatePassString)
@@ -112,7 +113,7 @@ public class Conditional implements Action {
                 .replace("$PREDICATE_LOGIC", predicate)
                 .replace("$PREDICATE_PASS", predicatePassString)
                 .replace("$THEN_ACTIONS$", thenActivitiesString)
-                .replace("$PREDICATE_FAIL", ofNullable(predicateFailOutcome).map("else (%s)%n"::formatted).orElse(""))
+                .replace("$PREDICATE_FAIL", ofNullable(predicateFailOutcome).map(args -> format("else (%s)%n", args)).orElse(""))
                 .replace("$EXIT_LABEL", exitLabelString);
     }
 }

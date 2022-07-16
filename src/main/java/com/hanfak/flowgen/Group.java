@@ -2,6 +2,8 @@ package com.hanfak.flowgen;
 
 import java.util.Objects;
 
+import static java.lang.String.format;
+
 public class Group implements Action {
 
     private final String name;
@@ -20,17 +22,17 @@ public class Group implements Action {
         return new Group(null, new Actions());
     }
 
-    public Group with(Action action) {
+    public Group with(Action... action) {
         this.actions.add(action);
         return this;
     }
 
-    public Group and(Action action) {
+    public Group and(Action... action) {
         this.actions.add(action);
         return this;
     }
 
-    public Group last(Action action) {
+    public Group last(Action... action) {
         this.actions.add(action);
         return this;
     }
@@ -44,8 +46,8 @@ public class Group implements Action {
     public String build() {
         String allActions = actions.combineAllActions();
         if (Objects.nonNull(name)) {
-            return "group %s%n%send group%n".formatted(name, allActions);
+            return format("group %s%n%send group%n", name, allActions);
         }
-        return "group%n%send group%n".formatted(allActions);
+        return format("group%n%send group%n", allActions);
     }
 }

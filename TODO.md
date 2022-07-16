@@ -11,6 +11,7 @@
 ## Features
 
 - Current release
+  - TODO: Swimlanes in parallel, actionbuilder, split
   - TODO: Readme - instructions, examples with pic
   - TODO: More examples
 
@@ -46,15 +47,16 @@
 
 
 - Further releases
-  - TODO: activity uses a builder to add styling, pass in Content factory (build to string). a builder that build a multiline content (using queue) and have methods for bold, tables, list, lines etc
-  - TODO: skinparams for styling
-  - TODO: add links to activities, notes, partitions(low priority)
-  - TODO: switch (low priority)
-  - TODO: partitions
-  - TODO: set PLANTUML_LIMIT_SIZE=8192 (low priority)
-  - TODO: config, diamond style
-  - TODO: Different file formats ie gifs see FileFormat, do some refactoring around generating instead of repetition
-  - TODO: write code to generate actions, preprocessing
-      - http://www.plantuml.com/plantuml/uml/LOxB2eCm44NtynNZu59ST1aHR3-XxmTT39hIW4d5n3ug_dkZBMYpkZTdEDpCEgvTeqi8migdKffqvdF1ZjEM-Y-LgugDiuJY12qPrf84qlvm98o8RL-UhpTrqOGkL-kHrjRzqyrsDzBc_g0Epj01Y7a2mULMIywl62edDIg3mvXuEWNmzyHm5FTUP8lVnjPRf2cy2CGYWSpdHfSV
+    - TODO: migrate to java 17 ( have a module) 
+    - TODO: activity uses a builder to add styling, pass in Content factory (build to string). a builder that build a multiline content (using queue) and have methods for bold, tables, list, lines etc
+    - TODO: skinparams for styling
+    - TODO: add links to activities, notes, partitions(low priority)
+    - TODO: switch (low priority)
+    - TODO: partitions
+    - TODO: set PLANTUML_LIMIT_SIZE=8192 (low priority)
+    - TODO: config, diamond style
+    - TODO: Different file formats ie gifs see FileFormat, do some refactoring around generating instead of repetition
+    - TODO: write code to generate actions, preprocessing
+        - http://www.plantuml.com/plantuml/uml/LOxB2eCm44NtynNZu59ST1aHR3-XxmTT39hIW4d5n3ug_dkZBMYpkZTdEDpCEgvTeqi8migdKffqvdF1ZjEM-Y-LgugDiuJY12qPrf84qlvm98o8RL-UhpTrqOGkL-kHrjRzqyrsDzBc_g0Epj01Y7a2mULMIywl62edDIg3mvXuEWNmzyHm5FTUP8lVnjPRf2cy2CGYWSpdHfSV
     
-  - TODO: arrow direction ??? Not available yet
+    - TODO: arrow direction ??? Not available yet

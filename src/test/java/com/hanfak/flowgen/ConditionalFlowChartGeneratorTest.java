@@ -26,15 +26,14 @@ class ConditionalFlowChartGeneratorTest {
                         .thenFor("yes", doActivity("action1"), andActivity("action3"))
                         .orElseFor("no", doActivity("action2")))
                 .create();
-        assertThat(flowchart).isEqualToNormalizingNewlines("""
-                @startuml
-                if (is big?) then (yes)
-                :action1;
-                :action3;
-                else (no)
-                :action2;
-                endif
-                @enduml""");
+        assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                           "if (is big?) then (yes)\n" +
+                                                           ":action1;\n" +
+                                                           ":action3;\n" +
+                                                           "else (no)\n" +
+                                                           ":action2;\n" +
+                                                           "endif\n" +
+                                                           "@enduml");
     }
 
     @Test
@@ -44,14 +43,13 @@ class ConditionalFlowChartGeneratorTest {
                         .then(doActivity("action1"))
                         .or(elseDo(activity("action2"))))
                 .create();
-        assertThat(flowchart).isEqualToNormalizingNewlines("""
-                @startuml
-                if (house is big?) then
-                :action1;
-                else
-                :action2;
-                endif
-                @enduml""");
+        assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                           "if (house is big?) then\n" +
+                                                           ":action1;\n" +
+                                                           "else\n" +
+                                                           ":action2;\n" +
+                                                           "endif\n" +
+                                                           "@enduml");
     }
 
     @Test
@@ -67,18 +65,17 @@ class ConditionalFlowChartGeneratorTest {
                                 .forValue("no")))
                 .then(doActivity("action4"))
                 .create();
-        assertThat(flowchart).isEqualToNormalizingNewlines("""
-                @startuml
-                if (is big?) then (yes)
-                :action1;
-                :action3;
-                detach
-                else (no)
-                :action2;
-                :action5;
-                endif
-                :action4;
-                @enduml""");
+        assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                           "if (is big?) then (yes)\n" +
+                                                           ":action1;\n" +
+                                                           ":action3;\n" +
+                                                           "detach\n" +
+                                                           "else (no)\n" +
+                                                           ":action2;\n" +
+                                                           ":action5;\n" +
+                                                           "endif\n" +
+                                                           ":action4;\n" +
+                                                           "@enduml");
     }
 
     @Test
@@ -89,17 +86,16 @@ class ConditionalFlowChartGeneratorTest {
                         .orElseFor("no", doActivity("action2"), andExit()))
                 .then(doActivity("action4"))
                 .create();
-        assertThat(flowchart).isEqualToNormalizingNewlines("""
-                @startuml
-                if (is big?) then (yes)
-                :action1;
-                :action3;
-                else (no)
-                :action2;
-                detach
-                endif
-                :action4;
-                @enduml""");
+        assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                           "if (is big?) then (yes)\n" +
+                                                           ":action1;\n" +
+                                                           ":action3;\n" +
+                                                           "else (no)\n" +
+                                                           ":action2;\n" +
+                                                           "detach\n" +
+                                                           "endif\n" +
+                                                           ":action4;\n" +
+                                                           "@enduml");
     }
 
     @Test
@@ -109,16 +105,15 @@ class ConditionalFlowChartGeneratorTest {
                         .thenFor("yes", doActivity("action1"), thenActivity("action3"), and("action4"))
                         .orElseFor(doActivity("action2")))
                 .create();
-        assertThat(flowchart).isEqualToNormalizingNewlines("""
-                @startuml
-                if (is big?) then (yes)
-                :action1;
-                :action3;
-                :action4;
-                else
-                :action2;
-                endif
-                @enduml""");
+        assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                           "if (is big?) then (yes)\n" +
+                                                           ":action1;\n" +
+                                                           ":action3;\n" +
+                                                           ":action4;\n" +
+                                                           "else\n" +
+                                                           ":action2;\n" +
+                                                           "endif\n" +
+                                                           "@enduml");
     }
 
     @Test
@@ -127,13 +122,12 @@ class ConditionalFlowChartGeneratorTest {
                 .then(ifIsTrue("is big?")
                         .thenFor("yes", doActivity("action1"), doActivity("action3")))
                 .create();
-        assertThat(flowchart).isEqualToNormalizingNewlines("""
-                @startuml
-                if (is big?) then (yes)
-                :action1;
-                :action3;
-                endif
-                @enduml""");
+        assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                           "if (is big?) then (yes)\n" +
+                                                           ":action1;\n" +
+                                                           ":action3;\n" +
+                                                           "endif\n" +
+                                                           "@enduml");
     }
 
     @Test
@@ -144,15 +138,14 @@ class ConditionalFlowChartGeneratorTest {
                         .existLabel("NOK"))
                 .then(doActivity("action4"))
                 .create();
-        assertThat(flowchart).isEqualToNormalizingNewlines("""
-                @startuml
-                if (is big?) then (yes)
-                :action1;
-                :action3;
-                endif
-                ->NOK;
-                :action4;
-                @enduml""");
+        assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                           "if (is big?) then (yes)\n" +
+                                                           ":action1;\n" +
+                                                           ":action3;\n" +
+                                                           "endif\n" +
+                                                           "->NOK;\n" +
+                                                           ":action4;\n" +
+                                                           "@enduml");
     }
 
     @Test
@@ -164,18 +157,17 @@ class ConditionalFlowChartGeneratorTest {
                         .existLabel("NOK"))
                 .then(doActivity("action4"))
                 .create();
-        assertThat(flowchart).isEqualToNormalizingNewlines("""
-                @startuml
-                if (200?) then (yes)
-                :action1;
-                :action3;
-                else (no)
-                :action2;
-                :action5;
-                endif
-                ->NOK;
-                :action4;
-                @enduml""");
+        assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                           "if (200?) then (yes)\n" +
+                                                           ":action1;\n" +
+                                                           ":action3;\n" +
+                                                           "else (no)\n" +
+                                                           ":action2;\n" +
+                                                           ":action5;\n" +
+                                                           "endif\n" +
+                                                           "->NOK;\n" +
+                                                           ":action4;\n" +
+                                                           "@enduml");
     }
 
     @Test
@@ -195,27 +187,26 @@ class ConditionalFlowChartGeneratorTest {
                         .existLabel("Next 2"))
                 .then(doActivity("action5"))
                 .create();
-        assertThat(flowchart).isEqualToNormalizingNewlines("""
-                @startuml
-                if (is big?) then (yes)
-                :action1;
-                else (no)
-                if (tiny?) then (yes)
-                if (tiny?) then (yes)
-                :action2;
-                else (no)
-                :action3;
-                endif
-                ->Next 0;
-                else (no)
-                :action3;
-                endif
-                ->Next 1;
-                :action4;
-                endif
-                ->Next 2;
-                :action5;
-                @enduml""");
+        assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                           "if (is big?) then (yes)\n" +
+                                                           ":action1;\n" +
+                                                           "else (no)\n" +
+                                                           "if (tiny?) then (yes)\n" +
+                                                           "if (tiny?) then (yes)\n" +
+                                                           ":action2;\n" +
+                                                           "else (no)\n" +
+                                                           ":action3;\n" +
+                                                           "endif\n" +
+                                                           "->Next 0;\n" +
+                                                           "else (no)\n" +
+                                                           ":action3;\n" +
+                                                           "endif\n" +
+                                                           "->Next 1;\n" +
+                                                           ":action4;\n" +
+                                                           "endif\n" +
+                                                           "->Next 2;\n" +
+                                                           ":action5;\n" +
+                                                           "@enduml");
     }
 
     @Test
@@ -228,15 +219,14 @@ class ConditionalFlowChartGeneratorTest {
                         .elseLabel("no"))
                 .then(doActivity("action2")).create();
 
-        assertThat(flowchart).isEqualToNormalizingNewlines("""
-                @startuml
-                if (big?) then (yes)
-                :action1;
-                :action3;
-                else (no)
-                endif
-                :action2;
-                @enduml""");
+        assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                           "if (big?) then (yes)\n" +
+                                                           ":action1;\n" +
+                                                           ":action3;\n" +
+                                                           "else (no)\n" +
+                                                           "endif\n" +
+                                                           ":action2;\n" +
+                                                           "@enduml");
     }
 
     @Test
@@ -250,16 +240,15 @@ class ConditionalFlowChartGeneratorTest {
                         .existLabel("next"))
                 .then(doActivity("action2")).create();
 
-        assertThat(flowchart).isEqualToNormalizingNewlines("""
-                @startuml
-                if (big?) then (yes)
-                :action1;
-                :action3;
-                else (no)
-                endif
-                ->next;
-                :action2;
-                @enduml""");
+        assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                           "if (big?) then (yes)\n" +
+                                                           ":action1;\n" +
+                                                           ":action3;\n" +
+                                                           "else (no)\n" +
+                                                           "endif\n" +
+                                                           "->next;\n" +
+                                                           ":action2;\n" +
+                                                           "@enduml");
     }
 
     @Test
@@ -272,15 +261,14 @@ class ConditionalFlowChartGeneratorTest {
                         .existLabel("next"))
                 .then(doActivity("action2")).create();
 
-        assertThat(flowchart).isEqualToNormalizingNewlines("""
-                @startuml
-                if (big?) then
-                :action1;
-                :action3;
-                else (no)
-                endif
-                ->next;
-                :action2;
-                @enduml""");
+        assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                           "if (big?) then\n" +
+                                                           ":action1;\n" +
+                                                           ":action3;\n" +
+                                                           "else (no)\n" +
+                                                           "endif\n" +
+                                                           "->next;\n" +
+                                                           ":action2;\n" +
+                                                           "@enduml");
     }
 }

@@ -2,6 +2,7 @@ package com.hanfak.flowgen;
 
 import java.util.Objects;
 
+import static java.lang.String.format;
 import static java.lang.System.lineSeparator;
 
 public class Activity implements Action {
@@ -259,6 +260,15 @@ public class Activity implements Action {
         return new Activity(name);
     }
 
+    public static Action startActivity(String name) {
+        return new Activity(name);
+    }
+
+    public static Action start(String name) {
+        return new Activity(name);
+    }
+
+
     public Activity sendStyle() {
         this.style = ">";
         return this;
@@ -297,28 +307,28 @@ public class Activity implements Action {
 
     @Override
     public String build() {
-        String activityPopulated = SIMPLE_DEFAULT_ACTIVITY_TEMPLATE.formatted(":", name, style, lineSeparator());
+        String activityPopulated = format(SIMPLE_DEFAULT_ACTIVITY_TEMPLATE, ":", name, style, lineSeparator());
         if (Objects.nonNull(swimLane)) {
             if (Objects.nonNull(arrowLabel) && Objects.nonNull(note)) {
-                return "|%s|%n%s%n%s%n%s".formatted(swimLane, activityPopulated, arrowLabel, note);
+                return format("|%s|%n%s%n%s%n%s", swimLane, activityPopulated, arrowLabel, note);
             }
             if (Objects.nonNull(arrowLabel)) {
-                return "|%s|%n%s%n%s".formatted(swimLane, activityPopulated, arrowLabel);
+                return format("|%s|%n%s%n%s", swimLane, activityPopulated, arrowLabel);
             }
             if (Objects.nonNull(note)) {
-                return "|%s|%n%s%n%s".formatted(swimLane, activityPopulated, note);
+                return format("|%s|%n%s%n%s", swimLane, activityPopulated, note);
             }
-            return "|%s|%n%s".formatted(swimLane, activityPopulated);
+            return format("|%s|%n%s", swimLane, activityPopulated);
         }
 
         if (Objects.nonNull(arrowLabel) && Objects.nonNull(note)) {
-            return "%s%n%s%s".formatted(activityPopulated, arrowLabel, note);
+            return format("%s%n%s%s", activityPopulated, arrowLabel, note);
         }
         if (Objects.nonNull(arrowLabel)) {
-            return "%s%n%s".formatted(activityPopulated, arrowLabel);
+            return format("%s%n%s", activityPopulated, arrowLabel);
         }
         if (Objects.nonNull(note)) {
-            return "%s%n%s".formatted(activityPopulated, note);
+            return format("%s%n%s", activityPopulated, note);
         }
         return activityPopulated;
     }

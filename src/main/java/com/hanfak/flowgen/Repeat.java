@@ -2,6 +2,8 @@ package com.hanfak.flowgen;
 
 import java.util.*;
 
+import static java.lang.String.format;
+
 /**
  * Represents the doWhile Structure
  * See https://plantuml.com/activity-diagram-beta#219cebcef334f265
@@ -111,15 +113,15 @@ public class Repeat implements Action {
 
     private String bothOrExitArrowLabelOnly(String allActions, String label) {
         if (Objects.isNull(predicateTrueOutcome)) {
-            return REPEAT_WITH_EXIT_ARROW_LABEL_ONLY_TEMPLATE.formatted(allActions, predicate, label);
+            return format(REPEAT_WITH_EXIT_ARROW_LABEL_ONLY_TEMPLATE, allActions, predicate, label);
         }
-        return REPEAT_WITH_LOOP_AND_EXIT_LABEL_TEMPLATE.formatted(allActions, predicate, predicateTrueOutcome, label);
+        return format(REPEAT_WITH_LOOP_AND_EXIT_LABEL_TEMPLATE, allActions, predicate, predicateTrueOutcome, label);
     }
 
     private String defaultOrTrueArrowOnly(String allActions) {
         if (Objects.isNull(predicateTrueOutcome)) {
-            return REPEAT_NO_ARROW_LABELS_TEMPLATE.formatted(allActions, predicate);
+            return format(REPEAT_NO_ARROW_LABELS_TEMPLATE, allActions, predicate);
         }
-        return REPEAT_TEMPLATE.formatted(allActions, predicate, predicateTrueOutcome);
+        return format(REPEAT_TEMPLATE, allActions, predicate, predicateTrueOutcome);
     }
 }

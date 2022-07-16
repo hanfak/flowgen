@@ -1,5 +1,7 @@
 package com.hanfak.flowgen;
 
+import static java.lang.String.format;
+
 public class Note implements Action {
 
     private final String value;
@@ -35,20 +37,20 @@ public class Note implements Action {
     public String build() {
         if (floating && left) {
             String DEFAULT_FLOATING_LEFT_TEMPLATE = "note floating left%n%s%nend note%n";
-            return DEFAULT_FLOATING_LEFT_TEMPLATE.formatted(value);
+            return format(DEFAULT_FLOATING_LEFT_TEMPLATE, value);
         }
 
         if (left) {
             String LEFT_NOTE_TEMPLATE = "note left%n%s%nend note%n";
-            return LEFT_NOTE_TEMPLATE.formatted(value);
+            return format(LEFT_NOTE_TEMPLATE, value);
         }
 
         if (floating) {
             String DEFAULT_FLOATING_TEMPLATE = "note floating right%n%s%nend note%n";
-            return DEFAULT_FLOATING_TEMPLATE.formatted(value);
+            return format(DEFAULT_FLOATING_TEMPLATE, value);
         }
 
         String DEFAULT_RIGHT_TEMPLATE = "note right%n%s%nend note%n";
-        return DEFAULT_RIGHT_TEMPLATE.formatted(value);
+        return format(DEFAULT_RIGHT_TEMPLATE, value);
     }
 }

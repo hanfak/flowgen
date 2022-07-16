@@ -9,6 +9,7 @@ import static com.hanfak.flowgen.Break.leave;
 import static com.hanfak.flowgen.Conditional.ifIsTrue;
 import static com.hanfak.flowgen.FlowchartGenerator.flowchart;
 import static com.hanfak.flowgen.Note.note;
+import static com.hanfak.flowgen.While.check;
 import static com.hanfak.flowgen.While.loopWhen;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -30,19 +31,18 @@ class WhileFlowchartGeneratorTest {
                         .and(doActivity("action6"), andActivity("action7")))
                 .then(doActivity("action8"))
                 .create();
-        assertThat(flowchart).isEqualToNormalizingNewlines("""
-                @startuml
-                while (is Big?)
-                :action1;
-                :action2;
-                :action3;
-                :action4;
-                :action5;
-                :action6;
-                :action7;
-                end while
-                :action8;
-                @enduml""");
+        assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                           "while (is Big?)\n" +
+                                                           ":action1;\n" +
+                                                           ":action2;\n" +
+                                                           ":action3;\n" +
+                                                           ":action4;\n" +
+                                                           ":action5;\n" +
+                                                           ":action6;\n" +
+                                                           ":action7;\n" +
+                                                           "end while\n" +
+                                                           ":action8;\n" +
+                                                           "@enduml");
     }
 
     @Test
@@ -52,31 +52,29 @@ class WhileFlowchartGeneratorTest {
                         .execute(doActivity("action1"), doActivity("action2")))
                 .then(doActivity("action3"))
                 .create();
-        assertThat(flowchart).isEqualToNormalizingNewlines("""
-                @startuml
-                while (is Big?) is (yes)
-                :action1;
-                :action2;
-                end while
-                :action3;
-                @enduml""");
+        assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                           "while (is Big?) is (yes)\n" +
+                                                           ":action1;\n" +
+                                                           ":action2;\n" +
+                                                           "end while\n" +
+                                                           ":action3;\n" +
+                                                           "@enduml");
     }
 
     @Test
     void simpleWhileWithLabelForPredicateIsFalseLoop() {
         String flowchart = flowchart()
-                .then(loopWhen("is Big?").leaveWhen("no")
+                .then(check("is Big?").leaveWhen("no")
                         .execute(doActivity("action1"), doActivity("action2")))
                 .then(doActivity("action3"))
                 .create();
-        assertThat(flowchart).isEqualToNormalizingNewlines("""
-                @startuml
-                while (is Big?)
-                :action1;
-                :action2;
-                end while (no)
-                :action3;
-                @enduml""");
+        assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                           "while (is Big?)\n" +
+                                                           ":action1;\n" +
+                                                           ":action2;\n" +
+                                                           "end while (no)\n" +
+                                                           ":action3;\n" +
+                                                           "@enduml");
     }
 
     @Test
@@ -87,14 +85,13 @@ class WhileFlowchartGeneratorTest {
                         .leaveWhen("no"))
                 .then(doActivity("action3"))
                 .create();
-        assertThat(flowchart).isEqualToNormalizingNewlines("""
-                @startuml
-                while (is Big?) is (yes)
-                :action1;
-                :action2;
-                end while (no)
-                :action3;
-                @enduml""");
+        assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                           "while (is Big?) is (yes)\n" +
+                                                           ":action1;\n" +
+                                                           ":action2;\n" +
+                                                           "end while (no)\n" +
+                                                           ":action3;\n" +
+                                                           "@enduml");
     }
 
     @Test
@@ -108,23 +105,22 @@ class WhileFlowchartGeneratorTest {
                                 .thenFor("yes", doActivity("action10"), leave())))
                 .then(doActivity("action8"))
                 .create();
-        assertThat(flowchart).isEqualToNormalizingNewlines("""
-                @startuml
-                while (is Big?)
-                if (is big?) then (yes)
-                :action1;
-                :action2;
-                break
-                endif
-                :action6;
-                :action7;
-                if (is big?) then (yes)
-                :action10;
-                break
-                endif
-                end while
-                :action8;
-                @enduml""");
+        assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                           "while (is Big?)\n" +
+                                                           "if (is big?) then (yes)\n" +
+                                                           ":action1;\n" +
+                                                           ":action2;\n" +
+                                                           "break\n" +
+                                                           "endif\n" +
+                                                           ":action6;\n" +
+                                                           ":action7;\n" +
+                                                           "if (is big?) then (yes)\n" +
+                                                           ":action10;\n" +
+                                                           "break\n" +
+                                                           "endif\n" +
+                                                           "end while\n" +
+                                                           ":action8;\n" +
+                                                           "@enduml");
     }
 
     @Test
@@ -136,15 +132,14 @@ class WhileFlowchartGeneratorTest {
                         .leaveWhen("no"))
                 .then(doActivity("action3"))
                 .create();
-        assertThat(flowchart).isEqualToNormalizingNewlines("""
-                @startuml
-                while (is Big?) is (yes)
-                :action1;
-                :action2;
-                backward:Repeated;
-                end while (no)
-                :action3;
-                @enduml""");
+        assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                           "while (is Big?) is (yes)\n" +
+                                                           ":action1;\n" +
+                                                           ":action2;\n" +
+                                                           "backward:Repeated;\n" +
+                                                           "end while (no)\n" +
+                                                           ":action3;\n" +
+                                                           "@enduml");
     }
 
     @Test
@@ -156,17 +151,16 @@ class WhileFlowchartGeneratorTest {
                         .leaveWhen("no"))
                 .then(doActivity("action3"))
                 .create();
-        assertThat(flowchart).isEqualToNormalizingNewlines("""
-                @startuml
-                while (is Big?) is (yes)
-                note right
-                A Note
-                end note
-                :action1;
-                :action2;
-                backward:Repeated;
-                end while (no)
-                :action3;
-                @enduml""");
+        assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                           "while (is Big?) is (yes)\n" +
+                                                           "note right\n" +
+                                                           "A Note\n" +
+                                                           "end note\n" +
+                                                           ":action1;\n" +
+                                                           ":action2;\n" +
+                                                           "backward:Repeated;\n" +
+                                                           "end while (no)\n" +
+                                                           ":action3;\n" +
+                                                           "@enduml");
     }
 }

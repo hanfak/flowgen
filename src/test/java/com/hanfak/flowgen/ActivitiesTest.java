@@ -24,10 +24,9 @@ class ActivitiesTest {
             String flowchart = flowchart()
                     .then(doActivity("action"))
                     .create();
-            assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml
-                    :action;
-                    @enduml""");
+            assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                               ":action;\n" +
+                                                               "@enduml");
         }
 
         @Test
@@ -93,12 +92,14 @@ class ActivitiesTest {
                     .then(retrieve("action"))
                     .then(useActivity("action"))
                     .then(use("action"))
+                    .then(startActivity("action"))
+                    .then(start("action"))
                     .create();
 
             long numberOfActionsCreated = Arrays.stream(flowchart.split("\n"))
                     .filter(line -> line.contains(":action;"))
                     .count();
-            assertThat(numberOfActionsCreated).isEqualTo(60L);
+            assertThat(numberOfActionsCreated).isEqualTo(62L);
         }
 
         @Test
@@ -108,12 +109,11 @@ class ActivitiesTest {
                     .and(doActivity("action2"))
                     .last(doActivity("action3"))
                     .create();
-            assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml
-                    :action1;
-                    :action2;
-                    :action3;
-                    @enduml""");
+            assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                               ":action1;\n" +
+                                                               ":action2;\n" +
+                                                               ":action3;\n" +
+                                                               "@enduml");
         }
 
         @Test
@@ -123,12 +123,11 @@ class ActivitiesTest {
                             .then(activity("action2"))
                             .and(activity("action3")))
                     .create();
-            assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml
-                    :action1;
-                    :action2;
-                    :action3;
-                    @enduml""");
+            assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                               ":action1;\n" +
+                                                               ":action2;\n" +
+                                                               ":action3;\n" +
+                                                               "@enduml");
         }
     }
 
@@ -140,14 +139,13 @@ class ActivitiesTest {
                     .then(activity("action").inSwimLane("S1"))
                     .then(doActivity("action 1").inSwimLane("S2"))
                     .create();
-            assertThat(flowchart).isEqualToNormalizingNewlines("""
-                        @startuml
-                        |S1|
-                        |S1|
-                        :action;
-                        |S2|
-                        :action 1;
-                        @enduml""");
+            assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                               "|S1|\n" +
+                                                               "|S1|\n" +
+                                                               ":action;\n" +
+                                                               "|S2|\n" +
+                                                               ":action 1;\n" +
+                                                               "@enduml");
         }
     }
 
@@ -163,13 +161,12 @@ class ActivitiesTest {
                 String flowchart = flowchart()
                         .then(doActivity("action").with(note("A Note")))
                         .create();
-                assertThat(flowchart).isEqualToNormalizingNewlines("""
-                        @startuml
-                        :action;
-                        note right
-                        A Note
-                        end note
-                        @enduml""");
+                assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                                   ":action;\n" +
+                                                                   "note right\n" +
+                                                                   "A Note\n" +
+                                                                   "end note\n" +
+                                                                   "@enduml");
             }
 
             @Test
@@ -177,13 +174,12 @@ class ActivitiesTest {
                 String flowchart = flowchart()
                         .then(doActivity("action").with(note("A Note").left()))
                         .create();
-                assertThat(flowchart).isEqualToNormalizingNewlines("""
-                        @startuml
-                        :action;
-                        note left
-                        A Note
-                        end note
-                        @enduml""");
+                assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                                   ":action;\n" +
+                                                                   "note left\n" +
+                                                                   "A Note\n" +
+                                                                   "end note\n" +
+                                                                   "@enduml");
             }
 
             @Test
@@ -191,13 +187,12 @@ class ActivitiesTest {
                 String flowchart = flowchart()
                         .then(doActivity("action").with(note("A Note").right()))
                         .create();
-                assertThat(flowchart).isEqualToNormalizingNewlines("""
-                        @startuml
-                        :action;
-                        note right
-                        A Note
-                        end note
-                        @enduml""");
+                assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                                   ":action;\n" +
+                                                                   "note right\n" +
+                                                                   "A Note\n" +
+                                                                   "end note\n" +
+                                                                   "@enduml");
             }
 
             @Test
@@ -205,13 +200,12 @@ class ActivitiesTest {
                 String flowchart = flowchart()
                         .then(doActivity("action").with(note("A Note").floating()))
                         .create();
-                assertThat(flowchart).isEqualToNormalizingNewlines("""
-                        @startuml
-                        :action;
-                        note floating right
-                        A Note
-                        end note
-                        @enduml""");
+                assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                                   ":action;\n" +
+                                                                   "note floating right\n" +
+                                                                   "A Note\n" +
+                                                                   "end note\n" +
+                                                                   "@enduml");
             }
 
             @Test
@@ -220,13 +214,12 @@ class ActivitiesTest {
                         .then(doActivity("action").with(note("A Note").floating()
                                 .left()))
                         .create();
-                assertThat(flowchart).isEqualToNormalizingNewlines("""
-                        @startuml
-                        :action;
-                        note floating left
-                        A Note
-                        end note
-                        @enduml""");
+                assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                                   ":action;\n" +
+                                                                   "note floating left\n" +
+                                                                   "A Note\n" +
+                                                                   "end note\n" +
+                                                                   "@enduml");
             }
 
             @Test
@@ -235,13 +228,12 @@ class ActivitiesTest {
                         .then(doActivity("action").with(note("A Note").floating()
                                 .right()))
                         .create();
-                assertThat(flowchart).isEqualToNormalizingNewlines("""
-                        @startuml
-                        :action;
-                        note floating right
-                        A Note
-                        end note
-                        @enduml""");
+                assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                                   ":action;\n" +
+                                                                   "note floating right\n" +
+                                                                   "A Note\n" +
+                                                                   "end note\n" +
+                                                                   "@enduml");
             }
 
             @Test
@@ -249,13 +241,12 @@ class ActivitiesTest {
                 String flowchart = flowchart()
                         .then(doActivity("action").with(note("A Note").right().left()))
                         .create();
-                assertThat(flowchart).isEqualToNormalizingNewlines("""
-                        @startuml
-                        :action;
-                        note left
-                        A Note
-                        end note
-                        @enduml""");
+                assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                                   ":action;\n" +
+                                                                   "note left\n" +
+                                                                   "A Note\n" +
+                                                                   "end note\n" +
+                                                                   "@enduml");
 
             }
             @Test
@@ -263,13 +254,12 @@ class ActivitiesTest {
                 String flowchart = flowchart()
                         .then(doActivity("action").with(note("A Note").left().right()))
                         .create();
-                assertThat(flowchart).isEqualToNormalizingNewlines("""
-                        @startuml
-                        :action;
-                        note right
-                        A Note
-                        end note
-                        @enduml""");
+                assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                                   ":action;\n" +
+                                                                   "note right\n" +
+                                                                   "A Note\n" +
+                                                                   "end note\n" +
+                                                                   "@enduml");
 
             }
 
@@ -279,30 +269,28 @@ class ActivitiesTest {
                 @Test
                 void createOneActivityWithDefaultMultiLineNote() {
                     String flowchart = flowchart()
-                            .then(doActivity("action").with(note("""
-                                    A Note
-                                    ====
-                                    new //italic//
-                                    quoted ""foo()""
-                                    * List 1
-                                    * List 2
-                                    ====
-                                    contain <b>HTML</b>""")))
+                            .then(doActivity("action").with(note("A Note\n" +
+                                                                 "====\n" +
+                                                                 "new //italic//\n" +
+                                                                 "quoted \"\"foo()\"\"\n" +
+                                                                 "* List 1\n" +
+                                                                 "* List 2\n" +
+                                                                 "====\n" +
+                                                                 "contain <b>HTML</b>")))
                             .create();
-                    assertThat(flowchart).isEqualToNormalizingNewlines("""
-                            @startuml
-                            :action;
-                            note right
-                            A Note
-                            ====
-                            new //italic//
-                            quoted ""foo()""
-                            * List 1
-                            * List 2
-                            ====
-                            contain <b>HTML</b>
-                            end note
-                            @enduml""");
+                    assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                                       ":action;\n" +
+                                                                       "note right\n" +
+                                                                       "A Note\n" +
+                                                                       "====\n" +
+                                                                       "new //italic//\n" +
+                                                                       "quoted \"\"foo()\"\"\n" +
+                                                                       "* List 1\n" +
+                                                                       "* List 2\n" +
+                                                                       "====\n" +
+                                                                       "contain <b>HTML</b>\n" +
+                                                                       "end note\n" +
+                                                                       "@enduml");
                 }
             }
         }
@@ -315,20 +303,19 @@ class ActivitiesTest {
                         .then(doActivity("action").with(note("A Note")).inSwimLane("S1"))
                         .then(doActivity("action 1").with(note("A Note 1")).inSwimLane("S2"))
                         .create();
-                assertThat(flowchart).isEqualToNormalizingNewlines("""
-                        @startuml
-                        |S1|
-                        |S1|
-                        :action;
-                        note right
-                        A Note
-                        end note
-                        |S2|
-                        :action 1;
-                        note right
-                        A Note 1
-                        end note
-                        @enduml""");
+                assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                                   "|S1|\n" +
+                                                                   "|S1|\n" +
+                                                                   ":action;\n" +
+                                                                   "note right\n" +
+                                                                   "A Note\n" +
+                                                                   "end note\n" +
+                                                                   "|S2|\n" +
+                                                                   ":action 1;\n" +
+                                                                   "note right\n" +
+                                                                   "A Note 1\n" +
+                                                                   "end note\n" +
+                                                                   "@enduml");
             }
 
             @Test
@@ -337,22 +324,21 @@ class ActivitiesTest {
                         .then(doActivity("action").with(note("A Note")).label("label 1").inSwimLane("S1"))
                         .then(doActivity("action 1").with(note("A Note 1")).label("label 2").inSwimLane("S2"))
                         .create();
-                assertThat(flowchart).isEqualToNormalizingNewlines("""
-                        @startuml
-                        |S1|
-                        |S1|
-                        :action;
-                        ->label 1;
-                        note right
-                        A Note
-                        end note
-                        |S2|
-                        :action 1;
-                        ->label 2;
-                        note right
-                        A Note 1
-                        end note
-                        @enduml""");
+                assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                                   "|S1|\n" +
+                                                                   "|S1|\n" +
+                                                                   ":action;\n" +
+                                                                   "->label 1;\n" +
+                                                                   "note right\n" +
+                                                                   "A Note\n" +
+                                                                   "end note\n" +
+                                                                   "|S2|\n" +
+                                                                   ":action 1;\n" +
+                                                                   "->label 2;\n" +
+                                                                   "note right\n" +
+                                                                   "A Note 1\n" +
+                                                                   "end note\n" +
+                                                                   "@enduml");
             }
         }
 
@@ -363,14 +349,13 @@ class ActivitiesTest {
                 String flowchart = flowchart()
                         .then(doActivity("action").with(note("A Note")).label("label"))
                         .create();
-                assertThat(flowchart).isEqualToNormalizingNewlines("""
-                        @startuml
-                        :action;
-                        ->label;
-                        note right
-                        A Note
-                        end note
-                        @enduml""");
+                assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                                   ":action;\n" +
+                                                                   "->label;\n" +
+                                                                   "note right\n" +
+                                                                   "A Note\n" +
+                                                                   "end note\n" +
+                                                                   "@enduml");
             }
         }
     }
@@ -382,11 +367,10 @@ class ActivitiesTest {
             String flowchart = flowchart()
                     .then(doActivity("action").label("label"))
                     .create();
-            assertThat(flowchart).isEqualToNormalizingNewlines("""
-                        @startuml
-                        :action;
-                        ->label;
-                        @enduml""");
+            assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                               ":action;\n" +
+                                                               "->label;\n" +
+                                                               "@enduml");
         }
 
         @Nested
@@ -397,16 +381,15 @@ class ActivitiesTest {
                         .then(andActivity("action").label("label 1").inSwimLane("S1"))
                         .then(then("action 1").label("label 2").inSwimLane("S2"))
                         .create();
-                assertThat(flowchart).isEqualToNormalizingNewlines("""
-                        @startuml
-                        |S1|
-                        |S1|
-                        :action;
-                        ->label 1;
-                        |S2|
-                        :action 1;
-                        ->label 2;
-                        @enduml""");
+                assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                                   "|S1|\n" +
+                                                                   "|S1|\n" +
+                                                                   ":action;\n" +
+                                                                   "->label 1;\n" +
+                                                                   "|S2|\n" +
+                                                                   ":action 1;\n" +
+                                                                   "->label 2;\n" +
+                                                                   "@enduml");
             }
         }
     }
@@ -420,12 +403,11 @@ class ActivitiesTest {
                     .and(doActivity("action2").sendStyle())
                     .last(doActivity("action3"))
                     .create();
-            assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml
-                    :action1;
-                    :action2>
-                    :action3;
-                    @enduml""");
+            assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                               ":action1;\n" +
+                                                               ":action2>\n" +
+                                                               ":action3;\n" +
+                                                               "@enduml");
         }
 
         @Test
@@ -435,12 +417,11 @@ class ActivitiesTest {
                     .and(doActivity("action2").receiveStyle())
                     .last(doActivity("action3"))
                     .create();
-            assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml
-                    :action1;
-                    :action2<
-                    :action3;
-                    @enduml""");
+            assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                               ":action1;\n" +
+                                                               ":action2<\n" +
+                                                               ":action3;\n" +
+                                                               "@enduml");
         }
 
         @Test
@@ -450,12 +431,11 @@ class ActivitiesTest {
                     .and(doActivity("action2").square())
                     .last(doActivity("action3"))
                     .create();
-            assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml
-                    :action1;
-                    :action2]
-                    :action3;
-                    @enduml""");
+            assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                               ":action1;\n" +
+                                                               ":action2]\n" +
+                                                               ":action3;\n" +
+                                                               "@enduml");
         }
 
         @Test
@@ -465,12 +445,11 @@ class ActivitiesTest {
                     .and(doActivity("action2").angled())
                     .last(doActivity("action3"))
                     .create();
-            assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml
-                    :action1;
-                    :action2>
-                    :action3;
-                    @enduml""");
+            assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                               ":action1;\n" +
+                                                               ":action2>\n" +
+                                                               ":action3;\n" +
+                                                               "@enduml");
         }
     }
 }

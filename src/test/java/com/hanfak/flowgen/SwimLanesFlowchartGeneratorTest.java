@@ -18,12 +18,11 @@ class SwimLanesFlowchartGeneratorTest {
         String flowchart = flowchart()
                 .then(doActivity("action1").inSwimLane("Swim Lane"))
                 .create();
-        assertThat(flowchart).isEqualToNormalizingNewlines("""
-                @startuml 
-                |Swim Lane|
-                |Swim Lane|
-                :action1;
-                @enduml""");
+        assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                           "|Swim Lane|\n" +
+                                                           "|Swim Lane|\n" +
+                                                           ":action1;\n" +
+                                                           "@enduml");
     }
 
     @Test
@@ -32,15 +31,14 @@ class SwimLanesFlowchartGeneratorTest {
                 .withTitle("Hello")
                 .then(doActivity("action1").inSwimLane("Swim Lane"))
                 .create();
-        assertThat(flowchart).isEqualToNormalizingNewlines("""
-                @startuml 
-                |Swim Lane|
-                title
-                Hello
-                end title
-                |Swim Lane|
-                :action1;
-                @enduml""");
+        assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                           "|Swim Lane|\n" +
+                                                           "title\n" +
+                                                           "Hello\n" +
+                                                           "end title\n" +
+                                                           "|Swim Lane|\n" +
+                                                           ":action1;\n" +
+                                                           "@enduml");
     }
 
     @Test
@@ -49,14 +47,13 @@ class SwimLanesFlowchartGeneratorTest {
                 .then(doActivity("action1").inSwimLane("Swim Lane"))
                 .then(doActivity("action2").inSwimLane("Swim Lane"))
                 .create();
-        assertThat(flowchart).isEqualToNormalizingNewlines("""
-                @startuml 
-                |Swim Lane|
-                |Swim Lane|
-                :action1;
-                |Swim Lane|
-                :action2;
-                @enduml""");
+        assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                           "|Swim Lane|\n" +
+                                                           "|Swim Lane|\n" +
+                                                           ":action1;\n" +
+                                                           "|Swim Lane|\n" +
+                                                           ":action2;\n" +
+                                                           "@enduml");
     }
 
     @Test
@@ -65,14 +62,13 @@ class SwimLanesFlowchartGeneratorTest {
                 .then(doActivity("action1").inSwimLane("Swim Lane"))
                 .then(doActivity("action2").inSwimLane("Swim Lane 1"))
                 .create();
-        assertThat(flowchart).isEqualToNormalizingNewlines("""
-                @startuml 
-                |Swim Lane|
-                |Swim Lane|
-                :action1;
-                |Swim Lane 1|
-                :action2;
-                @enduml""");
+        assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                           "|Swim Lane|\n" +
+                                                           "|Swim Lane|\n" +
+                                                           ":action1;\n" +
+                                                           "|Swim Lane 1|\n" +
+                                                           ":action2;\n" +
+                                                           "@enduml");
     }
 
     @Test
@@ -82,14 +78,13 @@ class SwimLanesFlowchartGeneratorTest {
                 .then(doActivity("action2").inSwimLane("Swim Lane 2"))
                 .then(doActivity("action3"))
                 .create();
-        assertThat(flowchart).isEqualToNormalizingNewlines("""
-                @startuml 
-                |Swim Lane 1|
-                |Swim Lane 1|
-                :action1;
-                |Swim Lane 2|
-                :action2;
-                :action3;
-                @enduml""");
+        assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                           "|Swim Lane 1|\n" +
+                                                           "|Swim Lane 1|\n" +
+                                                           ":action1;\n" +
+                                                           "|Swim Lane 2|\n" +
+                                                           ":action2;\n" +
+                                                           ":action3;\n" +
+                                                           "@enduml");
     }
 }

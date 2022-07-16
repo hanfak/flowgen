@@ -34,22 +34,21 @@ class MultipleConditionalFlowchartGeneratorTest {
                                         .elseLabel("no").elseIfLabel("yes"))
                                 .orElse(elseDo(doActivity("action4")).and(doActivity("action4")).forValue("none")))
                 .create();
-        assertThat(flowchart).isEqualToNormalizingNewlines("""
-                @startuml
-                if (big?) then (yes)
-                :action;
-                (no) elseif (condition 1?) then (yes)
-                :action1;
-                :action3;
-                (no) elseif (condition 2?) then (yes)
-                :action2;
-                (no) elseif (condition 3?) then (yes)
-                :action3;
-                else (none)
-                :action4;
-                :action4;
-                endif
-                @enduml""");
+        assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                           "if (big?) then (yes)\n" +
+                                                           ":action;\n" +
+                                                           "(no) elseif (condition 1?) then (yes)\n" +
+                                                           ":action1;\n" +
+                                                           ":action3;\n" +
+                                                           "(no) elseif (condition 2?) then (yes)\n" +
+                                                           ":action2;\n" +
+                                                           "(no) elseif (condition 3?) then (yes)\n" +
+                                                           ":action3;\n" +
+                                                           "else (none)\n" +
+                                                           ":action4;\n" +
+                                                           ":action4;\n" +
+                                                           "endif\n" +
+                                                           "@enduml");
     }
 
     @Test
@@ -62,17 +61,16 @@ class MultipleConditionalFlowchartGeneratorTest {
                                 .elseIfLabel("yes"))
                         .orElse(elseDo(doActivity("action4")).forValue("none")))
                 .create();
-        assertThat(flowchart).isEqualToNormalizingNewlines("""
-                @startuml
-                if (big?) then (yes)
-                :action;
-                elseif (condition 1?) then (yes)
-                :action1;
-                :action3;
-                else (none)
-                :action4;
-                endif
-                @enduml""");
+        assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                           "if (big?) then (yes)\n" +
+                                                           ":action;\n" +
+                                                           "elseif (condition 1?) then (yes)\n" +
+                                                           ":action1;\n" +
+                                                           ":action3;\n" +
+                                                           "else (none)\n" +
+                                                           ":action4;\n" +
+                                                           "endif\n" +
+                                                           "@enduml");
     }
 
     @Test
@@ -85,17 +83,16 @@ class MultipleConditionalFlowchartGeneratorTest {
                                 .elseLabel("no").elseIfLabel("yes"))
                         .orElse(elseDo(doActivity("action4"))))
                 .create();
-        assertThat(flowchart).isEqualToNormalizingNewlines("""
-                @startuml
-                if (big?) then (yes)
-                :action;
-                (no) elseif (condition 1?) then (yes)
-                :action1;
-                :action3;
-                else
-                :action4;
-                endif
-                @enduml""");
+        assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                           "if (big?) then (yes)\n" +
+                                                           ":action;\n" +
+                                                           "(no) elseif (condition 1?) then (yes)\n" +
+                                                           ":action1;\n" +
+                                                           ":action3;\n" +
+                                                           "else\n" +
+                                                           ":action4;\n" +
+                                                           "endif\n" +
+                                                           "@enduml");
     }
 
     @Test
@@ -108,17 +105,16 @@ class MultipleConditionalFlowchartGeneratorTest {
                                 .elseLabel("no"))
                         .orElse(elseDo(doActivity("action4")).forValue("none")))
                 .create();
-        assertThat(flowchart).isEqualToNormalizingNewlines("""
-                @startuml
-                if (big?) then (yes)
-                :action;
-                (no) elseif (condition 1?) then
-                :action1;
-                :action3;
-                else (none)
-                :action4;
-                endif
-                @enduml""");
+        assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                           "if (big?) then (yes)\n" +
+                                                           ":action;\n" +
+                                                           "(no) elseif (condition 1?) then\n" +
+                                                           ":action1;\n" +
+                                                           ":action3;\n" +
+                                                           "else (none)\n" +
+                                                           ":action4;\n" +
+                                                           "endif\n" +
+                                                           "@enduml");
     }
 
     @Test
@@ -130,16 +126,15 @@ class MultipleConditionalFlowchartGeneratorTest {
                                 .then(an(activity("action1")).and(activity("action3"))))
                         .orElse(elseDo(doActivity("action4")).forValue("none")))
                 .create();
-        assertThat(flowchart).isEqualToNormalizingNewlines("""
-                @startuml
-                if (big?) then (yes)
-                :action;
-                elseif (condition 1?) then
-                :action1;
-                :action3;
-                else (none)
-                :action4;
-                endif
-                @enduml""");
+        assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                           "if (big?) then (yes)\n" +
+                                                           ":action;\n" +
+                                                           "elseif (condition 1?) then\n" +
+                                                           ":action1;\n" +
+                                                           ":action3;\n" +
+                                                           "else (none)\n" +
+                                                           ":action4;\n" +
+                                                           "endif\n" +
+                                                           "@enduml");
     }
 }

@@ -16,36 +16,31 @@ public class Example01 {
 
     public static void main(String... args) throws IOException {
 //
-        String source = """
-                @startuml""";
-        source +="""
-                
-                skinparam backgroundColor #AAFFFF
-                skinparam linetype polyline
-                skinparam activity {
-                  StartColor red
-                  BarColor SaddleBrown
-                  EndColor Silver
-                  BackgroundColor Peru
-                  BackgroundColor<< Begin >> Olive
-                  BorderColor Peru
-                  FontName Impact
-                }
-                """;
-        source += """
-                (*) -down-> "First Action"
-                "First Action" -down->[You can put also labels] "Second Action"
-                "Second Action" -up->[label] "First Action"
-                 
-                "Second Action" -down-> if "Some Test" then
-                  -left->[true] "Some Action"
-                  "Some Action" --> "Another Action"
-                  "Another Action" -down-> (*)
-                else
-                 -->[false] "Something else"
-                 "Something else" -->[Ending process] (*)
-                endif
-                """;
+        String source = "@startuml";
+        source += "\n" +
+                  "skinparam backgroundColor #AAFFFF\n" +
+                  "skinparam linetype polyline\n" +
+                  "skinparam activity {\n" +
+                  "  StartColor red\n" +
+                  "  BarColor SaddleBrown\n" +
+                  "  EndColor Silver\n" +
+                  "  BackgroundColor Peru\n" +
+                  "  BackgroundColor<< Begin >> Olive\n" +
+                  "  BorderColor Peru\n" +
+                  "  FontName Impact\n" +
+                  "}\n";
+        source += "(*) -down-> \"First Action\"\n" +
+                  "\"First Action\" -down->[You can put also labels] \"Second Action\"\n" +
+                  "\"Second Action\" -up->[label] \"First Action\"\n" +
+                  "\n" +
+                  "\"Second Action\" -down-> if \"Some Test\" then\n" +
+                  "  -left->[true] \"Some Action\"\n" +
+                  "  \"Some Action\" --> \"Another Action\"\n" +
+                  "  \"Another Action\" -down-> (*)\n" +
+                  "else\n" +
+                  " -->[false] \"Something else\"\n" +
+                  " \"Something else\" -->[Ending process] (*)\n" +
+                  "endif\n";
         source += "@enduml\n";
 
         SourceStringReader reader = new SourceStringReader(source);

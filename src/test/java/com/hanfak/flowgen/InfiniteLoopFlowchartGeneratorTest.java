@@ -28,21 +28,20 @@ class InfiniteLoopFlowchartGeneratorTest {
                         .and(doActivity("action6"), andActivity("action7")))
                 .then(doActivity("action8"))
                 .create();
-        assertThat(flowchart).isEqualToNormalizingNewlines("""
-                @startuml
-                while (is Big?)
-                :action1;
-                :action2;
-                :action3;
-                :action4;
-                :action5;
-                :action6;
-                :action7;
-                end while
-                -[hidden]->
-                detach
-                :action8;
-                @enduml""");
+        assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                           "while (is Big?)\n" +
+                                                           ":action1;\n" +
+                                                           ":action2;\n" +
+                                                           ":action3;\n" +
+                                                           ":action4;\n" +
+                                                           ":action5;\n" +
+                                                           ":action6;\n" +
+                                                           ":action7;\n" +
+                                                           "end while\n" +
+                                                           "-[hidden]->\n" +
+                                                           "detach\n" +
+                                                           ":action8;\n" +
+                                                           "@enduml");
     }
 
     @Test
@@ -52,16 +51,15 @@ class InfiniteLoopFlowchartGeneratorTest {
                         .execute(doActivity("action1"), doActivity("action2")))
                 .then(doActivity("action3"))
                 .create();
-        assertThat(flowchart).isEqualToNormalizingNewlines("""
-                @startuml
-                while (is Big?) is (yes)
-                :action1;
-                :action2;
-                end while
-                -[hidden]->
-                detach
-                :action3;
-                @enduml""");
+        assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                           "while (is Big?) is (yes)\n" +
+                                                           ":action1;\n" +
+                                                           ":action2;\n" +
+                                                           "end while\n" +
+                                                           "-[hidden]->\n" +
+                                                           "detach\n" +
+                                                           ":action3;\n" +
+                                                           "@enduml");
     }
 
     @Test
@@ -71,16 +69,15 @@ class InfiniteLoopFlowchartGeneratorTest {
                         .perform(activity("action1"), andActivity("action2"))
                         .repeatLabel(activity("Repeated")))
                 .create();
-        assertThat(flowchart).isEqualToNormalizingNewlines("""
-                @startuml
-                while (is Big?) is (yes)
-                :action1;
-                :action2;
-                backward:Repeated;
-                end while
-                -[hidden]->
-                detach
-                @enduml""");
+        assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                           "while (is Big?) is (yes)\n" +
+                                                           ":action1;\n" +
+                                                           ":action2;\n" +
+                                                           "backward:Repeated;\n" +
+                                                           "end while\n" +
+                                                           "-[hidden]->\n" +
+                                                           "detach\n" +
+                                                           "@enduml");
     }
 
     @Test
@@ -91,19 +88,18 @@ class InfiniteLoopFlowchartGeneratorTest {
                         .repeatLabel(activity("Repeated")))
                 .then(doActivity("action3"))
                 .create();
-        assertThat(flowchart).isEqualToNormalizingNewlines("""
-                @startuml
-                while (is Big?) is (yes)
-                note right
-                A Note
-                end note
-                :action1;
-                :action2;
-                backward:Repeated;
-                end while
-                -[hidden]->
-                detach
-                :action3;
-                @enduml""");
+        assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                           "while (is Big?) is (yes)\n" +
+                                                           "note right\n" +
+                                                           "A Note\n" +
+                                                           "end note\n" +
+                                                           ":action1;\n" +
+                                                           ":action2;\n" +
+                                                           "backward:Repeated;\n" +
+                                                           "end while\n" +
+                                                           "-[hidden]->\n" +
+                                                           "detach\n" +
+                                                           ":action3;\n" +
+                                                           "@enduml");
     }
 }

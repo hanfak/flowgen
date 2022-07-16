@@ -17,6 +17,7 @@ import static com.hanfak.flowgen.Group.group;
 import static com.hanfak.flowgen.Label.label;
 import static com.hanfak.flowgen.Nodes.*;
 import static com.hanfak.flowgen.Theme.NONE;
+import static java.lang.String.format;
 import static java.lang.System.lineSeparator;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static net.sourceforge.plantuml.FileFormat.PNG;
@@ -54,38 +55,38 @@ public class FlowchartGenerator {
 
     private FlowchartGenerator with(Theme theme) {
         if (!Objects.equals(theme, NONE)) {
-            this.actions.add(() -> "%s%s".formatted(theme.value(), lineSeparator()));
+            this.actions.add(() -> format("%s%s", theme.value(), lineSeparator()));
         }
         return this;
     }
 
     public FlowchartGenerator withTitle(String title) {
-        actions.add(() -> "title%n%s%nend title%n".formatted(title));
+        actions.add(() -> format("title%n%s%nend title%n", title));
         return this;
     }
 
     public FlowchartGenerator withHeader(String header) {
-        actions.add(() -> "header%n%s%nend header%n".formatted(header));
+        actions.add(() -> format("header%n%s%nend header%n", header));
         return this;
     }
 
     public FlowchartGenerator withFooter(String footer) {
-        actions.add(() -> "footer%n%s%nend footer%n".formatted(footer));
+        actions.add(() -> format("footer%n%s%nend footer%n", footer));
         return this;
     }
 
     public FlowchartGenerator withLegend(String legend) {
-        actions.add(() -> "legend%n%s%nend legend%n".formatted(legend));
+        actions.add(() -> format("legend%n%s%nend legend%n", legend));
         return this;
     }
 
     public FlowchartGenerator withLegendRight(String legend) {
-        actions.add(() -> "legend right%n%s%nend legend%n".formatted(legend));
+        actions.add(() -> format("legend right%n%s%nend legend%n", legend));
         return this;
     }
 
     public FlowchartGenerator withCaption(String caption) {
-        actions.add(() -> "caption%n%s%nend caption%n".formatted(caption));
+        actions.add(() -> format("caption%n%s%nend caption%n", caption));
         return this;
     }
 
@@ -149,13 +150,18 @@ public class FlowchartGenerator {
         return this;
     }
 
+    public FlowchartGenerator thenEnd() {
+        return withEndNode();
+    }
+
+
     public FlowchartGenerator withDetachedConnector(String value) {
-        this.actions.add(() -> "(%s)%ndetach%n(%s)%n".formatted(value, value));
+        this.actions.add(() -> format("(%s)%ndetach%n(%s)%n", value, value));
         return this;
     }
 
     public FlowchartGenerator withConnector(String value) {
-        this.actions.add(() -> "(%s)%n".formatted(value));
+        this.actions.add(() -> format("(%s)%n", value));
         return this;
     }
 

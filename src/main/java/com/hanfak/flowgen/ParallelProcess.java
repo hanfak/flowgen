@@ -2,6 +2,7 @@ package com.hanfak.flowgen;
 
 import java.util.Optional;
 
+import static java.lang.String.format;
 import static java.lang.System.lineSeparator;
 import static java.util.stream.Collectors.joining;
 /*
@@ -60,10 +61,10 @@ public class ParallelProcess implements Action {
     @Override
     public String build() {
         String FORK_TEMPLATE = "fork%n%s%nend %s$LABEL$%n";
-        return Optional.ofNullable(endForkLabel)
-                .map(x -> FORK_TEMPLATE.replace("$LABEL$", " (%s)".formatted(endForkLabel)))
+        return format(Optional.ofNullable(endForkLabel)
+                .map(x -> FORK_TEMPLATE.replace("$LABEL$", format(" (%s)", endForkLabel)))
                 .orElse(FORK_TEMPLATE.replace("$LABEL$", ""))
-                .formatted(getActivitiesString(), style);
+                ,getActivitiesString(), style);
     }
 
     private String getActivitiesString() {

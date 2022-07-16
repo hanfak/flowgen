@@ -35,18 +35,17 @@ class SplitProcessingFlowchartGeneratorTest {
                             .andDo(activity("action2c")))
                     .then(doActivity("action3"))
                     .create();
-            assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml 
-                    :action1;
-                    split
-                    :action2a;
-                    split again
-                    :action2b;
-                    split again
-                    :action2c;
-                    end split
-                    :action3;
-                    @enduml""");
+            assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                               ":action1;\n" +
+                                                               "split\n" +
+                                                               ":action2a;\n" +
+                                                               "split again\n" +
+                                                               ":action2b;\n" +
+                                                               "split again\n" +
+                                                               ":action2c;\n" +
+                                                               "end split\n" +
+                                                               ":action3;\n" +
+                                                               "@enduml");
         }
 
         @Test
@@ -59,22 +58,21 @@ class SplitProcessingFlowchartGeneratorTest {
                             .andDo(activity("action2ca"), activity("action2cb"), activity("action2cc")))
                     .then(doActivity("action3"))
                     .create();
-            assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml 
-                    :action1;
-                    split
-                    :action2aa;
-                    :action2ab;
-                    split again
-                    :action2b;
-                    stop
-                    split again
-                    :action2ca;
-                    :action2cb;
-                    :action2cc;
-                    end split
-                    :action3;
-                    @enduml""");
+            assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                               ":action1;\n" +
+                                                               "split\n" +
+                                                               ":action2aa;\n" +
+                                                               ":action2ab;\n" +
+                                                               "split again\n" +
+                                                               ":action2b;\n" +
+                                                               "stop\n" +
+                                                               "split again\n" +
+                                                               ":action2ca;\n" +
+                                                               ":action2cb;\n" +
+                                                               ":action2cc;\n" +
+                                                               "end split\n" +
+                                                               ":action3;\n" +
+                                                               "@enduml");
 
         }
     }
@@ -91,20 +89,19 @@ class SplitProcessingFlowchartGeneratorTest {
                             .andDoStart(activity("action2c")))
                     .then(doActivity("action3"))
                     .create();
-            assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml
-                    split
-                    -[hidden]->
-                    :action2a;
-                    split again
-                    -[hidden]->
-                    :action2b;
-                    split again
-                    -[hidden]->
-                    :action2c;
-                    end split
-                    :action3;
-                    @enduml""");
+            assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                               "split\n" +
+                                                               "-[hidden]->\n" +
+                                                               ":action2a;\n" +
+                                                               "split again\n" +
+                                                               "-[hidden]->\n" +
+                                                               ":action2b;\n" +
+                                                               "split again\n" +
+                                                               "-[hidden]->\n" +
+                                                               ":action2c;\n" +
+                                                               "end split\n" +
+                                                               ":action3;\n" +
+                                                               "@enduml");
         }
 
         @Test
@@ -119,25 +116,24 @@ class SplitProcessingFlowchartGeneratorTest {
                             .andDo(activity("action5")))
                     .then(doActivity("action3"))
                     .create();
-            assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml
-                    :action1;
-                    split
-                    -[hidden]->
-                    :action2a;
-                    split again
-                    -[hidden]->
-                    :action2b;
-                    split again
-                    -[hidden]->
-                    :action2c;
-                    split again
-                    :action4;
-                    split again
-                    :action5;
-                    end split
-                    :action3;
-                    @enduml""");
+            assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                               ":action1;\n" +
+                                                               "split\n" +
+                                                               "-[hidden]->\n" +
+                                                               ":action2a;\n" +
+                                                               "split again\n" +
+                                                               "-[hidden]->\n" +
+                                                               ":action2b;\n" +
+                                                               "split again\n" +
+                                                               "-[hidden]->\n" +
+                                                               ":action2c;\n" +
+                                                               "split again\n" +
+                                                               ":action4;\n" +
+                                                               "split again\n" +
+                                                               ":action5;\n" +
+                                                               "end split\n" +
+                                                               ":action3;\n" +
+                                                               "@enduml");
         }
     }
 
@@ -152,20 +148,19 @@ class SplitProcessingFlowchartGeneratorTest {
                             .andDo(activity("action2b"), andExit())
                             .andDo(activity("action2c"), andExit()))
                     .create();
-            assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml 
-                    :action1;
-                    split
-                    :action2a;
-                    detach
-                    split again
-                    :action2b;
-                    detach
-                    split again
-                    :action2c;
-                    detach
-                    end split
-                    @enduml""");
+            assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                               ":action1;\n" +
+                                                               "split\n" +
+                                                               ":action2a;\n" +
+                                                               "detach\n" +
+                                                               "split again\n" +
+                                                               ":action2b;\n" +
+                                                               "detach\n" +
+                                                               "split again\n" +
+                                                               ":action2c;\n" +
+                                                               "detach\n" +
+                                                               "end split\n" +
+                                                               "@enduml");
         }
 
         @Test
@@ -180,25 +175,24 @@ class SplitProcessingFlowchartGeneratorTest {
                             .andDo(activity("action2e")))
                     .then(doActivity("action3"))
                     .create();
-            assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml 
-                    :action1;
-                    split
-                    :action2a;
-                    detach
-                    split again
-                    :action2b;
-                    stop
-                    split again
-                    :action2c;
-                    end
-                    split again
-                    :action2d;
-                    split again
-                    :action2e;
-                    end split
-                    :action3;
-                    @enduml""");
+            assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                               ":action1;\n" +
+                                                               "split\n" +
+                                                               ":action2a;\n" +
+                                                               "detach\n" +
+                                                               "split again\n" +
+                                                               ":action2b;\n" +
+                                                               "stop\n" +
+                                                               "split again\n" +
+                                                               ":action2c;\n" +
+                                                               "end\n" +
+                                                               "split again\n" +
+                                                               ":action2d;\n" +
+                                                               "split again\n" +
+                                                               ":action2e;\n" +
+                                                               "end split\n" +
+                                                               ":action3;\n" +
+                                                               "@enduml");
         }
     }
 
@@ -214,24 +208,23 @@ class SplitProcessingFlowchartGeneratorTest {
                             .andDoWith(label("do"), activity("action2c").label("hello")))
                     .then(doActivity("action3"))
                     .create();
-            assertThat(flowchart).isEqualToNormalizingNewlines("""
-                    @startuml 
-                    :action1;
-                    split
-                    ->do;
-                    :action2a;
-                    split again
-                    ->do;
-                    :action2b;
-                    ->next;
-                    :action2bb;
-                    split again
-                    ->do;
-                    :action2c;
-                    ->hello;
-                    end split
-                    :action3;
-                    @enduml""");
+            assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
+                                                               ":action1;\n" +
+                                                               "split\n" +
+                                                               "->do;\n" +
+                                                               ":action2a;\n" +
+                                                               "split again\n" +
+                                                               "->do;\n" +
+                                                               ":action2b;\n" +
+                                                               "->next;\n" +
+                                                               ":action2bb;\n" +
+                                                               "split again\n" +
+                                                               "->do;\n" +
+                                                               ":action2c;\n" +
+                                                               "->hello;\n" +
+                                                               "end split\n" +
+                                                               ":action3;\n" +
+                                                               "@enduml");
         }
     }
 }
