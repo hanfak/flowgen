@@ -10,6 +10,13 @@ import static java.util.stream.Collectors.joining;
 
 public class MultiConditional implements Action {
 
+    private static final String ELSE_IF_TEMPLATE = "(%s) elseif (%s) then (%s)%n%s%n";
+    private static final String ELSE_IF_NO_ELSE_IF_LABEL_TEMPLATE = "(%s) elseif (%s) then%n%s%n";
+    private static final String ELSE_IF_NO_LABEL_TEMPLATE = "elseif (%s) then%n%s%n";
+    private static final String ELSE_IF_NO_ELSE_LABEL_TEMPLATE = "elseif (%s) then (%s)%n%s%n";
+    private static final String ELSE_WITH_PREDICATE_OUTCOME_TEMPLATE = "else (%s)%n%s%n";
+    private static final String ELSE_WITH_NO_PREDICATE_OUTCOME_TEMPLATE = "else%n%s%n";
+
     private final String predicate;
     private final Actions actions;
 
@@ -39,34 +46,28 @@ public class MultiConditional implements Action {
 
     public MultiConditional then(ElseIfBuilder elseIfBuilder) {
         ElseIf elseIf = elseIfBuilder.build();
-        String elseIfTemplate = "(%s) elseif (%s) then (%s)%n%s%n";
-        String elseIfNoElseIfLabelTemplate = "(%s) elseif (%s) then%n%s%n";
-        String elseIfNoElseLabelTemplate = "elseif (%s) then (%s)%n%s%n";
-        String elseIfNoLabelTemplate = "elseif (%s) then%n%s%n";
         String activitiesString = elseIf.actions().stream().map(Action::build).collect(joining(lineSeparator()));
         if (nonNull(elseIf.elsePredicateOutcome()) && nonNull(elseIf.thenPredicateOutcome())) {
-            this.actions.add(() -> format(elseIfTemplate, elseIf.elsePredicateOutcome(), elseIf.predicate(), elseIf.thenPredicateOutcome(), activitiesString));
+            this.actions.add(() -> format(ELSE_IF_TEMPLATE, elseIf.elsePredicateOutcome(), elseIf.predicate(), elseIf.thenPredicateOutcome(), activitiesString));
         }
         if (nonNull(elseIf.elsePredicateOutcome()) && isNull(elseIf.thenPredicateOutcome())) {
-            this.actions.add(() -> format(elseIfNoElseIfLabelTemplate, elseIf.elsePredicateOutcome(), elseIf.predicate(), activitiesString));
+            this.actions.add(() -> format(ELSE_IF_NO_ELSE_IF_LABEL_TEMPLATE, elseIf.elsePredicateOutcome(), elseIf.predicate(), activitiesString));
         }
         if (isNull(elseIf.elsePredicateOutcome()) && nonNull(elseIf.thenPredicateOutcome())) {
-            this.actions.add(() -> format(elseIfNoElseLabelTemplate, elseIf.predicate(), elseIf.thenPredicateOutcome(), activitiesString));
+            this.actions.add(() -> format(ELSE_IF_NO_ELSE_LABEL_TEMPLATE, elseIf.predicate(), elseIf.thenPredicateOutcome(), activitiesString));
         }
         if (isNull(elseIf.elsePredicateOutcome()) && isNull(elseIf.thenPredicateOutcome())){
-            this.actions.add(() -> format(elseIfNoLabelTemplate, elseIf.predicate(), activitiesString));
+            this.actions.add(() -> format(ELSE_IF_NO_LABEL_TEMPLATE, elseIf.predicate(), activitiesString));
         }
         return this;
     }
 
     public MultiConditional orElse(ElseBuilder elseBuilder) {
         Else anElse = elseBuilder.build();
-        String elseWithPredicateOutcomeTemplate = "else (%s)%n%s%n";
-        String elseWithNoPredicateOutcomeTemplate = "else%n%s%n";
         String activitiesString = anElse.actions().stream().map(Action::build).collect(joining(lineSeparator()));
         this.actions.add(() -> Optional.ofNullable(anElse.predicateOutcome())
-                .map(outcome-> format(elseWithPredicateOutcomeTemplate, outcome, activitiesString))
-                .orElse(format(elseWithNoPredicateOutcomeTemplate, activitiesString)));
+                .map(outcome-> format(ELSE_WITH_PREDICATE_OUTCOME_TEMPLATE, outcome, activitiesString))
+                .orElse(format(ELSE_WITH_NO_PREDICATE_OUTCOME_TEMPLATE, activitiesString)));
         return this;
     }
 

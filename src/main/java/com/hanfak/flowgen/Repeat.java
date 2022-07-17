@@ -40,29 +40,12 @@ public class Repeat implements Action {
         return this;
     }
 
-    public Repeat the(Action action) {
-        this.actions.add(action);
-        return this;
-    }
-
     public Repeat and(Action... actions) {
-        this.actions.add(actions);
-        return this;
-    }
-
-    public Repeat and(Action action) {
-        this.actions.add(action);
-        return this;
+        return the(actions);
     }
 
     public Repeat then(Action... actions) {
-        this.actions.add(actions);
-        return this;
-    }
-
-    public Repeat then(Action action) {
-        this.actions.add(action);
-        return this;
+        return the(actions);
     }
 
     public Repeat repeatWhen(String predicate) {

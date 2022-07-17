@@ -28,7 +28,7 @@ Instead of writing plantuml syntax, you write java with the help of a builder to
 
 ### For usage 
 
-Here is a simple example
+Here is a simple example which creates a PNG file
 
 ```java 
 class ComplexExample {
@@ -46,20 +46,20 @@ class ComplexExample {
         flowchartWith(CLASSIC)
                 .withTitle("No Breakfast Journey")
                 .withStartNode()
-                .then(group("Buy")
+                .with(group("Buy")
                         .containing(an(activity("Go to shop"))
                                 .then(doInParallel()
                                         .and(activity("buy butter"), and("buy jam"))
                                         .the(following(activity("buy bread")).and(ifIsTrue("is sourdough bread?")
                                                 .then(doActivity("buy"))
                                                 .or(elseDo(activity("ask staff for bread"))))))))
-                .then(group("Cook")
+                .with(group("Cook")
                         .containing(an(activity("Put bread in toaster"))
                                 .and(then("toast"))
                                 .then(check("bread is toasting?").then(doActivity("wait")).leaveWhen("no"))
                                 .then(doActivity("take toast and put on plate"))
                                 .then(doActivity("spread butter on toast"))))
-                .then(group("Dine")
+                .with(group("Dine")
                         .with(doActivity("eat toast")))
                 .thenEnd()
                 .createFile(Paths.get("./output.html"));

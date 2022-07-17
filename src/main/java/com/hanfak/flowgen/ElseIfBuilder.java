@@ -35,8 +35,7 @@ public class ElseIfBuilder {
     }
 
     public ElseIfBuilder thenDo(Action action) {
-        actions.add(action);
-        return this;
+        return then(action);
     }
 
     public ElseIf build() {

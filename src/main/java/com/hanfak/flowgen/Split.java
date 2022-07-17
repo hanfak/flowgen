@@ -23,8 +23,7 @@ public class Split implements Action {
     }
 
     public Split andDoWith(Action... actions) {
-        this.actionGroup.add(actions);
-        return this;
+        return andDo(actions);
     }
 
     public Split andDoStart(Action action) {

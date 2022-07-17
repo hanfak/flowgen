@@ -31,14 +31,12 @@ public class ParallelProcess implements Action {
         return this;
     }
 
-    public ParallelProcess and(Action... action) {
-        this.actionGroup.add(action);
-        return this;
+    public ParallelProcess and(Action... actions) {
+        return the(actions);
     }
 
-    public ParallelProcess an(Action... action) {
-        this.actionGroup.add(action);
-        return this;
+    public ParallelProcess an(Action... actions) {
+        return the(actions);
     }
 
     public ParallelProcess merge() {

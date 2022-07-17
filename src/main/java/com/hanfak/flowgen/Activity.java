@@ -299,9 +299,13 @@ public class Activity implements Action {
         return this;
     }
 
+    public Activity in(String swimLane) {
+        return inSwimLane(swimLane);
+    }
+
+
     public Activity label(String label) {
-        this.arrowLabel = Label.label(label)
-                .build();
+        this.arrowLabel = Label.label(label).build();
         return this;
     }
 

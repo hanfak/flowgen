@@ -2,6 +2,7 @@
 
 ## Devops
 
+- Ignore examples package in the build, surfire config
 - Github actions 
 - pitest
 - sonarcloud
@@ -11,7 +12,6 @@
 ## Features
 
 - Current release
-  - TODO: Swimlanes in parallel, actionbuilder, split
   - TODO: Readme - instructions, examples with pic
   - TODO: More examples
 

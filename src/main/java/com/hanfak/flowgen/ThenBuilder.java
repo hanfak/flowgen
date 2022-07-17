@@ -22,8 +22,7 @@ public class ThenBuilder {
     }
 
     public ThenBuilder and(Action action) {
-        actions.add(action);
-        return this;
+        return then(action);
     }
 
     public Then build() {

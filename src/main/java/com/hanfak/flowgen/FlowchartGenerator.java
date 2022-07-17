@@ -101,23 +101,19 @@ public class FlowchartGenerator {
     }
 
     public FlowchartGenerator and(Action action) {
-        this.actions.add(action);
-        return this;
+        return with(action);
     }
 
     public FlowchartGenerator last(Action action) {
-        this.actions.add(action);
-        return this;
+        return with(action);
     }
 
     public FlowchartGenerator then(Action action) {
-        this.actions.add(action);
-        return this;
+        return with(action);
     }
 
     public FlowchartGenerator start(Action action) {
-        this.actions.add(action);
-        return this;
+        return with(action);
     }
 
     public FlowchartGenerator has(Group group) {

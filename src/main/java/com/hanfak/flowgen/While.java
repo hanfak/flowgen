@@ -22,7 +22,7 @@ public class While implements Action {
         this.predicate = predicate;
         this.actions = actions;
     }
-    // TODO: P1 new name: check
+
     public static While loopWhen(String predicate) {
         return new While(predicate, new Actions());
     }
@@ -42,19 +42,15 @@ public class While implements Action {
     }
 
     public While perform(Action... actions) {
-        this.actions.add(actions);
-        return this;
+        return execute(actions);
     }
 
-
     public While and(Action... actions) {
-        this.actions.add(actions);
-        return this;
+        return execute(actions);
     }
 
     public While then(Action... actions) {
-        this.actions.add(actions);
-        return this;
+        return execute(actions);
     }
 
     public While is(String predicateTrueOutcome) {

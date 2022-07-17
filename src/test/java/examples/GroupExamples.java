@@ -1,56 +1,40 @@
 package examples;
 
-import com.hanfak.flowgen.Conditional;
-import com.hanfak.flowgen.ElseBuilder;
-import com.hanfak.flowgen.Theme;
 import org.junit.jupiter.api.Test;
 
 import java.nio.file.Paths;
 
 import static com.hanfak.flowgen.ActionBuilder.an;
-import static com.hanfak.flowgen.ActionBuilder.following;
-import static com.hanfak.flowgen.Activity.*;
-import static com.hanfak.flowgen.Conditional.ifIsTrue;
-import static com.hanfak.flowgen.Conditional.ifThe;
+import static com.hanfak.flowgen.Activity.activity;
+import static com.hanfak.flowgen.Activity.doActivity;
 import static com.hanfak.flowgen.ElseBuilder.elseDo;
+import static com.hanfak.flowgen.ElseIfBuilder.elseIf;
 import static com.hanfak.flowgen.Exit.andExit;
 import static com.hanfak.flowgen.FlowchartGenerator.flowchart;
-import static com.hanfak.flowgen.FlowchartGenerator.flowchartWith;
 import static com.hanfak.flowgen.Group.group;
-import static com.hanfak.flowgen.ElseIfBuilder.elseIf;
 import static com.hanfak.flowgen.MultiConditional.ifTrueFor;
 import static com.hanfak.flowgen.Note.note;
 import static com.hanfak.flowgen.ParallelProcess.andDoInParallel;
 import static com.hanfak.flowgen.ParallelProcess.doInParallel;
 import static com.hanfak.flowgen.Repeat.repeat;
-import static com.hanfak.flowgen.Theme.CLASSIC;
-import static com.hanfak.flowgen.While.check;
 import static com.hanfak.flowgen.While.loopWhen;
 
 class GroupExamples {
 
     @Test
     void multipleGroups() {
-        flowchartWith(CLASSIC)
-                .withTitle("No Breakfast Journey")
+        flowchart()
                 .withStartNode()
-                .then(group("Buy")
-                        .containing(an(activity("Go to shop"))
-                                .then(doInParallel()
-                                        .and(activity("buy butter"), and("buy jam"))
-                                        .the(following(activity("buy bread")).and(ifIsTrue("is sourdough bread?")
-                                                .then(doActivity("buy"))
-                                                .or(elseDo(activity("ask staff for bread"))))))))
-                .then(group("Cook")
-                        .containing(an(activity("Put bread in toaster"))
-                                .and(then("toast"))
-                                .then(check("bread is toasting?").then(doActivity("wait")).leaveWhen("no"))
-                                .then(doActivity("take toast and put on plate"))
-                                .then(doActivity("spread butter on toast"))))
-                .then(group("Dine")
-                        .with(doActivity("eat toast")))
-                .thenEnd()
-                .createFile(Paths.get("./output.html"));
+                .then(group("Name")
+                        .with(doActivity("action1"))
+                        .with(doActivity("action2")))
+                .then(group("Name")
+                        .with(doActivity("action3"))
+                        .with(doActivity("action4")))
+                .then(group("Name")
+                        .with(doActivity("action5")))
+                .withStopNode()
+                .createFile(Paths.get("./test1.html"));
     }
 
     @Test

@@ -1,5 +1,7 @@
 package com.hanfak.flowgen;
 
+import static com.hanfak.flowgen.Activity.activity;
+
 public class ActionBuilder implements Action {
 
     private final Actions actions;
@@ -7,45 +9,77 @@ public class ActionBuilder implements Action {
     private ActionBuilder(Actions actions) {
         this.actions = actions;
     }
-    // TODO: P1 add string only input
+    // TODO: P1 add string only input + test
     public static ActionBuilder an(Action action) {
         Actions actions = new Actions();
         actions.add(action);
         return new ActionBuilder(actions);
     }
 
-    public static ActionBuilder doAn(Action action) {
+    public static ActionBuilder an(String action) {
         Actions actions = new Actions();
-        actions.add(action);
+        actions.add(activity(action));
         return new ActionBuilder(actions);
+    }
+
+    public static ActionBuilder doActivity(String action) {
+        return an(action);
+    }
+
+    public static ActionBuilder doA(String action) {
+        return an(action);
+    }
+
+    public static ActionBuilder doThe(String action) {
+        return an(action);
+    }
+
+    public static ActionBuilder doAn(Action action) {
+        return an(action);
+    }
+
+    public static ActionBuilder doAn(String action) {
+        return an(action);
     }
 
     public static ActionBuilder following(Action action) {
-        Actions actions = new Actions();
-        actions.add(action);
-        return new ActionBuilder(actions);
+        return an(action);
+    }
+
+    public static ActionBuilder following(String action) {
+        return an(action);
     }
 
     public static ActionBuilder next(Action action) {
-        Actions actions = new Actions();
-        actions.add(action);
-        return new ActionBuilder(actions);
+        return an(action);
+    }
+
+    public static ActionBuilder next(String action) {
+        return an(action);
     }
 
     public static ActionBuilder first(Action action) {
-        Actions actions = new Actions();
-        actions.add(action);
-        return new ActionBuilder(actions);
+        return an(action);
+    }
+
+    public static ActionBuilder first(String action) {
+        return an(action);
     }
 
     public ActionBuilder then(Action action) {
-        actions.add(action);
-        return this;
+        return an(action);
+    }
+
+    public ActionBuilder then(String action) {
+        return an(action);
     }
 
     public ActionBuilder and(Action action) {
-        actions.add(action);
-        return this;
+        return an(action);
+    }
+
+    public ActionBuilder and(String action) {
+        return an(action);
     }
 
     @Override

@@ -28,23 +28,23 @@ public class Conditional implements Action {
     }
 
     public static Conditional ifIs(String predicate) {
-        return new Conditional(predicate, new Actions(), new Actions());
+        return ifIsTrue(predicate);
     }
 
     public static Conditional ifThe(String predicate) {
-        return new Conditional(predicate, new Actions(), new Actions());
+        return ifIsTrue(predicate);
     }
 
     public static Conditional ifIt(String predicate) {
-        return new Conditional(predicate, new Actions(), new Actions());
+        return ifIsTrue(predicate);
     }
 
     public static Conditional ifWhen(String predicate) {
-        return new Conditional(predicate, new Actions(), new Actions());
+        return ifIsTrue(predicate);
     }
 
     public static Conditional branchWhen(String predicate) {
-        return new Conditional(predicate, new Actions(), new Actions());
+        return ifIsTrue(predicate);
     }
 
     public Conditional then(ThenBuilder thenBuilder) {

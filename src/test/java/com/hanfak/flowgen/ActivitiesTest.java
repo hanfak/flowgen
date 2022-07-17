@@ -321,8 +321,8 @@ class ActivitiesTest {
             @Test
             void createMultipleActivitiesWithSimpleDefaultNoteAndLabelsInSwimLanes() {
                 String flowchart = flowchart()
-                        .then(doActivity("action").with(note("A Note")).label("label 1").inSwimLane("S1"))
-                        .then(doActivity("action 1").with(note("A Note 1")).label("label 2").inSwimLane("S2"))
+                        .then(doActivity("action").with(note("A Note")).label("label 1").in("S1"))
+                        .then(doActivity("action 1").with(note("A Note 1")).label("label 2").in("S2"))
                         .create();
                 assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
                                                                    "|S1|\n" +

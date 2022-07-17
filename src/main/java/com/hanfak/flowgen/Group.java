@@ -22,24 +22,21 @@ public class Group implements Action {
         return new Group(null, new Actions());
     }
 
-    public Group with(Action... action) {
-        this.actions.add(action);
+    public Group with(Action... actions) {
+        this.actions.add(actions);
         return this;
     }
 
-    public Group and(Action... action) {
-        this.actions.add(action);
-        return this;
+    public Group and(Action... actions) {
+        return with(actions);
     }
 
-    public Group last(Action... action) {
-        this.actions.add(action);
-        return this;
+    public Group last(Action... actions) {
+        return with(actions);
     }
 
     public Group containing(Action... actions) {
-        this.actions.add(actions);
-        return this;
+        return with(actions);
     }
 
     @Override

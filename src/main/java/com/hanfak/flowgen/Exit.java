@@ -9,7 +9,7 @@ public class Exit implements Action {
     }
 
     public static Exit andExit() {
-        return new Exit();
+        return exit();
     }
 
     @Override
