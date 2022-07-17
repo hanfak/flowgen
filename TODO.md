@@ -13,7 +13,10 @@
 
 - Current release
   - TODO: Readme - instructions, examples with pic
+    - For examples using markdown to hide/toggle code examples
   - TODO: More examples
+    - swimlanes in parallel and split
+  - TODO: P1 in code
 
 - Point release 
   - Static methods for conditional, activities

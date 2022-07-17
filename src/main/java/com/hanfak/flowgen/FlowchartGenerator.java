@@ -25,7 +25,7 @@ import static net.sourceforge.plantuml.FileFormat.SVG;
 
 public class FlowchartGenerator {
 
-    public static final Pattern SWIM_LANE_REGEX = Pattern.compile("(\\|.+?\\|)");
+    private static final Pattern SWIM_LANE_REGEX = Pattern.compile("(\\|.+?\\|)");
 
     // Impl queue as linkedlist: Deque<E> queue = new LinkedList<>();
     // Store all activities put in queue, and certain actions (groups, if, repeat etc) will have their on subqueue
@@ -149,7 +149,6 @@ public class FlowchartGenerator {
     public FlowchartGenerator thenEnd() {
         return withEndNode();
     }
-
 
     public FlowchartGenerator withDetachedConnector(String value) {
         this.actions.add(() -> format("(%s)%ndetach%n(%s)%n", value, value));

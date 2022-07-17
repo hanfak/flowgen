@@ -66,6 +66,16 @@ class ComplexExample {
     } 
 }
 ```
+
+For use of custom formatting, you can use the creole syntax (see nested class Formatting in src/test/java/examples/NotesExamples.java for the different possibilities). In later release, there will be builders to add formatting.
+
+```java 
+class CustomFormattingExample {
+    public static void main(String... args) {
+    
+    }
+}
+```
 - see tests and examples in src/test folder, for more uses, features and examples.
 
 ### Maven instructions
@@ -97,3 +107,4 @@ TBF
 - [PlantUML](https://plantuml.com/)
 - [For syntax for activity diagram in PlantUML](https://plantuml.com/activity-diagram-beta)
 - [PlantUML playground to create your own uml diagrams](http://www.plantuml.com/plantuml/uml)
+- [Common syntax that applies to all PlantUML diagrams](https://plantuml.com/commons)

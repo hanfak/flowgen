@@ -30,7 +30,6 @@ class NotesExamples {
 
     @Nested
     class Formatting{
-        // TODO: Different formatting with a note
         // https://plantuml.com/creole
         @Test
         void notesWithDifferentFormatting () {
