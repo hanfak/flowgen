@@ -9,7 +9,7 @@ public class ActionBuilder implements Action {
     private ActionBuilder(Actions actions) {
         this.actions = actions;
     }
-    // TODO: P1 add string only input + test
+
     public static ActionBuilder an(Action action) {
         Actions actions = new Actions();
         actions.add(action);
@@ -26,11 +26,22 @@ public class ActionBuilder implements Action {
         return an(action);
     }
 
+    public static ActionBuilder doActivity(Action action) {
+        return an(action);
+    }
+
     public static ActionBuilder doA(String action) {
+        return an(action);
+    }
+    public static ActionBuilder doA(Action action) {
         return an(action);
     }
 
     public static ActionBuilder doThe(String action) {
+        return an(action);
+    }
+
+    public static ActionBuilder doThe(Action action) {
         return an(action);
     }
 
@@ -67,19 +78,23 @@ public class ActionBuilder implements Action {
     }
 
     public ActionBuilder then(Action action) {
-        return an(action);
+        actions.add(action);
+        return this;
     }
 
     public ActionBuilder then(String action) {
-        return an(action);
+        actions.add(activity(action));
+        return this;
     }
 
     public ActionBuilder and(Action action) {
-        return an(action);
+        actions.add(action);
+        return this;
     }
 
     public ActionBuilder and(String action) {
-        return an(action);
+        actions.add(activity(action));
+        return this;
     }
 
     @Override
