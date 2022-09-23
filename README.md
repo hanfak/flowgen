@@ -91,11 +91,35 @@ class CustomFormattingExample {
 
 ### Maven instructions
 
-TBF
+```
+<repositories>
+    <repository>
+        <id>jitpack.io</id>
+        <url>https://jitpack.io</url>
+    </repository>
+</repositories>
+
+<dependency>
+	    <groupId>com.github.hanfak</groupId>
+	    <artifactId>flowgen</artifactId>
+	    <version>0.0.1</version>
+	</dependency>
+```
 
 ### Gradle instructions
 
-TBF
+```
+	allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	}
+	
+	dependencies {
+	        implementation 'com.github.hanfak:flowgen:0.0.1'
+	}
+```
 
 ## Issues 
 
