@@ -2,20 +2,18 @@ package examples;
 
 import org.junit.jupiter.api.Test;
 
-import java.nio.file.Paths;
-
 import static com.hanfak.flowgen.ActionBuilder.an;
 import static com.hanfak.flowgen.ActionBuilder.following;
 import static com.hanfak.flowgen.Activity.*;
-import static com.hanfak.flowgen.Activity.doActivity;
-import static com.hanfak.flowgen.Conditional.*;
+import static com.hanfak.flowgen.Conditional.ifIt;
+import static com.hanfak.flowgen.Conditional.ifThe;
 import static com.hanfak.flowgen.ElseBuilder.elseDo;
 import static com.hanfak.flowgen.FlowchartGenerator.flowchart;
 import static com.hanfak.flowgen.FlowchartGenerator.flowchartWith;
 import static com.hanfak.flowgen.Group.group;
 import static com.hanfak.flowgen.ParallelProcess.doInParallel;
 import static com.hanfak.flowgen.Theme.CLASSIC;
-import static com.hanfak.flowgen.While.check;
+import static com.hanfak.flowgen.While.keepChecking;
 
 class ReadmeExamples {
 
@@ -44,7 +42,7 @@ class ReadmeExamples {
                 .with(group("Cook")
                         .containing(an(activity("Put bread in toaster"))
                                 .and(then("toast"))
-                                .then(check("bread is toasting?").is("yes")
+                                .then(keepChecking("bread is toasting?").is("yes")
                                         .then(doActivity("wait"))
                                         .leaveWhen("no"))
                                 .then(doActivity("take toast and put on plate"))

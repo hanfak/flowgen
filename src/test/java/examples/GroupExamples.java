@@ -2,8 +2,6 @@ package examples;
 
 import org.junit.jupiter.api.Test;
 
-import java.nio.file.Paths;
-
 import static com.hanfak.flowgen.ActionBuilder.an;
 import static com.hanfak.flowgen.Activity.activity;
 import static com.hanfak.flowgen.Activity.doActivity;
@@ -17,7 +15,7 @@ import static com.hanfak.flowgen.Note.note;
 import static com.hanfak.flowgen.ParallelProcess.andDoInParallel;
 import static com.hanfak.flowgen.ParallelProcess.doInParallel;
 import static com.hanfak.flowgen.Repeat.repeat;
-import static com.hanfak.flowgen.While.loopWhen;
+import static com.hanfak.flowgen.While.loopWhile;
 
 class GroupExamples {
 
@@ -62,7 +60,7 @@ class GroupExamples {
                                         .an(activity("action2"), andDoInParallel()
                                                 .the(activity("action4"), andExit())
                                                 .the(activity("action5"), activity("action3"))))
-                                .and(group().containing(loopWhen("is Big?")
+                                .and(group().containing(loopWhile("is Big?")
                                         .execute(an(activity("action1").angled()).and(activity("action2").with(note("note"))))))
                                 .containing(
                                         ifTrueFor("big?")

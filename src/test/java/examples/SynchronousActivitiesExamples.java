@@ -2,8 +2,6 @@ package examples;
 
 import org.junit.jupiter.api.Test;
 
-import java.nio.file.Paths;
-
 import static com.hanfak.flowgen.Activity.doActivity;
 import static com.hanfak.flowgen.Conditional.ifIsTrue;
 import static com.hanfak.flowgen.FlowchartGenerator.flowchart;

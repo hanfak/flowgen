@@ -2,14 +2,12 @@ package examples;
 
 import org.junit.jupiter.api.Test;
 
-import java.nio.file.Paths;
-
 import static com.hanfak.flowgen.Activity.activity;
 import static com.hanfak.flowgen.Activity.doActivity;
+import static com.hanfak.flowgen.Exit.exit;
 import static com.hanfak.flowgen.FlowchartGenerator.flowchart;
 import static com.hanfak.flowgen.ParallelProcess.doInParallel;
-import static com.hanfak.flowgen.Exit.exit;
-import static com.hanfak.flowgen.While.loopWhen;
+import static com.hanfak.flowgen.While.loopWhile;
 
 class ParallelExamples {
 
@@ -30,9 +28,9 @@ class ParallelExamples {
     void nestedWhileLoop() {
         flowchart()
                 .withStartNode()
-                .then(loopWhen("is Big?")
+                .then(loopWhile("is Big?")
                         .execute(
-                                loopWhen("is empty?")
+                                loopWhile("is empty?")
                                         .execute(doActivity("action1"), doActivity("action2"))))
                 .then(doActivity("action3"))
                 .withStopNode()

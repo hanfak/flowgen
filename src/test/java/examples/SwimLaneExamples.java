@@ -3,8 +3,6 @@ package examples;
 import com.hanfak.flowgen.Theme;
 import org.junit.jupiter.api.Test;
 
-import java.nio.file.Paths;
-
 import static com.hanfak.flowgen.Activity.andActivity;
 import static com.hanfak.flowgen.Activity.doActivity;
 import static com.hanfak.flowgen.Conditional.ifIsTrue;

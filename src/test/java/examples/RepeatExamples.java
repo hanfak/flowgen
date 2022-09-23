@@ -2,14 +2,12 @@ package examples;
 
 import org.junit.jupiter.api.Test;
 
-import java.nio.file.Paths;
-
 import static com.hanfak.flowgen.Activity.*;
 import static com.hanfak.flowgen.Break.leave;
 import static com.hanfak.flowgen.Conditional.ifIsTrue;
+import static com.hanfak.flowgen.Exit.exit;
 import static com.hanfak.flowgen.FlowchartGenerator.flowchart;
 import static com.hanfak.flowgen.Repeat.repeat;
-import static com.hanfak.flowgen.Exit.exit;
 
 class RepeatExamples {
 

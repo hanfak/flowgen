@@ -9,8 +9,8 @@ import static com.hanfak.flowgen.Break.leave;
 import static com.hanfak.flowgen.Conditional.ifIsTrue;
 import static com.hanfak.flowgen.FlowchartGenerator.flowchart;
 import static com.hanfak.flowgen.Note.note;
-import static com.hanfak.flowgen.While.check;
-import static com.hanfak.flowgen.While.loopWhen;
+import static com.hanfak.flowgen.While.keepChecking;
+import static com.hanfak.flowgen.While.loopWhile;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Execution(ExecutionMode.CONCURRENT)
@@ -23,7 +23,7 @@ class WhileFlowchartGeneratorTest {
     @Test
     void simpleWhileLoop() {
         String flowchart = flowchart()
-                .then(loopWhen("is Big?")
+                .then(loopWhile("is Big?")
                         .execute(doActivity("action1"))
                         .then(doActivity("action2"))
                         .then(doActivity("action3"), andActivity("action4"))
@@ -48,7 +48,7 @@ class WhileFlowchartGeneratorTest {
     @Test
     void simpleWhileWithLabelForPredicateIsTrueLoop() {
         String flowchart = flowchart()
-                .then(loopWhen("is Big?").is("yes")
+                .then(loopWhile("is Big?").is("yes")
                         .execute(doActivity("action1"), doActivity("action2")))
                 .then(doActivity("action3"))
                 .create();
@@ -64,8 +64,9 @@ class WhileFlowchartGeneratorTest {
     @Test
     void simpleWhileWithLabelForPredicateIsFalseLoop() {
         String flowchart = flowchart()
-                .then(check("is Big?").leaveWhen("no")
-                        .execute(doActivity("action1"), doActivity("action2")))
+                .then(keepChecking("is Big?")
+                        .execute(doActivity("action1"), doActivity("action2"))
+                        .leaveWhen("no"))
                 .then(doActivity("action3"))
                 .create();
         assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
@@ -80,7 +81,7 @@ class WhileFlowchartGeneratorTest {
     @Test
     void simpleWhileWithBothLabels() {
         String flowchart = flowchart()
-                .then(loopWhen("is Big?").is("yes")
+                .then(loopWhile("is Big?").is("yes")
                         .execute(doActivity("action1"), doActivity("action2"))
                         .leaveWhen("no"))
                 .then(doActivity("action3"))
@@ -97,7 +98,7 @@ class WhileFlowchartGeneratorTest {
     @Test
     void simpleWhileLoopWithBreak() {
         String flowchart = flowchart()
-                .then(loopWhen("is Big?")
+                .then(loopWhile("is Big?")
                         .execute(ifIsTrue("is big?")
                                 .thenFor("yes", doActivity("action1"), doActivity("action2"), leave()))
                         .and(doActivity("action6"), andActivity("action7"))
@@ -126,10 +127,10 @@ class WhileFlowchartGeneratorTest {
     @Test
     void simpleWhileWithBothLabelsAndRepeatLabelLoop() {
         String flowchart = flowchart()
-                .then(loopWhen("is Big?").is("yes")
+                .then(loopWhile("is Big?").is("yes")
                         .perform(activity("action1"), andActivity("action2"))
                         .repeatLabel(activity("Repeated"))
-                        .leaveWhen("no"))
+                        .exitWhen("no"))
                 .then(doActivity("action3"))
                 .create();
         assertThat(flowchart).isEqualToNormalizingNewlines("@startuml\n" +
@@ -145,7 +146,7 @@ class WhileFlowchartGeneratorTest {
     @Test
     void simpleWhileWithNoteLoop() {
         String flowchart = flowchart()
-                .then(loopWhen("is Big?").is("yes").with(note("A Note"))
+                .then(loopWhile("is Big?").is("yes").with(note("A Note"))
                         .execute(doActivity("action1"), doActivity("action2"))
                         .repeatLabel(activity("Repeated"))
                         .leaveWhen("no"))

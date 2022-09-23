@@ -23,11 +23,11 @@ public class While implements Action {
         this.actions = actions;
     }
 
-    public static While loopWhen(String predicate) {
+    public static While loopWhile(String predicate) {
         return new While(predicate, new Actions());
     }
 
-    public static While check(String predicate) {
+    public static While keepChecking(String predicate) {
         return new While(predicate, new Actions());
     }
 
@@ -63,10 +63,10 @@ public class While implements Action {
         return this;
     }
 
-//    public While exitWhen(String predicateFalseOutcome) {
-//        this.predicateFalseOutcome = predicateFalseOutcome;
-//        return this;
-//    }
+    public While exitWhen(String predicateFalseOutcome) {
+        this.predicateFalseOutcome = predicateFalseOutcome;
+        return this;
+    }
 
     public While repeatLabel(Activity repeatLoopActivity) {
         this.actions.add(() -> "backward" + repeatLoopActivity.build());
