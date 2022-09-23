@@ -23,7 +23,7 @@ class ParallelExamples {
                                 .the(activity("action4"), exit()) // Not waiting to finish async process
                                 .the(activity("action5"), activity("action3"))))
                 .withStopNode()
-                .createFile(Paths.get("./test1.html"));
+                .createFile("./test1.html");
     }
 
     @Test
@@ -36,6 +36,6 @@ class ParallelExamples {
                                         .execute(doActivity("action1"), doActivity("action2"))))
                 .then(doActivity("action3"))
                 .withStopNode()
-                .createFile(Paths.get("./test1.html"));
+                .createFile("./test1.html");
     }
 }

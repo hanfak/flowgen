@@ -3,8 +3,6 @@ package examples;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import java.nio.file.Paths;
-
 import static com.hanfak.flowgen.Activity.doActivity;
 import static com.hanfak.flowgen.FlowchartGenerator.flowchart;
 import static com.hanfak.flowgen.Note.note;
@@ -25,7 +23,7 @@ class NotesExamples {
                                                       "|_ Last line")))
                 .then(doActivity("action1").with(note("Example of simple table\n|= |= table |= header |\n| a | table | row |\n| b | table | row |")))
                 .withStopNode()
-                .createFile(Paths.get("./test1.html"));
+                .createFile("./test1.html");
     }
 
     @Nested
@@ -69,7 +67,7 @@ class NotesExamples {
                                                           "....\n" +
                                                           "==== Small heading\n")))
                     .withStopNode()
-                    .createFile(Paths.get("./test1.html"));
+                    .createFile("./test1.html");
         }
 
         @Test
@@ -94,7 +92,7 @@ class NotesExamples {
                                                           "This is <size:20>big</size>\n" +
                                                           "</code>")))
                     .withStopNode()
-                    .createFile(Paths.get("./test1.html"));
+                    .createFile("./test1.html");
         }
 
         @Test
@@ -107,7 +105,7 @@ class NotesExamples {
                                                           "| a | table | row |\n" +
                                                           "| b | table | row |")))
                     .withStopNode()
-                    .createFile(Paths.get("./test1.html"));
+                    .createFile("./test1.html");
         }
 
         @Test
@@ -123,7 +121,7 @@ class NotesExamples {
                                                           "  |_ prop3\n" +
                                                           "|_ Last line")))
                     .withStopNode()
-                    .createFile(Paths.get("./test1.html"));
+                    .createFile("./test1.html");
         }
     }
 }

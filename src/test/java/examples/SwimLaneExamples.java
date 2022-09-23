@@ -27,6 +27,6 @@ class SwimLaneExamples {
                 .then(doActivity("action4").with(note("some info")).inSwimLane("S4"))
                 .then(doActivity("action4").inSwimLane("S3"))
                 .withStopNode()
-                .createFile(Paths.get("./test1.html"));
+                .createFile("./test1.html");
     }
 }

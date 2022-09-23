@@ -34,7 +34,7 @@ class GroupExamples {
                 .then(group("Name")
                         .with(doActivity("action5")))
                 .withStopNode()
-                .createFile(Paths.get("./test1.html"));
+                .createFile("./test1.html");
     }
 
     @Test
@@ -47,7 +47,7 @@ class GroupExamples {
                                 .with(doActivity("action3"))
                                 .with(doActivity("action4"))))
                 .withStopNode()
-                .createFile(Paths.get("./test1.html"));
+                .createFile("./test1.html");
     }
 
     @Test
@@ -84,6 +84,6 @@ class GroupExamples {
                                                         .leaveWhen("no"))
                                                 .and(doActivity("action4")))))
                 .withStopNode()
-                .createPngFile(Paths.get("./test3.png"));
+                .createPngFile("./test3.png");
     }
 }

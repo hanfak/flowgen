@@ -41,6 +41,6 @@ class MultipleSeparateFlowchartsExamples {
                                 .the(activity("action5"), activity("action3"))))
                 .then(doActivity("action3"))
                 .withStopNode()
-                .createFile(Paths.get("./test1.html"));
+                .createFile("./test1.html");
     }
 }

@@ -25,7 +25,7 @@ class RepeatExamples {
                         .leaveWhen("no"))
                 .then(doActivity("action3"))
                 .withStopNode()
-                .createFile(Paths.get("./test1.html"));
+                .createFile("./test1.html");
     }
 
     @Test
@@ -42,7 +42,7 @@ class RepeatExamples {
                         .leaveWhen("no"))
                 .then(doActivity("action3"))
                 .withStopNode()
-                .createFile(Paths.get("./test1.html"));
+                .createFile("./test1.html");
     }
 
     @Test
@@ -57,7 +57,7 @@ class RepeatExamples {
                         .leaveWhen("no"))
                 .then(doActivity("action3"))
                 .withStopNode()
-                .createFile(Paths.get("./test1.html"));
+                .createFile("./test1.html");
     }
 
     @Test
@@ -75,7 +75,7 @@ class RepeatExamples {
                         .leaveWhen("no"))
                 .then(doActivity("action3"))
                 .withStopNode()
-                .createFile(Paths.get("./test1.html"));
+                .createFile("./test1.html");
     }
 
     @Test
@@ -93,6 +93,6 @@ class RepeatExamples {
                         .leaveWhen("no"))
                 .then(doActivity("action3"))
                 .withStopNode()
-                .createFile(Paths.get("./test1.html"));
+                .createFile("./test1.html");
     }
 }

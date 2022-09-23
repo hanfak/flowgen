@@ -23,7 +23,7 @@ class SynchronousActivitiesExamples {
                 .then(doActivity("action3")).with(label("finally"))
                 .then(doActivity("action4"))
                 .withStopNode()
-                .createFile(Paths.get("./test1.html"));
+                .createFile("./test1.html");
     }
 
     @Test
@@ -41,7 +41,7 @@ class SynchronousActivitiesExamples {
                 .then(doActivity(multilineActivity)).with(label("finally"))
                 .then(doActivity(format("action4%nmore line%nsome more%n%s", "Hello")))
                 .withStopNode()
-                .createFile(Paths.get("./test1.html"));
+                .createFile("./test1.html");
     }
 
     @Test
@@ -51,7 +51,7 @@ class SynchronousActivitiesExamples {
                 .withStartNode()
                 .then(doActivity("action1"))
                 .withStopNode()
-                .createFile(Paths.get("./test1.html"));
+                .createFile("./test1.html");
     }
 
     // TODO: use creole syntax in title
@@ -66,6 +66,6 @@ class SynchronousActivitiesExamples {
                 .then(doActivity("action3"))
                 .withLabel("label")
                 .withStopNode()
-                .createFile(Paths.get("./test1.html"));
+                .createFile("./test1.html");
     }
 }

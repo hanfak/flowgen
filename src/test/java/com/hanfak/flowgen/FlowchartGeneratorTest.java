@@ -13,7 +13,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.function.Function;
 
 import static com.hanfak.flowgen.Activity.doActivity;
@@ -505,7 +504,7 @@ class FlowchartGeneratorTest {
                     .then(doActivity("action1"))
                     .then(doActivity("action2"))
                     .then(doActivity("action3"))
-                    .createFile(file);
+                    .createFile(file.toString());
 
             assertThat(Files.readAllLines(file)).containsSequence(
                     "@startuml",
@@ -517,7 +516,7 @@ class FlowchartGeneratorTest {
 
         @Test
         void shouldThrowExceptionWhenProblemGeneratingFile() {
-            assertThatThrownBy(() -> flowchart().then(doActivity("action1")).createFile(Path.of("")))
+            assertThatThrownBy(() -> flowchart().then(doActivity("action1")).createFile(""))
                     .isInstanceOf(IllegalStateException.class)
                     .hasMessage("Issue creating file")
                     .getCause().isInstanceOf(IOException.class);
@@ -534,14 +533,14 @@ class FlowchartGeneratorTest {
         void createsPng(@TempDir Path tempDir) {
             Path file = tempDir.resolve("flowchart.png");
 
-            flowchart().then(doActivity("action3")).createPngFile(file);
+            flowchart().then(doActivity("action3")).createPngFile(file.toString());
 
             assertThat(Files.exists(file)).isTrue();
         }
 
         @Test
         void shouldThrowExceptionWhenProblemGeneratingFile() {
-            assertThatThrownBy(() -> flowchart().then(doActivity("action2")).createPngFile(Path.of("")))
+            assertThatThrownBy(() -> flowchart().then(doActivity("action2")).createPngFile(""))
                     .isInstanceOf(IllegalStateException.class)
                     .hasMessage("Issue creating file")
                     .getCause().isInstanceOf(IOException.class);
@@ -549,7 +548,7 @@ class FlowchartGeneratorTest {
 
         @Test
         void shouldThrowExceptionIfCannotGenerateSvg() {
-            assertThatThrownBy(() -> flowchartGenerator.then(doActivity("action1")).createPngFile(Paths.get("./test2.png")))
+            assertThatThrownBy(() -> flowchartGenerator.then(doActivity("action1")).createPngFile("./test2.png"))
                     .isInstanceOf(IllegalStateException.class)
                     .hasMessage("Issue generating PNG")
                     .getCause().isInstanceOf(IOException.class);
@@ -557,7 +556,7 @@ class FlowchartGeneratorTest {
 
         @Test
         void shouldThrowExceptionIfPlantUmlIsIncorrect() {
-            assertThatThrownBy(() -> flowchartGenerator.then(doActivity("action2")).createPngFile(Paths.get("./test2.png")))
+            assertThatThrownBy(() -> flowchartGenerator.then(doActivity("action2")).createPngFile("./test2.png"))
                     .isInstanceOf(IllegalStateException.class)
                     .hasMessage("There is something wrong with your syntax");
         }

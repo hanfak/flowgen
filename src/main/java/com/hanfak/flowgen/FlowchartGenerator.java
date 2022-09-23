@@ -184,16 +184,16 @@ public class FlowchartGenerator {
         }
     }
 
-    public void createFile(Path path) {
+    public void createFile(String path) {
         String svg = createSvg();
         try {
-            Files.write(path, svg.getBytes());
+            Files.write(Path.of(path), svg.getBytes());
         } catch (IOException e) {
            throw new IllegalStateException("Issue creating file", e);
         }
     }
 
-    public void createPngFile(Path path) {
+    public void createPngFile(String path) {
         try {
             byte[] result;
             SourceStringReader reader = sourceStringReaderCreator.apply(create());
@@ -206,7 +206,7 @@ public class FlowchartGenerator {
             } catch (IOException e) {
                 throw new IllegalStateException("Issue generating PNG", e);
             }
-            Files.write(path, result);
+            Files.write(Path.of(path), result);
         } catch (IOException e) {
             throw new IllegalStateException("Issue creating file", e);
         }

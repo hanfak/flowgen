@@ -3,20 +3,19 @@ package com.hanfak.flowgen;
 import org.junit.jupiter.api.Test;
 
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
 import static com.hanfak.flowgen.ActionBuilder.an;
 import static com.hanfak.flowgen.Activity.activity;
 import static com.hanfak.flowgen.Activity.doActivity;
 import static com.hanfak.flowgen.ElseBuilder.elseDo;
-import static com.hanfak.flowgen.FlowchartGenerator.flowchart;
 import static com.hanfak.flowgen.ElseIfBuilder.elseIf;
+import static com.hanfak.flowgen.FlowchartGenerator.flowchart;
 import static com.hanfak.flowgen.MultiConditional.ifTrueFor;
 
 class FileCheckerTest {
     @Test
     void createOneActivity() {
-        Path path = Paths.get("./test1.html");
+        Path path = Path.of("./test1.html");
         flowchart()
                 .withStartNode()
                 .then(ifTrueFor("size?")
@@ -32,6 +31,6 @@ class FileCheckerTest {
                                         .elseLabel("no").elseIfLabel("yes"))
                                 .orElse(elseDo(doActivity("action4")).forValue("no")))
                 .withStopNode()
-                .createFile(path);
+                .createFile(path.toString());
     }
 }

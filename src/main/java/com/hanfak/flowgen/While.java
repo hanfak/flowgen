@@ -63,6 +63,11 @@ public class While implements Action {
         return this;
     }
 
+//    public While exitWhen(String predicateFalseOutcome) {
+//        this.predicateFalseOutcome = predicateFalseOutcome;
+//        return this;
+//    }
+
     public While repeatLabel(Activity repeatLoopActivity) {
         this.actions.add(() -> "backward" + repeatLoopActivity.build());
         return this;

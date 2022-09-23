@@ -27,7 +27,7 @@ class IfExamples {
                 .with(label("no"))
                 .then(doActivity("action2"))
                 .withStopNode()
-                .createFile(Paths.get("./test1.html"));
+                .createFile("./test1.html");
     }
 
     @Test
@@ -40,6 +40,6 @@ class IfExamples {
                 .then(doActivity("action3"))
                 .with(label("label"))
                 .withStopNode()
-                .createFile(Paths.get("./test1.html"));
+                .createFile("./test1.html");
     }
 }

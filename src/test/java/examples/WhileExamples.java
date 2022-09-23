@@ -24,7 +24,7 @@ class WhileExamples {
                                         .then(activity("action2"))))
                 .then(doActivity("action3"))
                 .withStopNode()
-                .createFile(Paths.get("./test1.html"));
+                .createFile("./test1.html");
     }
 
     @Test
@@ -42,7 +42,7 @@ class WhileExamples {
                                 doActivity("action13")))
                         .then(doActivity("action"))
                         .withStopNode()
-                        .createFile(Paths.get("./test1.html"));
+                        .createFile("./test1.html");
     }
 
     @Test
@@ -55,6 +55,6 @@ class WhileExamples {
                                         .execute(activity("action1"), thenActivity("action2"))))
                 .then(doActivity("action3"))
                 .withStopNode()
-                .createFile(Paths.get("./test1.html"));
+                .createFile("./test1.html");
     }
 }
