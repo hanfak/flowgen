@@ -12,6 +12,8 @@
 ## Features
 
 - Current release
+  - Fix repeat loop when no predicate is added, remove diamond#
+  - 
   - TODO: Readme - instructions, examples with pic
     - For examples using markdown to hide/toggle code examples
   - TODO: More examples
