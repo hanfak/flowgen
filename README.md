@@ -73,6 +73,7 @@ class ComplexExample {
     } 
 }
 ```
+See for output: [output.html](src/test/java/examples/output.html)
 
 For use of custom formatting, you can use the creole syntax (see nested class Formatting in src/test/java/examples/NotesExamples.java for the different possibilities). In later release, there will be builders to add formatting.
 
