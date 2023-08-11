@@ -51,7 +51,7 @@ Here is a more involved example which creates a html containing the SVG version 
 ```java
 class ComplexExample {
     public static void main(String... args) {
-        FlowchartGenerator.flowchartWith(CLASSIC)
+        flowchartWith(MATERIA)
                 .withTitle("No Breakfast At Home Journey")
                 .withStartNode()
                 .with(group("Buy")
@@ -79,7 +79,7 @@ class ComplexExample {
 ```
 See for output: [breakfast.html](docs/breakfast.html)
 
-To create a PNG file, just change `createFile("./breakfast.html")` to `createPngFile("./breakfast")` and will produce the following:
+To create a PNG file, just change `createFile("./breakfast.html")` to `createPngFile("./breakfast.png")` and will produce the following:
 
 ![alt text](docs/breakfast.png)
 
