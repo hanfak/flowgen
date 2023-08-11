@@ -16,6 +16,7 @@
   - 
   - TODO: Readme - instructions, examples with pic
     - For examples using markdown to hide/toggle code examples
+    - Display html output pic in markdwon
   - TODO: More examples
     - swimlanes in parallel and split
 
