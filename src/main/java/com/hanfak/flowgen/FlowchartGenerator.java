@@ -167,7 +167,7 @@ public class FlowchartGenerator {
         if (matchFirstSwimLane.find()) {
             start.append(matchFirstSwimLane.group(0)).append(lineSeparator());
         }
-        return start.append(details).append("@enduml").toString();
+        return start.append("skinparam dpi 200 \n").append(details).append("@enduml").toString();
     }
 
     public String createSvg() {
@@ -196,7 +196,8 @@ public class FlowchartGenerator {
     public void createPngFile(String path) {
         try {
             byte[] result;
-            SourceStringReader reader = sourceStringReaderCreator.apply(create());
+            String t = create();
+            SourceStringReader reader = sourceStringReaderCreator.apply(t);
             try (final ByteArrayOutputStream os = new ByteArrayOutputStream()) {
                 DiagramDescription diagramDescription = reader.outputImage(os, new FileFormatOption(PNG));
                 if (diagramDescription.getDescription().contains("Error")) {
