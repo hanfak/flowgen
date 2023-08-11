@@ -37,17 +37,21 @@ class SimpleExample {
              .then(ifThe("house is big?")
                     .then(doActivity("sell house"))
                     .or(elseDo(activity("stay"))))
-            .createFile(Paths.get("./output.html"));
+            .createFile(Paths.get("./simple.html"));
     }
 }
 ```
+See for output: [simple.html](docs/simple.html) and looks like: 
+
+![alt text](docs/simple.png)
+
 
 Here is a more involved example which creates a html containing the SVG version of the uml diagram, using several features such as groups, loops, decisions, parallel processing, themes etc
 
 ```java
 class ComplexExample {
     public static void main(String... args) {
-        flowchartWith(CLASSIC)
+        FlowchartGenerator.flowchartWith(CLASSIC)
                 .withTitle("No Breakfast At Home Journey")
                 .withStartNode()
                 .with(group("Buy")
@@ -61,7 +65,7 @@ class ComplexExample {
                 .with(group("Cook")
                         .containing(an(activity("Put bread in toaster"))
                                 .and(then("toast"))
-                                .then(check("bread is toasting?").is("yes")
+                                .then(keepChecking("bread is toasting?").is("yes")
                                         .then(doActivity("wait"))
                                         .leaveWhen("no"))
                                 .then(doActivity("take toast and put on plate"))
@@ -69,11 +73,15 @@ class ComplexExample {
                 .with(group("Dine")
                         .with(doActivity("eat toast")))
                 .thenEnd()
-                .createFile("./output.html");
+                .createFile("./breakfast.html");
     } 
 }
 ```
-See for output: [output.html](src/test/java/examples/output.html)
+See for output: [breakfast.html](docs/breakfast.html)
+
+To create a PNG file, just change `createFile("./breakfast.html")` to `createPngFile("./breakfast")` and will produce the following:
+
+![alt text](docs/breakfast.png)
 
 For use of custom formatting, you can use the creole syntax (see nested class Formatting in src/test/java/examples/NotesExamples.java for the different possibilities). In later release, there will be builders to add formatting.
 
